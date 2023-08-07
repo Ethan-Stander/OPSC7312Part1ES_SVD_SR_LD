@@ -1,0 +1,67 @@
+<!-- list_item_layout.xml -->
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp"
+    android:id="@+id/sensorDataItemView"
+    app:cardCornerRadius="10dp"
+    android:layout_margin="10dp"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/textViewTitle"
+            android:text="Title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <!-- Optimal Range -->
+        <TextView
+            android:id="@+id/textViewOptimalRangeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewTitle"
+            android:layout_marginTop="8dp"
+            android:text="Optimal range: "
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/textViewOptimalRangeData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textViewOptimalRangeLabel"
+            android:layout_alignBaseline="@id/textViewOptimalRangeLabel"
+            android:textSize="14sp"/>
+
+        <!-- Current Reading -->
+        <TextView
+            android:id="@+id/textViewCurrentReadingLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewOptimalRangeLabel"
+            android:layout_marginTop="8dp"
+            android:text="Current reading: "
+            android:textSize="14sp"/>
+
+        <TextView
+            android:id="@+id/textViewCurrentReadingData"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/textViewCurrentReadingLabel"
+            android:layout_alignBaseline="@id/textViewCurrentReadingLabel"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+
+
+
+</androidx.cardview.widget.CardView>
