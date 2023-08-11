@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Sensor_data_fragment">
-
+    tools:context=".Produce_data_fragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="20dp"
-        android:id="@+id/SensorDataRecyclerView"
-        tools:listitem="@layout/sensor_data_list_item"
+        android:id="@+id/ProduceDataRecyclerView"
+        tools:listitem="@layout/produce_grid_item_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

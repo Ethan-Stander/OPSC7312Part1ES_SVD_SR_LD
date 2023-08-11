@@ -54,13 +54,9 @@ class SensorDataAdapter(private val sensorDataList: ArrayList<SensorData>): Recy
         holder.currentReadingData.text = currentItem.sensorCurrentReading
 
         val context = holder.itemView.context
-        // Set background color based on status
         if (currentItem.status) {
-            // Set background to green if status is true
-            /*holder.color.setCardBackgroundColor(Color.parseColor(currentItem.Color.toString()))*/
             holder.bgColor.setCardBackgroundColor(context.getColor(R.color.green))
         } else {
-            // Set background to red if status is false
             holder.bgColor.setCardBackgroundColor(context.getColor(R.color.red))
         }
 

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--Dummy data for equipment status-->
+    <string name="equipment_1">Light</string>
+    <string name="equipment_2">Water Pump</string>
+    <string name="equipment_3">pH pump</string>
+    <string name="equipment_4">Extractor fan</string>
+    <string name="equipment_5">Fan</string>
+
+
+    <string name="equipment_status_1">false</string>
+    <string name="equipment_status_2">true</string>
+    <string name="equipment_status_3">true</string>
+    <string name="equipment_status_4">true</string>
+    <string name="equipment_status_5">true</string>
+</resources>

@@ -14,6 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text=" status"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"/>
 
@@ -42,6 +43,7 @@
         android:layout_centerHorizontal="true"
         android:text="Optimal range(°C): 18.3-25"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:textStyle="bold"/>
 
 
