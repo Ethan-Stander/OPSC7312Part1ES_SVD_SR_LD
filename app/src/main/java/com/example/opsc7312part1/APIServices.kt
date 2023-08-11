@@ -44,6 +44,20 @@ class APIServices {
             }
         }
 
+        suspend fun GenericSwitch(URL : String): Boolean {
+            return withContext(Dispatchers.IO){
+                val response: HttpResponse = httpClient.get(URL)
+                if(response.status.value == 200){
+
+                    return@withContext true
+                }
+                else
+                    return@withContext false
+            }
+
+
+        }
+
 
 
     }
