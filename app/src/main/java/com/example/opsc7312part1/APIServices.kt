@@ -70,6 +70,22 @@ class APIServices {
             }
         }
 
+        suspend fun Switch(URLString : String)
+        {
+
+            try{
+                val url = URL(URLString)
+                url.readText()
+            }
+
+            catch (e:Exception)
+            {
+
+            }
+
+
+        }
+
 
 
 
