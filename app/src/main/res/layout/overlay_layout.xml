@@ -1,0 +1,16 @@
+<!-- overlay_layout.xml -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Original fragment layout -->
+    <include layout="@layout/equipment_status_fragment"/>
+
+    <!-- Semi-transparent background -->
+    <View
+        android:id="@+id/bgOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#80000000"
+        android:visibility="gone"/>
+</FrameLayout>

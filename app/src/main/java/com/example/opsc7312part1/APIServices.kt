@@ -1,6 +1,7 @@
 package com.example.opsc7312part1
 
 import android.provider.ContactsContract.CommonDataKinds.Website.URL
+import android.util.Log
 import com.google.gson.Gson
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -19,8 +20,8 @@ class APIServices {
 
     companion object {
         private val httpClient = (CIO)
-        private const val JSON_URL_DATA = "192.168.1.10/sensor.json"
-        private const val JSON_URL_HARDWARE = "192.168.1.10/hardware.json"
+        private const val JSON_URL_SENSOR_DATA = "http://192.168.1.10/sensor.json"
+        private const val JSON_URL_HARDWARE = "http://192.168.1.10/hardware.json"
 
         suspend fun fetchSensorDataFromJson(): SensorDataAPI? {
             return withContext(Dispatchers.IO)
@@ -28,12 +29,13 @@ class APIServices {
 
                 var data: SensorDataAPI? = null
                 try {
-                    val url = URL(JSON_URL_DATA);
+                    val url = URL(JSON_URL_SENSOR_DATA);
                     val json = url.readText()
                      data = Gson().fromJson(json, SensorDataAPI::class.java)
                 }
                 catch(e:Exception)
                 {
+                    Log.i("Execption message",e.message.toString())
                     return@withContext null
                 }
 
