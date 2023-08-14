@@ -70,4 +70,15 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+    implementation("io.ktor:ktor-client-core:2.3.3")
+    implementation("io.ktor:ktor-client-json:2.3.3")
+    implementation("io.ktor:ktor-client-serialization:2.3.3")
+    implementation "io.ktor:ktor-client-core:2.3.3"
+    implementation "io.ktor:ktor-client-cio:2.3.3"
+    implementation 'com.google.code.gson:gson:2.8.5'
+
+
+    //for loading images
+    implementation 'com.squareup.picasso:picasso:2.8'
+
 }

@@ -14,6 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:text=" status"
+        android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"/>
 
@@ -42,6 +43,7 @@
         android:layout_centerHorizontal="true"
         android:text="Optimal range(°C): 18.3-25"
         android:textSize="18sp"
+        android:textColor="@color/black"
         android:textStyle="bold"/>
 
 
@@ -55,5 +57,12 @@
         android:progress="50"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp" />
+    <Button
+        android:id="@+id/btnAPItester"
+        android:layout_below="@id/adjSlider"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="testing api"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

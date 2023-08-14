@@ -4,6 +4,8 @@
     <string name="title_activity_fragment_testing">Your Activity Title</string>
     <string name="first_fragment_label">First Fragment Label</string>
     <string name="second_fragment_label">Second Fragment Label</string>
+
+    <!--dummy data for sensor data-->
     <string name="head_1">pH</string>
     <string name="head_2">EC</string>
     <string name="head_3">Temperature</string>
@@ -13,7 +15,7 @@
     <string name="range_1">5.8-6.3</string>
     <string name="range_2">2.0-3.5</string>
     <string name="range_3">18.3-25</string>
-    <string name="range_4">5.8-3.6</string>
+    <string name="range_4">5.8-6.3</string>
 
 
     <string name="reading_1">6</string>
@@ -25,4 +27,10 @@
     <string name="status_2">true</string>
     <string name="status_3">false</string>
     <string name="status_4">true</string>
+
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

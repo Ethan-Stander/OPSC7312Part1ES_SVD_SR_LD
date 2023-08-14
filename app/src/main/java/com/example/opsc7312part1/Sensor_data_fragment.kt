@@ -39,12 +39,12 @@ class Sensor_data_fragment : Fragment(R.layout.sensor_data_fragment) {
         //Redirect to adjustment fragment
         sensorDataAdapter.setOnItemClickListener(object :SensorDataAdapter.onItemClickListener{
             override fun onItemClick(position: Int) {
-                val selectedSensorData = sensorDataList[position]
-
+                val sensorTitle = sensorTitle[position]
                 // Create a new instance of Sensor_adjustment_fragment with the selected data
                 val sensorAdjFragment = Sensor_adjustment_fragment()
                 // Replace the current fragment with Sensor_adjustment_fragment
                 replaceFragment(sensorAdjFragment)
+                (activity as? FragmentTesting)?.title = "$sensorTitle : Sensor Adjustment"
 
             }
 
@@ -90,14 +90,12 @@ class Sensor_data_fragment : Fragment(R.layout.sensor_data_fragment) {
             val sensorData = SensorData(sensorTitle[i], sensorOptimalRange[i],sensorCurrentReading[i],sensorStatus[i].toBoolean())
             sensorDataList.add(sensorData)
         }
-
-
     }
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = parentFragmentManager // Use parentFragmentManager for fragments
         val fragmentTransaction = fragmentManager.beginTransaction()
-        fragmentTransaction.replace(R.id.fragmentContainer, fragment)
+        fragmentTransaction.replace(R.id.frameLayout, fragment)
         fragmentTransaction.addToBackStack(null) // Add the transaction to the back stack
         fragmentTransaction.commit()
     }
