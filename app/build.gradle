@@ -81,4 +81,7 @@ dependencies {
     //for loading images
     implementation 'com.squareup.picasso:picasso:2.8'
 
+    //waves
+    implementation 'com.github.BharathKSunil:MultiWaveHeader:v1.0.0-alpha-4'
+
 }
