@@ -8,9 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.opsc7312part1.APIServices.Companion.Switch
 import com.example.opsc7312part1.APIServices.Companion.fetchSensorDataFromJson
+import com.example.opsc7312part1.APIServices.Companion.fetchhardware
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -27,6 +30,7 @@ private lateinit var btnAPi : Button
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.sensor_adjustment_fragment, container, false)
 
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,15 +39,17 @@ private lateinit var btnAPi : Button
         btnAPi = requireView().findViewById(R.id.btnAPItester)
 
         btnAPi.setOnClickListener {
+
             val scope = CoroutineScope(Dispatchers.Main)
             val job = scope.launch {
-                val sensorData: SensorDataAPI? = fetchSensorDataFromJson()
 
-                if (sensorData != null) {
+                val hardware: hardware? = fetchhardware()
+
+                if (hardware != null) {
                     // Do something with the fetched sensor data
-                    Log.i("testing API","Fetched sensor data: $sensorData")
+                    Log.i("testing API","Fetched sensor data: $hardware")
                 } else {
-                    Log.i("testing API","failed to Fetch sensor data: $sensorData")
+                    Log.i("testing API","failed to Fetch sensor data: $hardware")
                 }
             }
 

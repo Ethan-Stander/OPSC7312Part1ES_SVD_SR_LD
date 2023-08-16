@@ -10,12 +10,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:cardCornerRadius="10dp"
-        app:cardElevation="10dp">
+        app:cardElevation="10dp"
+        app:cardUseCompatPadding="true"
+        app:contentPadding="5dp"
+        android:background="@drawable/dark_rounded_border_"
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white">
+            android:background="@drawable/rounded_bg"
+            >
 
             <!-- Exit button -->
             <ImageButton
@@ -47,7 +52,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/pop_up_title"
                 tools:listitem="@layout/info_pop_ups_list_item"
-                android:background="@color/white"/>
+                android:background="@drawable/rounded_bg"/>
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
