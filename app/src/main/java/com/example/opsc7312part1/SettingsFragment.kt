@@ -1,18 +1,32 @@
 package com.example.opsc7312part1
 
 
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.PopupWindow
+import android.widget.RelativeLayout
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.Navigation
+import androidx.recyclerview.widget.LinearLayoutManager
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
+
 class SettingsFragment : Fragment() {
+
+    private lateinit var settings_account : Button
+    private lateinit var settings_measurements : Button
+    private lateinit var settings_appsettings : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,38 +40,38 @@ class SettingsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_settings, container, false)
-
-        val settingsAccountButton = view.findViewById<Button>(R.id.settings_account)
-        settingsAccountButton.setOnClickListener {
-            showPopupDialog("Account", "This is the account settings.")
-        }
-
-        val settingsMeasurementsButton = view.findViewById<Button>(R.id.settings_measurements)
-        settingsMeasurementsButton.setOnClickListener {
-            showPopupDialog("Measurements", "This is the measurements settings.")
-        }
-
-        val settingsAppSettingsButton = view.findViewById<Button>(R.id.settings_appsettings)
-        settingsAppSettingsButton.setOnClickListener {
-            showPopupDialog("App Settings", "This is the app settings.")
-        }
-
-        return view
+        return inflater.inflate(R.layout.fragment_settings, container, false)
 
     }
-    private fun showPopupDialog(title: String, message: String) {
-        val alertDialogBuilder = AlertDialog.Builder(requireContext())
 
-        alertDialogBuilder.setTitle(title)
-        alertDialogBuilder.setMessage(message)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        alertDialogBuilder.setPositiveButton("OK") { dialog, which ->
-            dialog.dismiss() // Dismiss the dialog when the "OK" button is clicked
+        settings_account = view.findViewById(R.id.settings_account)
+        settings_account.setOnClickListener {
+            //custom popup
+            val showPopup = AccountPopupFragment()
+            showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
+
         }
 
-        val alertDialog = alertDialogBuilder.create()
-        alertDialog.show()
+        settings_measurements = view.findViewById(R.id.settings_measurements)
+        settings_measurements.setOnClickListener {
+            //custom popup
+            val showPopup = AccountPopupFragment()
+            showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
+
+        }
+
+        settings_appsettings = view.findViewById(R.id.settings_appsettings)
+        settings_appsettings.setOnClickListener {
+            //custom popup
+            val showPopup = AccountPopupFragment()
+            showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
+
+        }
+
+
     }
 
     companion object {
@@ -80,3 +94,18 @@ class SettingsFragment : Fragment() {
             }
     }
 }
+
+//default popups
+//    private fun showPopupDialog(title: String, message: String) {
+//        val alertDialogBuilder = AlertDialog.Builder(requireContext())
+//
+//        alertDialogBuilder.setTitle(title)
+//        alertDialogBuilder.setMessage(message)
+//
+//        alertDialogBuilder.setPositiveButton("OK") { dialog, which ->
+//            dialog.dismiss() // Dismiss the dialog when the "OK" button is clicked
+//        }
+//
+//        val alertDialog = alertDialogBuilder.create()
+//        alertDialog.show()
+//    }
