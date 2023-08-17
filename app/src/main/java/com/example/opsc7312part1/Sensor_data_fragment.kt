@@ -212,6 +212,7 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
 
                 for(i in attributeNames.indices){
                     val sensorData = SensorData(attributeNames[i], sensorOptimalRange[i],readings[i],sensorStatus[i].toBoolean())
+                    sensorData.status = sensorData.isReadingWithinOptimalRange().toBoolean()
                     sensorDataList.add(sensorData)
                 }
 
