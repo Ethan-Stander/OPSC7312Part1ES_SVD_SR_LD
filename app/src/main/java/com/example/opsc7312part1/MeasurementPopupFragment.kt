@@ -44,6 +44,11 @@ class MeasurementPopupFragment : DialogFragment() {
         val arrayAdapter2 = ArrayAdapter(requireContext(), R.layout.dropdown_item, unitOfDistance)
         binding.tvUnitOfDistance.setAdapter((arrayAdapter2))
 
+        //close popup
+        binding.btnMeasurementsClose.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        }
+
         return binding.root
     }
 

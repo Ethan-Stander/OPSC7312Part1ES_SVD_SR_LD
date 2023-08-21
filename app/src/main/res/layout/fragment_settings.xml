@@ -17,10 +17,11 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:mwhCloseColor="#6FC63A"
+        app:mwhCloseColor="@color/dark_green"
         app:mwhGradientAngle="45"
-        app:mwhStartColor="#428948"
-        app:mwhWaveHeight="60dp" />
+        app:mwhStartColor="@color/dark_green"
+        app:mwhWaveHeight="60dp"
+        app:mwhWaves="MultiWave"/>
 
     <Button
         android:id="@+id/settings_account"

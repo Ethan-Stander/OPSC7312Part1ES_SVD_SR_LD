@@ -6,11 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import com.example.opsc7312part1.databinding.FragmentAccountPopupBinding
+import com.example.opsc7312part1.databinding.FragmentMeasurementPopupBinding
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 class AccountPopupFragment : DialogFragment() {
+
+    private var _binding: FragmentAccountPopupBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,8 +29,19 @@ class AccountPopupFragment : DialogFragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_account_popup, container, false)
+        _binding = FragmentAccountPopupBinding.inflate(inflater, container, false)
 
+        //close popup
+        binding.btnAccountClose.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        }
+
+        return binding.root
+
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     companion object {

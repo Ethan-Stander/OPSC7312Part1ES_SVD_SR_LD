@@ -26,6 +26,7 @@
             android:layout_height="match_parent"
             android:padding="20dp">
 
+            <!--[HEADING]-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,6 +42,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
 
+            <!--[CLOSE BUTTON]-->
+            <ImageButton
+                android:id="@+id/btnAccountClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_exit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                android:layout_marginBottom="550dp"
+                android:layout_marginLeft="300dp"/>
+
+            <!--[GOOGLE PROFILE PICTURE]-->
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"

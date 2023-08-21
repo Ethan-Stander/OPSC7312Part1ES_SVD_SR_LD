@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageButton
 import androidx.fragment.app.DialogFragment
 import com.example.opsc7312part1.databinding.FragmentAppSettingsPopupBinding
 import com.example.opsc7312part1.databinding.FragmentMeasurementPopupBinding
@@ -36,6 +37,12 @@ class AppSettingsPopupFragment : DialogFragment() {
         val appTheme = resources.getStringArray(R.array.AppTheme)
         val arrayAdapter1 = ArrayAdapter(requireContext(), R.layout.dropdown_item, appTheme)
         binding.tvAppTheme.setAdapter((arrayAdapter1))
+
+        //close popup
+        binding.btnAppSettingsClose.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        }
+
 
         return binding.root
     }

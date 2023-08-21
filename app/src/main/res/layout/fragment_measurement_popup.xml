@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:padding="20dp">
 
+            <!--[HEADING]-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +41,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
 
-            <!--[temperature]-->
+            <!--[CLOSE BUTTON]-->
+            <ImageButton
+                android:id="@+id/btnMeasurementsClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_exit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                android:layout_marginBottom="350dp"
+                android:layout_marginLeft="300dp"/>
+
+            <!--[TEMPERATURE]-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
@@ -66,7 +83,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--[unit of distance]-->
+            <!--[UNIT OF DISTANCE]-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
@@ -92,7 +109,7 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!--[store range]-->
+            <!--[STORE RANGE]-->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="320dp"
                 android:layout_height="wrap_content"

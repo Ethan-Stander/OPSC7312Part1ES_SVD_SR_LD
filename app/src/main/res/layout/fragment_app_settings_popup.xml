@@ -25,6 +25,7 @@
             android:layout_height="match_parent"
             android:padding="20dp">
 
+            <!--[HEADING]-->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -40,7 +41,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5" />
 
-            <!--[app theme]-->
+            <!--[CLOSE BUTTON]-->
+            <ImageButton
+                android:id="@+id/btnAppSettingsClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_exit"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                android:layout_marginBottom="300dp"
+                android:layout_marginLeft="300dp"/>
+
+            <!--[APP THEME]-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
@@ -62,10 +79,9 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="Night Mode" />
+                    android:text="Light Mode" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
 
             <!--[NAME]-->
             <LinearLayout
@@ -80,6 +96,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5">
 
+                <!--[PERMISSIONS]-->
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -114,8 +131,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="14dp"
                     android:drawableLeft="@drawable/ic_location"
-                    android:drawableTint="#858585"
                     android:drawablePadding="14dp"
+                    android:drawableTint="#858585"
                     android:paddingLeft="25dp"
                     android:text="Location"
                     android:textColor="#858585"
@@ -127,6 +144,8 @@
                 android:id="@+id/notificationSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="168dp"
                 android:checked="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -134,15 +153,15 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
-                android:layout_marginTop="168dp"
-                android:layout_marginLeft="250dp"
-                app:track="@drawable/switch_track"
-                app:thumbTint="@color/white"/>
+                app:thumbTint="#f5f5f5 "
+                app:track="@drawable/switch_track" />
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/locationSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="250dp"
+                android:layout_marginTop="250dp"
                 android:checked="false"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -150,10 +169,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
-                android:layout_marginTop="250dp"
-                android:layout_marginLeft="250dp"
-                app:track="@drawable/switch_track"
-                app:thumbTint="@color/white"/>
+                app:thumbTint="#f5f5f5"
+                app:track="@drawable/switch_track" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
