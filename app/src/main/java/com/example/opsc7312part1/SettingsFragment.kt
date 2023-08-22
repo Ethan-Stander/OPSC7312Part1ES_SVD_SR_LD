@@ -1,22 +1,16 @@
 package com.example.opsc7312part1
 
 
-import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
-import android.view.Gravity
-import androidx.fragment.app.Fragment
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
-import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import android.widget.Button
-import android.widget.PopupWindow
-import android.widget.RelativeLayout
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.Navigation
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.fragment.app.Fragment
+
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -47,31 +41,28 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //Popups
+
         settings_account = view.findViewById(R.id.settings_account)
         settings_account.setOnClickListener {
             //custom popup
             val showPopup = AccountPopupFragment()
             showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
-
         }
 
         settings_measurements = view.findViewById(R.id.settings_measurements)
         settings_measurements.setOnClickListener {
             //custom popup
-            val showPopup = AccountPopupFragment()
+            val showPopup = MeasurementPopupFragment()
             showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
-
         }
 
         settings_appsettings = view.findViewById(R.id.settings_appsettings)
         settings_appsettings.setOnClickListener {
             //custom popup
-            val showPopup = AccountPopupFragment()
+            val showPopup = AppSettingsPopupFragment()
             showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
-
         }
-
-
     }
 
     companion object {

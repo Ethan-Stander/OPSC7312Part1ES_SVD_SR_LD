@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.OPSC7312Part1" parent="android:Theme.Material.Light.NoActionBar" >
+    <style name="Theme.OPSC7312Part1" parent="Theme.MaterialComponents.Light.NoActionBar" >
     <!-- Base application theme. -->
         <item name="colorPrimary">@color/dark_green</item>
     </style>
