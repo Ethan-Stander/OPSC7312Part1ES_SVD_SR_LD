@@ -38,16 +38,16 @@ class SensorDataAdapter(private val sensorDataList: ArrayList<SensorData>): Recy
 
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SensorDataAdapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.sensor_data_list_item,parent,false)
-        return  ViewHolder(itemView,mListener)
+        return  SensorDataAdapter.ViewHolder(itemView,mListener)
     }
 
     override fun getItemCount(): Int {
         return sensorDataList.size
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SensorDataAdapter.ViewHolder, position: Int) {
         val currentItem = sensorDataList[position]
         holder.sensorTitle.text = currentItem.sensorTitle
         holder.optimalRangeData.text = currentItem.sensorOptimalRange

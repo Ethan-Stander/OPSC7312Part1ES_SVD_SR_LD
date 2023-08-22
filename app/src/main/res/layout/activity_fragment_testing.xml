@@ -24,7 +24,7 @@
 <com.google.android.material.navigation.NavigationView
     android:id="@+id/sideNavigationView"
     android:backgroundTint="@color/green"
-    app:menu="@menu/navigation_menu"
+    app:menu="@menu/navigation_menu_stores"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:layout_gravity="start"
