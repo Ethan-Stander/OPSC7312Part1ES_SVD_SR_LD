@@ -74,13 +74,10 @@ class EquipmentStatusAdapter(private val equipmentStatusDataList :ArrayList<Equi
                 if(temp == null)
                 {
                     Log.i("Api CALL", "Call was null and invalid")
-                    Log.i("Reeee","Reeee")
                 }
                 else
                 {
                     Log.i("Valid", "API call was valid")
-                    Log.i("Statuspoes", temp.toString())
-
                 }
 
 

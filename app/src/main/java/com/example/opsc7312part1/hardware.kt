@@ -50,7 +50,6 @@ fun getAllStatuses(): Array<String> {
 
 
 
-
 companion object {
 
 
@@ -66,22 +65,17 @@ companion object {
     )
 
 
-    //val ip = "http://100.66.16.44";
     val ip = "http://192.168.1.10";
     val links = arrayOf(
-            ip+"/ph_in.json",
-            ip+"/ph_out.json",
-            ip+"/ec_in.json",
-            ip+"/ec_out.json",
-            ip+"/circ_pump.json",
-             ip+"/fan_extractor.json",
-            ip+"/fan_circ.json",
-            ip+"/light.json",
+        "$ip/ph_in.json",
+        "$ip/ph_out.json",
+        "$ip/ec_in.json",
+        "$ip/ec_out.json",
+        "$ip/circ_pump.json",
+        "$ip/fan_extractor.json",
+        "$ip/fan_circ.json",
+        "$ip/light.json",
         )
-
-
-
-
 
     }
 }
