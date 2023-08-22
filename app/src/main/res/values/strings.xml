@@ -83,4 +83,21 @@
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <!--dropdowns-->
+    <string-array name="Temperatures">
+        <item>Celsius (°C)</item>
+        <item>Fahrenheit (°F)</item>
+    </string-array>
+
+    <string-array name="UnitOfDistance">
+        <item>Kilometers (km)</item>
+        <item>Miles (mi.)</item>
+    </string-array>
+
+    <string-array name="AppTheme">
+        <item>Light Mode</item>
+        <item>Dark Mode</item>
+    </string-array>
+
 </resources>

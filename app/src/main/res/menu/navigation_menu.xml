@@ -1,18 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-    <item
-        android:id="@+id/nav_produce"
-        android:title="Produce"
-        />
+        <item android:title="General">
+            <menu>
+                <item
+                    android:id="@+id/nav_produce"
+                    android:title="Produce"
+                    android:icon="@drawable/ic_grass" />
+                <item
+                    android:id="@+id/nav_equipment"
+                    android:title="Equipment"
+                    android:icon="@drawable/ic_construction" />
+                <item
+                    android:id="@+id/nav_where_to_shop"
+                    android:title="Where to Shop"
+                    android:icon="@drawable/ic_location" />
+                <item
+                    android:id="@+id/nav_mystores"
+                    android:title="My Stores"
+                    android:icon="@drawable/ic_stores" />
+            </menu>
+        </item>
 
-    <item
-        android:id="@+id/nav_equipment"
-        android:title="Equipment" />
-
-    <item
-        android:id="@+id/nav_logout"
-        android:title="Logout" />
     </group>
+
+
+    <group android:checkableBehavior="single">
+        <item android:title="Additional">
+            <menu>
+                <item
+                    android:id="@+id/nav_settings"
+                    android:title="Settings"
+                    android:icon="@drawable/ic_settings" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="Logout"
+                    android:icon="@drawable/ic_logout" />
+            </menu>
+        </item>
+    </group>
+
 </menu>
