@@ -4,11 +4,16 @@ import android.os.Bundle
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.Toolbar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -26,13 +31,13 @@ class Equipment_status_fragment : Fragment() {
     lateinit var equipmentTitle : Array<String>
     lateinit var equipmentStatus : Array<String>
 
-    //for pop up
+    //for pop up info
     private lateinit var infoDataAdapter: InfoDataAdapter
     private lateinit var popupRecyclerView : RecyclerView
     private lateinit var infoDataList:  ArrayList<InfoData>
 
-    lateinit var infoTitle : Array<String>
-    lateinit var infoDesc : Array<String>
+    private lateinit var popupWindow: PopupWindow
+    private lateinit var popupView : View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,31 +50,18 @@ class Equipment_status_fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //info pop up
-        val popupButton :ImageButton = view.findViewById(R.id.popupButton)
-        val backgroundOverlay: View = view.findViewById(R.id.bgOverlay)
-        val popupView = LayoutInflater.from(context).inflate(R.layout.info_pop_ups,null)
-        val popupWindow = PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true)
+         popupView = LayoutInflater.from(context).inflate(R.layout.info_pop_ups,null)
+         popupWindow = PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true)
 
-        popupButton.setOnClickListener {
-
-            infoDataInitialize()
-            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
-            backgroundOverlay.visibility = View.VISIBLE
-
-            popupRecyclerView = popupView.findViewById(R.id.pop_up_info_recyclerview)
-            popupRecyclerView.layoutManager = LinearLayoutManager(context)
-            infoDataAdapter = InfoDataAdapter(infoDataList)
-            popupRecyclerView.adapter = infoDataAdapter
-        }
 
         //exit button on pop up
         val exitButton :ImageButton = popupView.findViewById(R.id.exitButton)
         exitButton.setOnClickListener {
-            backgroundOverlay.visibility = View.GONE
             popupWindow.dismiss()
 
         }
 
+        //display equipment data
         equipmentDataInitialize()
         val gridLayoutManager = GridLayoutManager(context,2)
         equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
@@ -90,8 +82,37 @@ class Equipment_status_fragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.overlay_layout, container, false)
+        val rootView = inflater.inflate(R.layout.equipment_status_fragment, container, false)
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            setHasOptionsMenu(true)
+        }
+        return rootView
+    }
+
+    //for info button in action bar
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.action_bar_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.info -> {
+                // Handle info button click here
+                infoDataInitialize()
+
+                popupRecyclerView = popupView.findViewById(R.id.pop_up_info_recyclerview)
+                popupRecyclerView.layoutManager = LinearLayoutManager(context)
+                infoDataAdapter = InfoDataAdapter(infoDataList)
+                popupRecyclerView.adapter = infoDataAdapter
+
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+                return true
+            }
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     companion object {
@@ -115,31 +136,7 @@ class Equipment_status_fragment : Fragment() {
 
     private fun infoDataInitialize() {
         //hardcoded values for equipment info pop up
-        infoDataList = arrayListOf<InfoData>()
-
-        infoTitle = arrayOf(
-            getString(R.string.equip_title_1),
-            getString(R.string.equip_title_2),
-            getString(R.string.equip_title_3),
-            getString(R.string.equip_title_4),
-            getString(R.string.equip_title_5),
-             getString(R.string.equip_title_6)
-        )
-
-        infoDesc = arrayOf(
-            getString(R.string.equip_desc_1),
-            getString(R.string.equip_desc_2),
-            getString(R.string.equip_desc_3),
-            getString(R.string.equip_desc_4),
-            getString(R.string.equip_desc_5),
-            getString(R.string.equip_desc_6)
-        )
-
-
-        for(i in infoTitle.indices){
-            val infoData = InfoData(infoTitle[i], infoDesc[i])
-            infoDataList.add(infoData)
-        }
+        infoDataList = InfoDataInitializer.initializeInfoData(requireContext(),"Equipment")
     }
 
     private fun equipmentDataInitialize()

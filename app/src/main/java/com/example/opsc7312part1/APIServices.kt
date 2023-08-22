@@ -23,6 +23,8 @@ class APIServices {
         private const val JSON_URL_SENSOR_DATA = "http://192.168.1.10/sensor.json"
         private const val JSON_URL_HARDWARE = "http://192.168.1.10/hardware.json"
 
+        /*"http://192.168.1.10/hardware.json"*/
+
         suspend fun fetchSensorDataFromJson(): SensorDataAPI? {
             return withContext(Dispatchers.IO)
             {
@@ -84,7 +86,6 @@ class APIServices {
             {
 
             }
-
 
         }
 

@@ -10,12 +10,16 @@
     <string name="head_2">EC</string>
     <string name="head_3">Temperature</string>
     <string name="head_4">Humidity</string>
+    <string name="head_5">Humidity</string>
+    <string name="head_6">Humidity</string>
 
 
     <string name="range_1">5.8-6.3</string>
     <string name="range_2">2.0-3.5</string>
     <string name="range_3">18.3-25</string>
     <string name="range_4">5.8-6.3</string>
+    <string name="range_5">5.8-6.3</string>
+    <string name="range_6">5.8-6.3</string>
 
 
     <string name="reading_1">6</string>
@@ -27,6 +31,8 @@
     <string name="status_2">true</string>
     <string name="status_3">false</string>
     <string name="status_4">true</string>
+    <string name="status_5">true</string>
+    <string name="status_6">true</string>
 
 
     <string name="open">Open</string>
@@ -34,35 +40,47 @@
 
 
     <!--equipment info-->
-    <string name="equip_title_1">Light:</string>
-    <string name="equip_title_2">Water pump:</string>
-    <string name="equip_title_3">ph Pump:</string>
-    <string name="equip_title_4">EC pump:</string>
-    <string name="equip_title_5">Extractor Fan:</string>
-    <string name="equip_title_6">Regular Fan:</string>
+    <string-array name="equip_info_title">
+        <item name="equip_title_1">Light:</item>
+        <item name="equip_title_2">Water pump:</item>
+        <item name="equip_title_3">ph Pump:</item>
+        <item name="equip_title_4">EC pump:</item>
+        <item name="equip_title_5">Extractor Fan:</item>
+        <item name="equip_title_6">Regular Fan:</item>
+    </string-array>
 
-    <string name="equip_desc_1">Provides illumination essential for photosynthesis in plants and visibility in indoor environments.</string>
-    <string name="equip_desc_2">Circulates water through a system, such as in hydroponics or aquariums.</string>
-    <string name="equip_desc_3">Dispenses precise amounts of pH-adjusting solutions to regulate and maintain the pH level of a fluid.</string>
-    <string name="equip_desc_4">Dispenses specific amounts of nutrient solutions to control the electrical conductivity and nutrient levels of a solution in applications like hydroponics.</string>
-    <string name="equip_desc_5">Removes stale air or unwanted odors from an enclosed space</string>
-    <string name="equip_desc_6">Generates airflow for ventilation or cooling purposes in various applications</string>
+    <string-array name="equip_info_desc">
+        <item name="equip_desc_1">Provides illumination essential for photosynthesis in plants and visibility in indoor environments.</item>
+        <item name="equip_desc_2">Circulates water through a system, such as in hydroponics or aquariums.</item>
+        <item name="equip_desc_3">Dispenses precise amounts of pH-adjusting solutions to regulate and maintain the pH level of a fluid.</item>
+        <item name="equip_desc_4">Dispenses specific amounts of nutrient solutions to control the electrical conductivity and nutrient levels of a solution in applications like hydroponics.</item>
+        <item name="equip_desc_5">Removes stale air or unwanted odors from an enclosed space</item>
+        <item name="equip_desc_6">Generates airflow for ventilation or cooling purposes in various applications</item>
+    </string-array>
+
 
 
     <!--sensor info-->
-    <string name="sensor_title_1">pH:</string>
-    <string name="sensor_title_2">EC:</string>
-    <string name="sensor_title_3">Temperature:</string>
-    <string name="sensor_title_4">Water flow rate:</string>
-    <string name="sensor_title_5">Light level:</string>
-    <string name="sensor_title_6">Humidity:</string>
+    <string-array name="sensor_info_title">
+        <item name="sensor_title_1">pH:</item>
+        <item name="sensor_title_2">EC:</item>
+        <item name="sensor_title_3">Temperature:</item>
+        <item name="sensor_title_4">Water flow rate:</item>
+        <item name="sensor_title_5">Light level:</item>
+        <item name="sensor_title_6">Humidity:</item>
+    </string-array>
 
-    <string name="sensor_desc_1">Measurement of how acidic or basic the water is.</string>
-    <string name="sensor_desc_2">Concentration of nutrients in the water.</string>
-    <string name="sensor_desc_3">Affects plant growth, nutrient absorption, and system stability.</string>
-    <string name="sensor_desc_4">Controls nutrient delivery.</string>
-    <string name="sensor_desc_5">Impacts photosynthesis.</string>
-    <string name="sensor_desc_6">Amount of moisture in the air in a hydroponic system</string>
+    <string-array name="sensor_info_desc">
+        <item name="sensor_desc_1">Measurement of how acidic or basic the water is.</item>
+        <item name="sensor_desc_2">Concentration of nutrients in the water.</item>
+        <item name="sensor_desc_3">Affects plant growth, nutrient absorption, and system stability.</item>
+        <item name="sensor_desc_4">Controls nutrient delivery.</item>
+        <item name="sensor_desc_5">Impacts photosynthesis.</item>
+        <item name="sensor_desc_6">Amount of moisture in the air in a hydroponic system</item>
+    </string-array>
+
+
+
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
