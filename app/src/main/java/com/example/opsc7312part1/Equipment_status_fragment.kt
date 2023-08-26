@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 
 class Equipment_status_fragment : Fragment() {
@@ -30,6 +33,7 @@ class Equipment_status_fragment : Fragment() {
 
     lateinit var equipmentTitle : Array<String>
     lateinit var equipmentStatus : Array<String>
+    lateinit var Links : Array<String>
 
     //for pop up info
     private lateinit var infoDataAdapter: InfoDataAdapter
@@ -62,21 +66,25 @@ class Equipment_status_fragment : Fragment() {
         }
 
         //display equipment data
-        equipmentDataInitialize()
-        val gridLayoutManager = GridLayoutManager(context,2)
-        equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
-        equipmentStatusDataRecyclerView.layoutManager = gridLayoutManager
-        equipmentStatusDataRecyclerView.setHasFixedSize(true)
-        equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList)
-        equipmentStatusDataRecyclerView.adapter = equipmentStatusDataAdapter
+        val scope = CoroutineScope(Dispatchers.Main)
+        val job = scope.launch {
 
-        //Redirect to adjustment fragment
-        equipmentStatusDataAdapter.setOnItemClickListener(object :EquipmentStatusAdapter.onItemClickListener{
-            override fun onItemClick(position: Int) {
-            }
+            equipmentDataInitialize()
+            val gridLayoutManager = GridLayoutManager(context, 2)
+            equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
+            equipmentStatusDataRecyclerView.layoutManager = gridLayoutManager
+            equipmentStatusDataRecyclerView.setHasFixedSize(true)
+            equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList)
+            equipmentStatusDataRecyclerView.adapter = equipmentStatusDataAdapter
 
-        })
+            //Redirect to adjustment fragment
+            equipmentStatusDataAdapter.setOnItemClickListener(object :
+                EquipmentStatusAdapter.onItemClickListener {
+                override fun onItemClick(position: Int) {
+                }
 
+            })
+        }
     }
 
 
@@ -139,31 +147,31 @@ class Equipment_status_fragment : Fragment() {
         infoDataList = InfoDataInitializer.initializeInfoData(requireContext(),"Equipment")
     }
 
-    private fun equipmentDataInitialize()
+    private suspend fun equipmentDataInitialize()
     {
-        //hardcoded values
-        equipmentStatusDataList = arrayListOf<EquipmentStatusData>()
 
-        equipmentTitle = arrayOf(
-            getString(R.string.equipment_1),
-            getString(R.string.equipment_2),
-            getString(R.string.equipment_3),
-            getString(R.string.equipment_4),
-            getString(R.string.equipment_5)
-        )
+            var Statuses : hardware? = APIServices.fetchhardware()
 
-        equipmentStatus = arrayOf(
-            getString(R.string.equipment_status_1),
-            getString(R.string.equipment_status_2),
-            getString(R.string.equipment_status_3),
-            getString(R.string.equipment_status_4),
-            getString(R.string.equipment_status_5),
-        )
+        if (Statuses != null) {
+            Statuses.setValues()
+            equipmentStatus = Statuses.getAllStatuses()
+        }
 
 
-        for(i in equipmentTitle.indices){
-            val equipmentStatusData = EquipmentStatusData(equipmentTitle[i], equipmentStatus[i].toBoolean())
-            equipmentStatusDataList.add(equipmentStatusData)
+            //hardcoded values
+            equipmentStatusDataList = arrayListOf<EquipmentStatusData>()
+
+            equipmentTitle = hardware.attributeNames
+            Links = hardware.links
+
+
+
+
+            for (i in equipmentStatus.indices) {
+                val equipmentStatusData =
+                    EquipmentStatusData(equipmentTitle[i], equipmentStatus[i].toBoolean(),Links[i])
+                equipmentStatusDataList.add(equipmentStatusData)
+
         }
 
 
