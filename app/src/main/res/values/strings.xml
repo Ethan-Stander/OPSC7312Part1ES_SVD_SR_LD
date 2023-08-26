@@ -59,7 +59,6 @@
     </string-array>
 
 
-
     <!--sensor info-->
     <string-array name="sensor_info_title">
         <item name="sensor_title_1">pH:</item>
@@ -78,8 +77,6 @@
         <item name="sensor_desc_5">Impacts photosynthesis.</item>
         <item name="sensor_desc_6">Amount of moisture in the air in a hydroponic system</item>
     </string-array>
-
-
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
