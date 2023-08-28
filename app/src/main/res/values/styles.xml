@@ -1,0 +1,7 @@
+
+<resources>
+    <style name="buttonTextStyle">
+        <item name="android:textColor">#00FF00</item> <!-- Green text color -->
+        <item name="android:textStyle">bold</item> <!-- Bold text style -->
+    </style>
+</resources>

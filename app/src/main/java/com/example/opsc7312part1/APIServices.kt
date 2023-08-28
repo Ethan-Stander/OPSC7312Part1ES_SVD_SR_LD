@@ -13,15 +13,20 @@ import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import kotlinx.coroutines.runBlocking
+import java.net.HttpURLConnection
 import java.net.URL
 
 
 class APIServices {
 
     companion object {
+        private const val ip = "http://192.168.1.10"
+        //private const val ip = "http://100.66.16.44"
         private val httpClient = (CIO)
-        private const val JSON_URL_SENSOR_DATA = "http://192.168.1.10/sensor.json"
-        private const val JSON_URL_HARDWARE = "http://192.168.1.10/hardware.json"
+        private const val JSON_URL_SENSOR_DATA = ip+"/sensor.json"
+        private const val JSON_URL_HARDWARE = ip+"/hardware.json"
+
+        /*"http://192.168.1.10/hardware.json"*/
 
         suspend fun fetchSensorDataFromJson(): SensorDataAPI? {
             return withContext(Dispatchers.IO)
@@ -72,21 +77,55 @@ class APIServices {
             }
         }
 
-        suspend fun Switch(URLString : String)
+        suspend fun Switch(URL : String) : hardware?
         {
-
-            try{
-                val url = URL(URLString)
-                url.readText()
-            }
-
-            catch (e:Exception)
+            return withContext(Dispatchers.IO)
             {
 
+                var Hardware : hardware? = null
+                try {
+                    val url = URL(URL)
+                    val json = url.readText()
+                    Hardware = Gson().fromJson(json, hardware::class.java)
+                }
+                catch (e:Exception)
+                {
+                    return@withContext null
+                }
+                if(Hardware != null)
+                {
+                    return@withContext Hardware
+                }
+                else
+                    return@withContext null
             }
-
-
         }
+
+        suspend fun switch(url: String): Boolean {
+            return withContext(Dispatchers.IO) {
+                try {
+                    val connection = URL(url).openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
+                    connection.connectTimeout = 5000 // Set your desired timeout
+                    connection.readTimeout = 5000 // Set your desired timeout
+
+                    // Get the HTTP response code
+                    val responseCode = connection.responseCode
+
+                    // Check if the response code is 200 (OK)
+                    if (responseCode == 200) {
+                        return@withContext true
+                    } else {
+                        // Handle other response codes if needed
+                        return@withContext false
+                    }
+                } catch (e: Exception) {
+                    // Handle exceptions such as network errors
+                    return@withContext false
+                }
+            }
+        }
+
 
 
 

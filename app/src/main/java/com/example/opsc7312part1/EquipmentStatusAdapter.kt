@@ -1,6 +1,7 @@
 package com.example.opsc7312part1
 
 import android.content.res.ColorStateList
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,9 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class EquipmentStatusAdapter(private val equipmentStatusDataList :ArrayList<EquipmentStatusData>): RecyclerView.Adapter<EquipmentStatusAdapter.ViewHolder>() {
 
@@ -62,6 +66,21 @@ class EquipmentStatusAdapter(private val equipmentStatusDataList :ArrayList<Equi
             // Update the status in your data model (currentItem) or perform any other necessary action
             currentItem.equipmentStatus = isChecked
 
+            val scope = CoroutineScope(Dispatchers.Main)
+            val job = scope.launch {
+                var temp: Boolean = APIServices.switch(currentItem.link)
+                Log.i("Switch", "THE API CALL WAS HIT" + currentItem.link)
+
+                if(temp == null)
+                {
+                    Log.i("Api CALL", "Call was null and invalid")
+                }
+                else
+                {
+                    Log.i("Valid", "API call was valid")
+                }
+
+
             // Update the background and thumb/track colors based on the new status
             if (isChecked) {
                 holder.equipmentStatusSwitch.text = "On"
@@ -71,6 +90,7 @@ class EquipmentStatusAdapter(private val equipmentStatusDataList :ArrayList<Equi
                 holder.equipmentStatusSwitch.text = "Off"
                 holder.equipmentStatusSwitch.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.red))
                 holder.equipmentStatusSwitch.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(context, R.color.red))
+            }
             }
         }
 

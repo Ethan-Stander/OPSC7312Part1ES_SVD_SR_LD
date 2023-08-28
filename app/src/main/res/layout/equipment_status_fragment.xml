@@ -6,15 +6,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Equipment_status_fragment">
 
-<ImageButton
-    android:id="@+id/popupButton"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:src="@drawable/ic_info"
-    />
+
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_below="@+id/popupButton"
+        android:layout_marginTop="10dp"
         android:id="@+id/EquipmentStatusRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

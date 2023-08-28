@@ -49,6 +49,7 @@ class FragmentTesting :AppCompatActivity() {
             when(it.itemId){
                 R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
                 R.id.nav_equipment ->replaceFragment(Equipment_status_fragment(),it.title.toString())
+                R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
             }
             true
         }
