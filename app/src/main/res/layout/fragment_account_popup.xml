@@ -1,13 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AccountPopupFragment">
+    tools:context=".AccountPopupFragment"
+    android:backgroundTint="@color/white"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="10dp"
+    android:layout_gravity="center"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:layout_centerInParent="true"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.5"
+    >
 
 
     <androidx.cardview.widget.CardView
+        android:layout_gravity="center"
         android:layout_width="380dp"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"
@@ -24,10 +39,13 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="20dp">
+            android:padding="20dp"
+            android:background="@drawable/rounded_bg"
+            >
 
             <!--[HEADING]-->
             <TextView
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="550dp"
@@ -47,16 +65,17 @@
                 android:id="@+id/btnAccountClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="250dp"
+                android:layout_marginBottom="550dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:contentDescription="close"
                 android:src="@drawable/ic_exit"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                android:layout_marginBottom="550dp"
-                android:layout_marginLeft="300dp"/>
+                app:layout_constraintVertical_bias="0.5" />
 
             <!--[GOOGLE PROFILE PICTURE]-->
             <de.hdodenhof.circleimageview.CircleImageView
@@ -74,8 +93,8 @@
 
             <!--[NAME]-->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="276dp"
+                android:layout_height="71dp"
                 android:layout_marginBottom="100dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -113,8 +132,8 @@
 
             <!--[SURNAME]-->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="276dp"
+                android:layout_height="67dp"
                 android:layout_marginTop="100dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -152,8 +171,8 @@
 
             <!--[GMAIL]-->
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="276dp"
+                android:layout_height="69dp"
                 android:layout_marginTop="300dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -194,4 +213,4 @@
 
     </androidx.cardview.widget.CardView>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

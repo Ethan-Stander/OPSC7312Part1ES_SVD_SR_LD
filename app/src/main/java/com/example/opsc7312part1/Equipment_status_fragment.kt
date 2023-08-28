@@ -157,6 +157,11 @@ class Equipment_status_fragment : Fragment() {
             equipmentStatus = Statuses.getAllStatuses()
         }
 
+        else
+        {
+            equipmentStatus = emptyArray()
+        }
+
 
             //hardcoded values
             equipmentStatusDataList = arrayListOf<EquipmentStatusData>()

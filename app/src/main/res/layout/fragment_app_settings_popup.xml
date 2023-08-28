@@ -46,6 +46,8 @@
                 android:id="@+id/btnAppSettingsClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="250dp"
+                android:layout_marginBottom="300dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_exit"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,15 +55,13 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                android:layout_marginBottom="300dp"
-                android:layout_marginLeft="300dp"/>
+                app:layout_constraintVertical_bias="0.5" />
 
             <!--[APP THEME]-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="276dp"
+                android:layout_height="61dp"
                 android:layout_marginBottom="100dp"
                 android:hint="App Theme"
                 app:boxStrokeColor="@color/dark_green"
@@ -85,7 +85,7 @@
 
             <!--[NAME]-->
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="276dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
                 android:orientation="vertical"
@@ -144,7 +144,7 @@
                 android:id="@+id/notificationSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
+                android:layout_marginLeft="200dp"
                 android:layout_marginTop="168dp"
                 android:checked="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -160,7 +160,7 @@
                 android:id="@+id/locationSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="250dp"
+                android:layout_marginLeft="200dp"
                 android:layout_marginTop="250dp"
                 android:checked="false"
                 app:layout_constraintBottom_toBottomOf="parent"
