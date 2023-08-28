@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 
 
@@ -47,6 +48,9 @@ class SettingsFragment : Fragment() {
         settings_account.setOnClickListener {
             //custom popup
             val showPopup = AccountPopupFragment()
+
+            showPopup.setStyle(DialogFragment.STYLE_NORMAL, R.style.settings_custom_popups)
+
             showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
         }
 
@@ -54,6 +58,9 @@ class SettingsFragment : Fragment() {
         settings_measurements.setOnClickListener {
             //custom popup
             val showPopup = MeasurementPopupFragment()
+
+            showPopup.setStyle(DialogFragment.STYLE_NORMAL, R.style.settings_custom_popups)
+
             showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
         }
 
@@ -61,6 +68,9 @@ class SettingsFragment : Fragment() {
         settings_appsettings.setOnClickListener {
             //custom popup
             val showPopup = AppSettingsPopupFragment()
+
+            showPopup.setStyle(DialogFragment.STYLE_NORMAL, R.style.settings_custom_popups)
+
             showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
         }
     }

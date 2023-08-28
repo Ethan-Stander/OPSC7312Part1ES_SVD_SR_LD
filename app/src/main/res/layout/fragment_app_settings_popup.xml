@@ -1,24 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AppSettingsPopupFragment"
-    android:theme="@style/Theme.MaterialComponents.Light">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+    android:theme="@style/Theme.MaterialComponents.Light"
+    android:background="@drawable/rounded_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -50,18 +38,17 @@
                 android:layout_marginBottom="300dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_exit"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="close"/>
 
             <!--[APP THEME]-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="276dp"
-                android:layout_height="61dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="100dp"
                 android:hint="App Theme"
                 app:boxStrokeColor="@color/dark_green"
@@ -85,7 +72,7 @@
 
             <!--[NAME]-->
             <LinearLayout
-                android:layout_width="276dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="150dp"
                 android:orientation="vertical"
@@ -144,7 +131,7 @@
                 android:id="@+id/notificationSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="250dp"
                 android:layout_marginTop="168dp"
                 android:checked="true"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -160,7 +147,7 @@
                 android:id="@+id/locationSwitch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="200dp"
+                android:layout_marginLeft="250dp"
                 android:layout_marginTop="250dp"
                 android:checked="false"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -174,6 +161,4 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

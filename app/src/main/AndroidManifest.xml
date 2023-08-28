@@ -18,7 +18,7 @@
         <activity
             android:name=".FragmentTesting"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+            android:theme="@style/Theme.OPSC7312Part1" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
@@ -28,7 +28,7 @@
             android:name=".GoogleLogin"
             android:exported="true"
             android:label="SmartHydro"
-            android:theme="@style/Theme.MaterialComponents.Light">
+            android:theme="@style/Theme.LoginPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
