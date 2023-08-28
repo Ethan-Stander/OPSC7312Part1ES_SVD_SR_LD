@@ -13,20 +13,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OPSC7312Part1"
-        tools:targetApi="31">
+        tools:targetApi="34">
+
         <activity
-            android:name=".GoogleLogin"
-            android:exported="false" />
+            android:name=".FragmentTesting"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light" />
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_fragment_testing"
             android:theme="@style/Theme.OPSC7312Part1" />
         <activity
-            android:name=".FragmentTesting"
+            android:name=".GoogleLogin"
             android:exported="true"
             android:label="SmartHydro"
-            android:theme="@style/Theme.AppCompat">
+            android:theme="@style/Theme.MaterialComponents.Light">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -1,0 +1,93 @@
+{
+  "project_info": {
+    "project_number": "701300943026",
+    "firebase_url": "https://smarthydro-db-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "smarthydro-db",
+    "storage_bucket": "smarthydro-db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701300943026:android:ca3c456b1fdd915814c1ab",
+        "android_client_info": {
+          "package_name": "com.example.opsc7312part1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701300943026-br63s8jq7leolaa7p37luo5tgf3vp9qq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opsc7312part1",
+            "certificate_hash": "5f89b5dc4f81825c9274d60d493d4a4e71c5afdb"
+          }
+        },
+        {
+          "client_id": "701300943026-g6b6c4baa5f09575h85nj6mcj35qe4kt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opsc7312part1",
+            "certificate_hash": "1174c24b0b470005f8aecee13cf9b1a9dc77229f"
+          }
+        },
+        {
+          "client_id": "701300943026-4ctm8f8l6onrbrf39apj7ojc03ldugt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcBkTHmmVit2Rv1ObTjf5zzOEyO_Z4T3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701300943026-4ctm8f8l6onrbrf39apj7ojc03ldugt6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701300943026:android:3bc2e641a015109e14c1ab",
+        "android_client_info": {
+          "package_name": "com.example.prjsmarthydro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701300943026-8a00g24pljj0kpn3qnr52suc14t2ojrm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.prjsmarthydro",
+            "certificate_hash": "5f89b5dc4f81825c9274d60d493d4a4e71c5afdb"
+          }
+        },
+        {
+          "client_id": "701300943026-4ctm8f8l6onrbrf39apj7ojc03ldugt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcBkTHmmVit2Rv1ObTjf5zzOEyO_Z4T3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701300943026-4ctm8f8l6onrbrf39apj7ojc03ldugt6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
