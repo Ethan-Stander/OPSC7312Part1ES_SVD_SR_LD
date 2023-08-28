@@ -46,6 +46,8 @@
                 android:id="@+id/btnMeasurementsClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="270dp"
+                android:layout_marginBottom="350dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_exit"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -53,14 +55,12 @@
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                android:layout_marginBottom="350dp"
-                android:layout_marginLeft="300dp"/>
+                app:layout_constraintVertical_bias="0.5" />
 
             <!--[TEMPERATURE]-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
+                android:layout_width="276dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="150dp"
                 android:hint="Temperature"
@@ -86,7 +86,7 @@
             <!--[UNIT OF DISTANCE]-->
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="match_parent"
+                android:layout_width="276dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:hint="Unit of Distance"
@@ -111,7 +111,7 @@
 
             <!--[STORE RANGE]-->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="320dp"
+                android:layout_width="276dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="220dp"
                 app:layout_constraintBottom_toBottomOf="parent"
