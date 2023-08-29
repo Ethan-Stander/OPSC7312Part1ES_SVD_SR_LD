@@ -49,6 +49,10 @@ class GoogleLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_login)
 
+        //API background service
+        val intent = Intent(this, APICallService::class.java)
+        startService(intent)
+
         progressBar = findViewById(R.id.loginProgressBar)
         progressBarbackground = findViewById(R.id.imgloading)
 

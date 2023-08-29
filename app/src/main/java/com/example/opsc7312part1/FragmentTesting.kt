@@ -1,12 +1,21 @@
 package com.example.opsc7312part1
 
+import android.annotation.SuppressLint
+import android.app.AlarmManager
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.view.WindowCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -16,6 +25,9 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.opsc7312part1.databinding.ActivityFragmentTestingBinding
 import com.google.android.material.navigation.NavigationView
+import java.time.LocalTime
+import java.util.Calendar
+import java.util.Date
 
 class FragmentTesting :AppCompatActivity() {
 
@@ -23,10 +35,12 @@ class FragmentTesting :AppCompatActivity() {
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
 
+    @SuppressLint("NewApi", "ScheduleExactAlarm")
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#428948")))
+
 
         //implement binding
         binding = ActivityFragmentTestingBinding.inflate(layoutInflater)
@@ -73,6 +87,7 @@ class FragmentTesting :AppCompatActivity() {
         setTitle(title)
 
     }
+
 
 
 }
