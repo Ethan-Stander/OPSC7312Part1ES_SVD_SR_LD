@@ -35,5 +35,27 @@ class FirebaseUtils {
             }
         }
 
+        suspend fun Get(user: User): Setting? {
+            val currentUser = user.UserID
+            val reference = currentUser?.let { database.getReference("Users").child(it).child("settings") }
+
+            return try {
+                if (reference != null) {
+                    val dataSnapshot = reference.get().await()
+                    if (dataSnapshot.exists()) {
+                        val setting = dataSnapshot.getValue(Setting::class.java)
+                        setting // Return the retrieved setting object
+                    } else {
+                        null // No data exists for the user's settings
+                    }
+                } else {
+                    null // Reference is null, possibly due to a missing UserID
+                }
+            } catch (e: Exception) {
+                null // An error occurred while retrieving data
+            }
+        }
+
+
     }
 }
