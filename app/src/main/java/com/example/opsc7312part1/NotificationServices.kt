@@ -28,7 +28,6 @@ class NotificationServices :BroadcastReceiver(){
                 .setSmallIcon(R.drawable.ic_notifications)
                 .setContentTitle(intent.getStringExtra(notificationTitle))
                 .setContentText(intent.getStringExtra(notificationMessage))
-                .setColor(ContextCompat.getColor(context,R.color.red))
                 .build()
 
             val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
@@ -57,12 +56,12 @@ class NotificationServices :BroadcastReceiver(){
     @SuppressLint("ScheduleExactAlarm")
     fun scheduleNotification(
         context: Context,
-        notificationTitle: String,
-        notificationMessage: String,
+        title: String,
+        message: String,
     ) {
         val intent = Intent(context, NotificationServices::class.java)
-        intent.putExtra(notificationTitle, notificationTitle)
-        intent.putExtra(notificationMessage, notificationMessage)
+        intent.putExtra(notificationTitle, title)
+        intent.putExtra(notificationMessage, message)
 
         val pendingIntent = PendingIntent.getBroadcast(
             context,
