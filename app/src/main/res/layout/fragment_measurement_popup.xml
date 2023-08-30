@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MeasurementPopupFragment"
-    android:theme="@style/Theme.MaterialComponents.Light"
+    android:theme="@style/Theme.GreenTheme"
     android:background="@drawable/rounded_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -118,6 +118,21 @@
                     android:inputType="numberDecimal"/>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btnMeasurementSave"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                android:background="@drawable/leaf_button"
+                android:text="save"
+                android:textSize="12dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -9,7 +9,7 @@
     android:background="@drawable/rounded_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="20dp">
 
@@ -18,7 +18,7 @@
             android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="550dp"
+            android:layout_marginBottom="350dp"
             android:text="Account"
             android:textColor="@color/dark_green"
             android:textSize="30dp"
@@ -35,21 +35,19 @@
             android:id="@+id/btnAccountClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="250dp"
-            android:layout_marginBottom="550dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
-            android:contentDescription="close"
             android:src="@drawable/ic_exit"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp" />
+            android:layout_marginTop="8dp"
+            android:contentDescription="close"/>
 
         <!--[GOOGLE PROFILE PICTURE]-->
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_marginBottom="350dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginBottom="150dp"
             android:src="@drawable/spinach"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -59,45 +57,6 @@
             app:layout_constraintVertical_bias="0.5" />
 
         <!--[NAME]-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="100dp"
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableLeft="@drawable/ic_person"
-                android:drawablePadding="8dp"
-                android:text="Name:"
-                android:textColor="@color/dark_green"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginTop="6dp"
-                android:background="#DDD5D5" />
-
-            <TextView
-                android:id="@+id/tvName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Spooder"
-                android:textColor="@color/black"
-                android:textSize="20dp" />
-        </LinearLayout>
-
-        <!--[SURNAME]-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -115,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:drawableLeft="@drawable/ic_person"
                 android:drawablePadding="8dp"
-                android:text="Surname:"
+                android:text="Username:"
                 android:textColor="@color/dark_green"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -127,14 +86,53 @@
                 android:background="#DDD5D5" />
 
             <TextView
-                android:id="@+id/tvSurname"
+                android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Man"
+                android:text="Spooder Man"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="18dp" />
         </LinearLayout>
+
+<!--        &lt;!&ndash;[SURNAME]&ndash;&gt;-->
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="100dp"-->
+<!--            android:orientation="vertical"-->
+<!--            app:layout_constraintBottom_toBottomOf="parent"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toTopOf="parent"-->
+<!--            app:layout_constraintVertical_bias="0.5">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:drawableLeft="@drawable/ic_person"-->
+<!--                android:drawablePadding="8dp"-->
+<!--                android:text="Surname:"-->
+<!--                android:textColor="@color/dark_green"-->
+<!--                android:textSize="20dp"-->
+<!--                android:textStyle="bold" />-->
+
+<!--            <View-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="2dp"-->
+<!--                android:layout_marginTop="6dp"-->
+<!--                android:background="#DDD5D5" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvSurname"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginTop="6dp"-->
+<!--                android:text="Man"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="20dp" />-->
+<!--        </LinearLayout>-->
 
         <!--[GMAIL]-->
         <LinearLayout
@@ -172,7 +170,7 @@
                 android:layout_marginTop="6dp"
                 android:text="spooderkilledobamalol@gmail.com"
                 android:textColor="@color/black"
-                android:textSize="20dp" />
+                android:textSize="18dp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

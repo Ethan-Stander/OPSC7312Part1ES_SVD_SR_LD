@@ -17,6 +17,11 @@
         <item name="colorPrimary">#D9D9D9</item>
     </style>
 
+    <!--GREEN THEME-->
+    <style name="Theme.GreenTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <item name="colorPrimary">@color/dark_green</item>
+    </style>
+
     <!--LOGIN THEME-->
     <style name="Theme.LoginPage" parent="Theme.MaterialComponents.Light.NoActionBar" >
         <!-- Base application theme. -->
