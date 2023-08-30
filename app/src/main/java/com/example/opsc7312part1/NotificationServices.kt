@@ -11,6 +11,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 
 
 const val notificationID = 1
@@ -27,6 +28,7 @@ class NotificationServices :BroadcastReceiver(){
                 .setSmallIcon(R.drawable.ic_notifications)
                 .setContentTitle(intent.getStringExtra(notificationTitle))
                 .setContentText(intent.getStringExtra(notificationMessage))
+                .setColor(ContextCompat.getColor(context,R.color.red))
                 .build()
 
             val manager = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager

@@ -27,15 +27,46 @@ class APICallService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         timer.scheduleAtFixedRate(object :TimerTask(){
             override fun run() {
+
+
                 CoroutineScope(Dispatchers.IO).launch {
                     val sensorData = APIServices.fetchSensorDataFromJson()
                     val hardwareData = APIServices.fetchhardware()
 
-                    notificationServices.scheduleNotification(
-                        applicationContext,
-                        "Condition Alert",
-                        "Condition has changed to bad")
-                    Log.i("Check bg service", "is it working?")
+                    if (hardwareData != null) {
+                        hardwareData.setValues()
+                            if(hardwareData.getAllStatuses().contains("1"))
+                        {
+                            notificationServices.scheduleNotification(
+                                    applicationContext,
+                                    "Equipment Warning",
+                                    "ERROR: EQUIPMENT OFFLINE ")
+                            Log.i("Check bg service", "is it working?")
+                        }
+
+                    }
+
+                        else
+                            if(hardwareData == null)
+
+                                {
+                                    notificationServices.scheduleNotification(
+                                            applicationContext,
+                                            "REEEEEEEEEE",
+                                            "REEEEEEEEEE ")
+                                    Log.i("Check bg service", "is it working?")
+                                }
+
+
+
+
+
+
+
+
+
+
+
                 }
             }
         },0,apiCallInterval)
