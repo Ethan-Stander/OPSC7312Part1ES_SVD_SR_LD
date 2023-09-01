@@ -86,11 +86,11 @@
                 android:background="#DDD5D5" />
 
             <TextView
-                android:id="@+id/tvName"
+                android:id="@+id/tvUsername"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Spooder Man"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18dp" />
         </LinearLayout>
@@ -168,7 +168,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="spooderkilledobamalol@gmail.com"
+                android:text=""
                 android:textColor="@color/black"
                 android:textSize="18dp" />
         </LinearLayout>

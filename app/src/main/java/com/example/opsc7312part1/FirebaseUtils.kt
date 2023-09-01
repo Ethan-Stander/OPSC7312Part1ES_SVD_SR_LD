@@ -5,7 +5,7 @@ import kotlinx.coroutines.tasks.await
 
 class FirebaseUtils {
     companion object {
-        private val database = FirebaseDatabase.getInstance()
+        val database = FirebaseDatabase.getInstance()
 
         suspend fun insertSettingForUser(user: User, setting: Setting): Boolean {
             val currentUser = user.UserID
