@@ -34,6 +34,7 @@ var UserID: String = ""
 
 
 class GoogleLogin : AppCompatActivity() {
+
     //fire base authentication
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -48,10 +49,6 @@ class GoogleLogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_login)
-
-        //API background service
-        val intent = Intent(this, APICallService::class.java)
-        startService(intent)
 
         progressBar = findViewById(R.id.loginProgressBar)
         progressBarbackground = findViewById(R.id.imgloading)
@@ -78,6 +75,10 @@ class GoogleLogin : AppCompatActivity() {
         }
 
     }
+
+    //disables back button on phone default navigation bar
+    //don't remove, its works
+    override fun onBackPressed() {}
 
     private fun signInGoogle() {
         showProgressBar()

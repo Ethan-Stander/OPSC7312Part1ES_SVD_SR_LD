@@ -7,10 +7,13 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
@@ -41,6 +44,9 @@ class FragmentTesting :AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#428948")))
 
+        //API background service
+        val intent = Intent(this, APICallService::class.java)
+        startService(intent)
 
         //implement binding
         binding = ActivityFragmentTestingBinding.inflate(layoutInflater)
@@ -67,7 +73,11 @@ class FragmentTesting :AppCompatActivity() {
             }
             true
         }
+    }
 
+    //disables back button on phone default navigation bar
+    //don't remove, its works
+    override fun onBackPressed() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -85,9 +95,7 @@ class FragmentTesting :AppCompatActivity() {
         fragmentTransaction.commit()
         drawerLayout.closeDrawers()
         setTitle(title)
-
     }
-
 
 
 }

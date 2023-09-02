@@ -29,7 +29,6 @@ class APICallService : Service() {
         timer.scheduleAtFixedRate(object : TimerTask() {
             override fun run() {
 
-
                 CoroutineScope(Dispatchers.IO).launch {
                     val sensorData = APIServices.fetchSensorDataFromJson()
                     val hardwareData = APIServices.fetchhardware()
@@ -42,17 +41,17 @@ class APICallService : Service() {
                                 "Equipment Warning",
                                 "ERROR: EQUIPMENT OFFLINE "
                             )
-                            Log.i("Check bg service", "is it working?")
+                            Log.i("Check bg service", "hardware not on")
                         }
 
                     } else
                         if (hardwareData == null) {
                             notificationServices.scheduleNotification(
                                 applicationContext,
-                                "REEEEEEEEEE",
-                                "REEEEEEEEEE "
+                                "hardware data is empty",
+                                "hardware data is empty "
                             )
-                            Log.i("Check bg service", "is it working?")
+                            Log.i("Check bg service", "hardware not found")
                         }
                 }
             }
