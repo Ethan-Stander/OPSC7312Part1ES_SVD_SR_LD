@@ -38,6 +38,8 @@ var UserID: String = ""
 
 
 class GoogleLogin : AppCompatActivity() {
+
+
     //fire base authentication
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -78,6 +80,10 @@ class GoogleLogin : AppCompatActivity() {
         }
 
     }
+
+    //disables back button on phone default navigation bar
+    //don't remove, its works
+    override fun onBackPressed() {}
 
     private fun signInGoogle() {
         showProgressBar()

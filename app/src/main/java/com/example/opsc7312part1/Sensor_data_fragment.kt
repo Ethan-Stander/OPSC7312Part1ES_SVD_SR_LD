@@ -177,13 +177,6 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
 
                 sensorDataList = arrayListOf<SensorData>()
 
-                sensorTitle = arrayOf(
-                    getString(R.string.head_1),
-                    getString(R.string.head_2),
-                    getString(R.string.head_3),
-                    getString(R.string.head_4),
-                )
-
                 //optimal range still use
                 sensorOptimalRange = arrayOf(
                     getString(R.string.range_1),
@@ -193,14 +186,6 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
                     getString(R.string.range_5),
                     getString(R.string.range_6),
                 )
-
-                sensorCurrentReading = arrayOf(
-                    getString(R.string.reading_1),
-                    getString(R.string.reading_2),
-                    getString(R.string.reading_3),
-                    getString(R.string.reading_4),
-                )
-
                 sensorStatus = arrayOf(
                     getString(R.string.status_1),
                     getString(R.string.status_2),

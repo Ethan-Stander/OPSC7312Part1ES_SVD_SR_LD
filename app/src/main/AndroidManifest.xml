@@ -3,8 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
+        android:name=".NotificationServices"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -15,6 +17,11 @@
         android:theme="@style/Theme.OPSC7312Part1"
         tools:targetApi="34">
 
+        <!--background service for APIs-->
+        <service
+            android:name=".APICallService"
+            android:enabled="true"
+            android:exported="false" />
         <activity
             android:name=".FragmentTesting"
             android:exported="false"

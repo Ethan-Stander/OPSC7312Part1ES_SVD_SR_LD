@@ -1,0 +1,57 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/red"
+    android:padding="16dp">
+
+    <!-- Horizontal layout for icon, header, and timestamp -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="start">
+
+        <TextView
+            android:id="@+id/txtNotificationHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"
+            android:text="Smart Hydro" />
+
+        <TextView
+            android:id="@+id/txtNotificationTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:text="12:34 PM"
+            android:layout_gravity="end" />
+    </LinearLayout>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/txtNotificationTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:layout_marginTop="4dp"
+    android:text="Notification Title" />
+
+    <!-- Description -->
+    <TextView
+        android:id="@+id/txtNotificationDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        android:layout_marginTop="0dp"
+        android:text="Notification Description" />
+</LinearLayout>
