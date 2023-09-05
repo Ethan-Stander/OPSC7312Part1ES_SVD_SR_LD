@@ -11,6 +11,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import android.widget.RemoteViews
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
@@ -27,21 +28,25 @@ import java.util.TimerTask
 class APICallService : Service() {
 
     private val timer = Timer()
-    private val apiCallInterval: Long = 10 * 1000
+    private val apiCallInterval: Long = 15 * 1000 // 15 seconds
 
-    override fun onCreate() {
-        super.onCreate()
-    }
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        timer.scheduleAtFixedRate(object : TimerTask() {
+        when(intent?.action){
+            Actions.START.toString() -> start()
+            Actions.STOP.toString() -> stopSelf()
+        }
+        return super.onStartCommand(intent, flags, startId)
+    }
+
+    private fun start(){
+
+        timer.scheduleAtFixedRate(object :TimerTask(){
             override fun run() {
-
-
                 CoroutineScope(Dispatchers.IO).launch {
                     val sensorData = APIServices.fetchSensorDataFromJson()
                     val hardwareData = APIServices.fetchhardware()
@@ -49,21 +54,21 @@ class APICallService : Service() {
                     if (hardwareData != null) {
                         hardwareData.setValues()
                         if (hardwareData.getAllStatuses().contains("1")) {
-                            showNotification("Equipment Warning","ERROR: EQUIPMENT OFFLINE" )
+                            createNotification("Equipment Warning","ERROR: EQUIPMENT OFFLINE" )
 
                             Log.i("Check bg service", "hardware not on")
                         }
-
                     } else
                         if (hardwareData == null) {
-                            showNotification("hardware data is empty",
-                                    "hardware data is empty ")
+                            createNotification("hardware data is empty",
+                                "hardware data is empty ")
                             Log.i("Check bg service", "hardware not found")
                         }
                 }
             }
-        }, 0, apiCallInterval)
-        return START_STICKY
+        },0,apiCallInterval)
+        val notification = createNotification("SmartHydro", "Real time updates")
+        startForeground(1, notification)
     }
 
     override fun onDestroy() {
@@ -71,16 +76,43 @@ class APICallService : Service() {
         timer.cancel()
     }
 
-    private fun showNotification(title: String, message: String)
-    {
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        val notification = NotificationCompat.Builder(applicationContext, "Channel_id")
-                .setContentText(title)
-                .setContentTitle(message)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .build()
-        notificationManager.notify(1,notification)
+    enum class Actions{
+        START,STOP
     }
+    private fun createNotification(title: String, message: String): Notification {
+        val intent = Intent(applicationContext, GoogleLogin::class.java)
+        val pendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            0,
+            intent,
+            PendingIntent.FLAG_IMMUTABLE
+        )
+
+
+
+        val customNotificationLayout = RemoteViews(applicationContext.packageName, R.layout.warning_notification_layout)
+        customNotificationLayout.setTextViewText(R.id.txtNotificationHeader, "SmartHydro")
+        customNotificationLayout.setTextViewText(R.id.txtNotificationTitle, title)
+        customNotificationLayout.setTextViewText(R.id.txtNotificationDescription, message)
+
+        val notification = NotificationCompat.Builder(applicationContext, "Channel_id")
+            .setContentIntent(pendingIntent)
+            .setCustomContentView(customNotificationLayout)
+            .setSmallIcon(R.drawable.sh_logo)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(applicationContext)
+        if (ActivityCompat.checkSelfPermission(
+                this,
+                android.Manifest.permission.POST_NOTIFICATIONS
+            ) == PackageManager.PERMISSION_GRANTED
+        ) {
+            notificationManager.notify(1, notification)
+        }
+        return notification
+    }
+
+
 }
 
 
