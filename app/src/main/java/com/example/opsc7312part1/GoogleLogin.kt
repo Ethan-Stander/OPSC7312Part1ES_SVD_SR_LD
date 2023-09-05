@@ -35,6 +35,7 @@ var UserID: String = ""
 
 class GoogleLogin : AppCompatActivity() {
 
+
     //fire base authentication
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient

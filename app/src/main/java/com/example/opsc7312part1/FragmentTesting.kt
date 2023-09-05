@@ -10,15 +10,38 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
+import android.os.Build.VERSION_CODES
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContract
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Button
+import androidx.compose.material3.Text
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.core.app.NotificationCompat
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
@@ -27,6 +50,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.opsc7312part1.databinding.ActivityFragmentTestingBinding
+import com.example.opsc7312part1.ui.theme.OPSC7312Part1Theme
 import com.google.android.material.navigation.NavigationView
 import java.time.LocalTime
 import java.util.Calendar
@@ -38,11 +62,12 @@ class FragmentTesting :AppCompatActivity() {
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
 
-    @SuppressLint("NewApi", "ScheduleExactAlarm")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#428948")))
+
 
         //API background service
         val intent = Intent(this, APICallService::class.java)
@@ -96,6 +121,7 @@ class FragmentTesting :AppCompatActivity() {
         drawerLayout.closeDrawers()
         setTitle(title)
     }
-
-
 }
+
+
+
