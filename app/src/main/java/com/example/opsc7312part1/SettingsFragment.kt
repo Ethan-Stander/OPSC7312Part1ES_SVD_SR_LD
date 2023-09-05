@@ -11,6 +11,8 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 
 private const val ARG_PARAM1 = "param1"
@@ -43,7 +45,6 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //Popups
-
         settings_account = view.findViewById(R.id.settings_account)
         settings_account.setOnClickListener {
             //custom popup
@@ -58,6 +59,7 @@ class SettingsFragment : Fragment() {
         settings_measurements.setOnClickListener {
             //custom popup
             val showPopup = MeasurementPopupFragment()
+
 
             showPopup.setStyle(DialogFragment.STYLE_NORMAL, R.style.settings_custom_popups)
 
@@ -95,18 +97,3 @@ class SettingsFragment : Fragment() {
             }
     }
 }
-
-//default popups
-//    private fun showPopupDialog(title: String, message: String) {
-//        val alertDialogBuilder = AlertDialog.Builder(requireContext())
-//
-//        alertDialogBuilder.setTitle(title)
-//        alertDialogBuilder.setMessage(message)
-//
-//        alertDialogBuilder.setPositiveButton("OK") { dialog, which ->
-//            dialog.dismiss() // Dismiss the dialog when the "OK" button is clicked
-//        }
-//
-//        val alertDialog = alertDialogBuilder.create()
-//        alertDialog.show()
-//    }

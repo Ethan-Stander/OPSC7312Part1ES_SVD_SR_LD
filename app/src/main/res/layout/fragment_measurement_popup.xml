@@ -115,7 +115,8 @@
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:textColor="@color/black"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:id="@+id/tvMaxStoreRange"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 

@@ -128,12 +128,11 @@
         </LinearLayout>
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/notificationSwitch"
+            android:id="@+id/switchNotifications"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="210dp"
             android:layout_marginTop="168dp"
-            android:checked="true"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -144,7 +143,7 @@
             app:track="@drawable/switch_track" />
 
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/locationSwitch"
+            android:id="@+id/switchLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="210dp"

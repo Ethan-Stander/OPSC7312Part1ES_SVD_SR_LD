@@ -72,9 +72,9 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
         val scope = CoroutineScope(Dispatchers.Main)
         val job = scope.launch {
             sensorDataInitialize()
-            val layoutManager = LinearLayoutManager(context)
+            val gridLayoutManager = GridLayoutManager(context,2)
             sensorDataRecyclerView = view.findViewById(R.id.SensorDataRecyclerView)
-            sensorDataRecyclerView.layoutManager = layoutManager
+            sensorDataRecyclerView.layoutManager = gridLayoutManager
             sensorDataRecyclerView.setHasFixedSize(true)
             sensorDataAdapter = SensorDataAdapter(sensorDataList)
             sensorDataRecyclerView.adapter = sensorDataAdapter
