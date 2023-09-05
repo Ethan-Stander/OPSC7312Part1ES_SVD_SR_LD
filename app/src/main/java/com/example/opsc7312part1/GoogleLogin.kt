@@ -13,7 +13,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import com.example.opsc7312part1.Users
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -25,6 +24,11 @@ import com.google.firebase.auth.FirebaseAuthUserCollisionException
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 //global var to store user details across pages more effective than pulling from database everytime
 var UserName: String = ""
@@ -135,23 +139,38 @@ class GoogleLogin : AppCompatActivity() {
                 dbref = FirebaseDatabase.getInstance().getReference("Users")
                 dbref.child(account.id.toString()).get().addOnSuccessListener { dataSnapshot ->
                     if (!dataSnapshot.exists()) {
-                        val user = Users(
+                        val user = User(
                             UserID = account.id,
-                            DarkTheme = false,
-                            LocationPermission = false,
-                            Notifications = false,
                             Username = account.displayName,
-                            Celsius = true,
-                            KM = true
+
                         )
-                        dbref.child(account.id.toString()).setValue(user).addOnSuccessListener {
-                            Toast.makeText(
-                                this@GoogleLogin,
-                                "Welcome to SmartHydro!",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }.addOnFailureListener {
-                            // Handle failure
+
+                        val parentJob = Job()
+                        val coroutineScope = CoroutineScope(Dispatchers.IO + parentJob)
+
+                        // Perform the database operations within the coroutine
+                        coroutineScope.launch {
+                            try {
+                                dbref = FirebaseDatabase.getInstance().getReference("Users")
+
+                                // Perform the user data insertion
+                                dbref.child(UserID).setValue(user).await()
+
+                                val setting = Setting()
+                                FirebaseUtils.insertSettingForUser(user, setting)
+
+                                // Display a toast message here or perform other actions as needed
+                                Toast.makeText(
+
+                                    this@GoogleLogin,
+                                    "Welcome to SmartHydro!",
+                                    Toast.LENGTH_LONG
+                                ).show()
+                            } catch (e: Exception) {
+                                // Handle exceptions
+                            } finally {
+                                parentJob.cancel() // Cancel the parent job when the operations are complete
+                            }
                         }
                     }else
                     {

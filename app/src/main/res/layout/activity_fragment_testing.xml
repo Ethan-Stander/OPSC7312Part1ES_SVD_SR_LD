@@ -23,7 +23,6 @@
 
 <com.google.android.material.navigation.NavigationView
     android:id="@+id/sideNavigationView"
-    android:backgroundTint="@color/dark_green"
     app:menu="@menu/navigation_menu"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
@@ -31,8 +30,6 @@
     android:fitsSystemWindows="true"
     android:background="@color/dark_green"
     app:itemTextColor="@color/white"
-    app:itemIconTint="@color/green"
-
-    />
+    app:itemIconTint="@color/light_green" />
 
 </androidx.drawerlayout.widget.DrawerLayout>
