@@ -29,7 +29,7 @@ class Produce_data_fragment : Fragment(R.layout.produce_data_fragment) {
 
     private lateinit var produceDataList: ArrayList<ProduceData>
     lateinit var produceTitle : Array<String>
-    lateinit var produceImage : Array<String>
+    lateinit var produceImage : Array<Int>
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,8 +102,8 @@ class Produce_data_fragment : Fragment(R.layout.produce_data_fragment) {
         )
 
         produceImage = arrayOf(
-            getString(R.string.image_1),
-            getString(R.string.image_2)
+            R.drawable.tomato,
+            R.drawable.spinach
         )
 
 

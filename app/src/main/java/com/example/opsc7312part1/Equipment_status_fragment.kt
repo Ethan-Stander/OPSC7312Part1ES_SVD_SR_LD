@@ -12,12 +12,14 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -43,6 +45,8 @@ class Equipment_status_fragment : Fragment() {
     private lateinit var popupWindow: PopupWindow
     private lateinit var popupView : View
 
+    private lateinit var tvErrorMessage: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,6 +56,10 @@ class Equipment_status_fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
+
+        tvErrorMessage = view.findViewById(R.id.tvErrorMessage)
 
         //info pop up
          popupView = LayoutInflater.from(context).inflate(R.layout.info_pop_ups,null)
@@ -162,15 +170,18 @@ class Equipment_status_fragment : Fragment() {
             equipmentStatus = emptyArray()
         }
 
+        // check / show error
+        if (equipmentStatus.isNullOrEmpty()) {
+            showError("Error loading equipment...\n (please reconnect)")
+        } else {
+            hideError()
+        }
 
             //hardcoded values
             equipmentStatusDataList = arrayListOf<EquipmentStatusData>()
 
             equipmentTitle = hardware.attributeNames
             Links = hardware.links
-
-
-
 
             for (i in equipmentStatus.indices) {
                 val equipmentStatusData =
@@ -180,5 +191,17 @@ class Equipment_status_fragment : Fragment() {
         }
 
 
+    }
+    // show error if equipment does not load
+    private fun showError(errorMessage: String) {
+        tvErrorMessage.text = errorMessage
+        tvErrorMessage.visibility = View.VISIBLE
+        equipmentStatusDataRecyclerView.visibility = View.GONE // Hide the RecyclerView
+    }
+
+    // hide if equipment shows
+    private fun hideError() {
+        tvErrorMessage.visibility = View.GONE
+        equipmentStatusDataRecyclerView.visibility = View.VISIBLE
     }
 }

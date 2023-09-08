@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -47,6 +48,7 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
     private lateinit var popupWindow: PopupWindow
     private lateinit var popupView: View
 
+    private lateinit var tvSensorErrorMessage: TextView // Added error TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,10 +70,20 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
 
         }
 
+        sensorDataRecyclerView = view.findViewById(R.id.SensorDataRecyclerView)
+
+        tvSensorErrorMessage = view.findViewById(R.id.tvSensorErrorMessage)
 
         val scope = CoroutineScope(Dispatchers.Main)
         val job = scope.launch {
-            sensorDataInitialize()
+            if (sensorDataInitialize()) {
+                // Data loaded successfully, hide error message
+                hideError()
+            } else {
+                // Data loading failed, show error message
+                showError("Error loading sensor data...\n(please reconnect)")
+            }
+
             val gridLayoutManager = GridLayoutManager(context,2)
             sensorDataRecyclerView = view.findViewById(R.id.SensorDataRecyclerView)
             sensorDataRecyclerView.layoutManager = gridLayoutManager
@@ -149,7 +161,7 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
                 }
             }
     }
-    private suspend fun sensorDataInitialize()
+    private suspend fun sensorDataInitialize() : Boolean
     {
         attributeNames = ArrayList()
         readings = ArrayList()
@@ -174,7 +186,6 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
                 }
 
                 //hardcoded values
-
                 sensorDataList = arrayListOf<SensorData>()
 
                 //optimal range still use
@@ -203,12 +214,12 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
 
                 Log.i("testing API", "Attribute Names: $attributeNames")
                 Log.i("testing API", "Readings: $readings")
+                return true // Data loaded successfully
             } else {
                 Log.i("testing API", "Failed to Fetch sensor data: $sensorDataAPI")
+                return false // Data loading failed
             }
-        }
-
-
+    }
 
     private fun replaceFragment(fragment: Fragment) {
         val fragmentManager = parentFragmentManager // Use parentFragmentManager for fragments
@@ -218,6 +229,16 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
         fragmentTransaction.commit()
     }
 
+    // show error if equipment does not load
+    private fun showError(errorMessage: String) {
+        tvSensorErrorMessage.text = errorMessage
+        tvSensorErrorMessage.visibility = View.VISIBLE
+        sensorDataRecyclerView.visibility = View.GONE // Hide the RecyclerView
+    }
 
-
+    // hide if equipment shows
+    private fun hideError() {
+        tvSensorErrorMessage.visibility = View.GONE
+        sensorDataRecyclerView.visibility = View.VISIBLE
+    }
 }
