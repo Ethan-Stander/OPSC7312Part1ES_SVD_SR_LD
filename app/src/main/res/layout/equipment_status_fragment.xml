@@ -6,8 +6,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Equipment_status_fragment">
 
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:layout_marginTop="10dp"
         android:id="@+id/EquipmentStatusRecyclerView"
@@ -15,5 +13,26 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/equipment_status_item_view"/>
 
+    <TextView
+        android:id="@+id/tvErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="25dp"
+        android:drawableTop="@drawable/ic_wifi_off"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/equipmentLoadingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
 </RelativeLayout>
