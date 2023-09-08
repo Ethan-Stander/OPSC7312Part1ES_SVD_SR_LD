@@ -13,6 +13,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Build.VERSION_CODES
 import android.os.Bundle
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
@@ -36,7 +37,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.core.app.NotificationCompat
@@ -55,6 +55,7 @@ import com.google.android.material.navigation.NavigationView
 import java.time.LocalTime
 import java.util.Calendar
 import java.util.Date
+import kotlin.concurrent.thread
 
 class FragmentTesting :AppCompatActivity() {
 
@@ -62,16 +63,16 @@ class FragmentTesting :AppCompatActivity() {
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#428948")))
 
-
-        //API background service
-        val intent = Intent(this, APICallService::class.java)
-        startService(intent)
+        //for the API foreground service
+        Intent(applicationContext, APICallService::class.java).also {
+            it.action = APICallService.Actions.START.toString()
+            startService(it)
+        }
 
         //implement binding
         binding = ActivityFragmentTestingBinding.inflate(layoutInflater)
@@ -123,6 +124,7 @@ class FragmentTesting :AppCompatActivity() {
         drawerLayout.closeDrawers()
         setTitle(title)
     }
+
 }
 
 

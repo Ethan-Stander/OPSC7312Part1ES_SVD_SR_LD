@@ -33,6 +33,16 @@ class MeasurementPopupFragment : DialogFragment() {
         // Inflate the layout for this fragment
         _binding = FragmentMeasurementPopupBinding.inflate(inflater, container, false)
 
+
+        if(UserID == "")
+        {
+            binding.txtMeasurementPopUpError.visibility = View.VISIBLE
+            binding.textInputLayoutUnitOfDistance.visibility = View.GONE
+            binding.textInputLayoutTemp.visibility = View.GONE
+            binding.textInputLayoutStoreRange.visibility = View.GONE
+            binding.btnMeasurementSave.visibility = View.GONE
+
+        }
         GetMeasurementSettings()
 
         //Temperature dropdown

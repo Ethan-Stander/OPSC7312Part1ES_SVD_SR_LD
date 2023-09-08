@@ -10,6 +10,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.example.opsc7312part1.databinding.FragmentAccountPopupBinding
 import com.example.opsc7312part1.databinding.FragmentMeasurementPopupBinding
+import com.squareup.picasso.Picasso
+import io.ktor.util.reflect.instanceOf
 import kotlinx.coroutines.launch
 
 private const val ARG_PARAM1 = "param1"
@@ -34,12 +36,29 @@ class AccountPopupFragment : DialogFragment() {
         // Inflate the layout for this fragment
         _binding = FragmentAccountPopupBinding.inflate(inflater, container, false)
 
+        if(UserID == "")
+        {
+            binding.txtAccountPopUpError.visibility = View.VISIBLE
+            binding.accountPopUpImage.visibility = View.GONE
+            binding.lvUsernameInformation.visibility = View.GONE
+            binding.lvGmailInformation.visibility = View.GONE
+
+        }else
         // User object
+        {
         val user = User(
             UserID = UserID,
             Username = UserName)
 
+        var userPFP = binding.accountPopUpImage
+
+        Picasso.get()
+            .load(UserURL)
+            .into(userPFP)
+
         getUserAccountInfo(user)
+        }
+
 
         //close popup
         binding.btnAccountClose.setOnClickListener {

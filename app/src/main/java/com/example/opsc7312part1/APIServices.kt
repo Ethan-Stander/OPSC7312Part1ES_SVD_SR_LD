@@ -66,6 +66,7 @@ class APIServices {
                 }
                 catch (e:Exception)
                 {
+                    Log.i("fetch hardware API error",e.message.toString())
                     return@withContext null
                 }
                 if(Hardware != null)
@@ -121,6 +122,7 @@ class APIServices {
                         return@withContext false
                     }
                 } catch (e: Exception) {
+                    Log.i("hardware API error",e.message.toString())
                     // Handle exceptions such as network errors
                     return@withContext false
                 }

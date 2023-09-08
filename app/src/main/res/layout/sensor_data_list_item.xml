@@ -38,16 +38,17 @@
             android:id="@+id/textViewOptimalRangeData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/textViewOptimalRangeLabel"
-            android:layout_alignBaseline="@id/textViewOptimalRangeLabel"
-            android:textSize="14sp"/>
+            android:layout_below="@id/textViewOptimalRangeLabel"
+            android:layout_marginTop="4dp"
+            android:textSize="14sp"
+            android:text="12.3-45.6"/>
 
         <!-- Current Reading -->
         <TextView
             android:id="@+id/textViewCurrentReadingLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/textViewOptimalRangeLabel"
+            android:layout_below="@id/textViewOptimalRangeData"
             android:layout_marginTop="8dp"
             android:text="Current reading: "
             android:textSize="14sp"/>
@@ -56,9 +57,10 @@
             android:id="@+id/textViewCurrentReadingData"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/textViewCurrentReadingLabel"
-            android:layout_alignBaseline="@id/textViewCurrentReadingLabel"
-            android:textSize="14sp"/>
+            android:layout_below="@id/textViewCurrentReadingLabel"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"
+            android:text="78.9.10.1"/>
     </RelativeLayout>
 
 
