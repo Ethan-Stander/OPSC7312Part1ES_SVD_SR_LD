@@ -6,7 +6,8 @@
     android:id="@+id/sensorDataItemView"
     app:cardCornerRadius="10dp"
     android:layout_margin="10dp"
-    android:background="@color/green">
+    android:background="@color/green"
+    app:cardElevation="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/tomato" />
+            android:src="@drawable/tomato"
+            android:adjustViewBounds="true"/>
 
         <TextView
             android:id="@+id/produceTitle"
@@ -32,7 +34,7 @@
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:background="@color/green" />
+            android:background="@color/dark_green" />
 
     </LinearLayout>
 

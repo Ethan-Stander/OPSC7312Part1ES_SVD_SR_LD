@@ -1,6 +1,7 @@
 package com.example.opsc7312part1
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,15 +13,19 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -43,6 +48,10 @@ class Equipment_status_fragment : Fragment() {
     private lateinit var popupWindow: PopupWindow
     private lateinit var popupView : View
 
+    private lateinit var tvErrorMessage: TextView
+
+    private lateinit var equipmentLoadingBar: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,6 +61,12 @@ class Equipment_status_fragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
+
+        equipmentLoadingBar = view.findViewById(R.id.equipmentLoadingBar)
+
+        tvErrorMessage = view.findViewById(R.id.tvErrorMessage)
 
         //info pop up
          popupView = LayoutInflater.from(context).inflate(R.layout.info_pop_ups,null)
@@ -68,7 +83,7 @@ class Equipment_status_fragment : Fragment() {
         //display equipment data
         val scope = CoroutineScope(Dispatchers.Main)
         val job = scope.launch {
-
+            showLoading() // Show loading bar
             equipmentDataInitialize()
             val gridLayoutManager = GridLayoutManager(context, 2)
             equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
@@ -84,6 +99,7 @@ class Equipment_status_fragment : Fragment() {
                 }
 
             })
+            hideLoading()
         }
     }
 
@@ -162,6 +178,13 @@ class Equipment_status_fragment : Fragment() {
             equipmentStatus = emptyArray()
         }
 
+        delay(1000)
+        // check / show error
+        if (equipmentStatus.isNullOrEmpty()) {
+            showError("Error loading equipment...\n (please reconnect)")
+        } else {
+            hideError()
+        }
 
             //hardcoded values
             equipmentStatusDataList = arrayListOf<EquipmentStatusData>()
@@ -169,16 +192,34 @@ class Equipment_status_fragment : Fragment() {
             equipmentTitle = hardware.attributeNames
             Links = hardware.links
 
-
-
-
             for (i in equipmentStatus.indices) {
                 val equipmentStatusData =
                     EquipmentStatusData(equipmentTitle[i], equipmentStatus[i].toBoolean(),Links[i])
                 equipmentStatusDataList.add(equipmentStatusData)
 
         }
-
-
     }
+    // show error if equipment does not load
+    private fun showError(errorMessage: String) {
+        tvErrorMessage.text = errorMessage
+        tvErrorMessage.visibility = View.VISIBLE
+        equipmentStatusDataRecyclerView.visibility = View.GONE
+    }
+
+    // hide if equipment shows
+    private fun hideError() {
+        tvErrorMessage.visibility = View.GONE
+        equipmentStatusDataRecyclerView.visibility = View.VISIBLE
+    }
+
+    private fun showLoading() {
+        equipmentLoadingBar.visibility = View.VISIBLE
+        hideError() // Hide the error message
+    }
+
+    private fun hideLoading() {
+        equipmentLoadingBar.visibility = View.GONE
+        equipmentStatusDataRecyclerView.visibility = View.VISIBLE
+    }
+
 }
