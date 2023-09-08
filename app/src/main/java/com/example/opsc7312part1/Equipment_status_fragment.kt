@@ -1,6 +1,7 @@
 package com.example.opsc7312part1
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.PopupWindow
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
@@ -23,6 +25,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.android.material.navigation.NavigationView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -47,6 +50,8 @@ class Equipment_status_fragment : Fragment() {
 
     private lateinit var tvErrorMessage: TextView
 
+    private lateinit var equipmentLoadingBar: ProgressBar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -58,6 +63,8 @@ class Equipment_status_fragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
+
+        equipmentLoadingBar = view.findViewById(R.id.equipmentLoadingBar)
 
         tvErrorMessage = view.findViewById(R.id.tvErrorMessage)
 
@@ -76,7 +83,7 @@ class Equipment_status_fragment : Fragment() {
         //display equipment data
         val scope = CoroutineScope(Dispatchers.Main)
         val job = scope.launch {
-
+            showLoading() // Show loading bar
             equipmentDataInitialize()
             val gridLayoutManager = GridLayoutManager(context, 2)
             equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
@@ -92,6 +99,7 @@ class Equipment_status_fragment : Fragment() {
                 }
 
             })
+            hideLoading()
         }
     }
 
@@ -170,6 +178,7 @@ class Equipment_status_fragment : Fragment() {
             equipmentStatus = emptyArray()
         }
 
+        delay(2000)
         // check / show error
         if (equipmentStatus.isNullOrEmpty()) {
             showError("Error loading equipment...\n (please reconnect)")
@@ -189,14 +198,12 @@ class Equipment_status_fragment : Fragment() {
                 equipmentStatusDataList.add(equipmentStatusData)
 
         }
-
-
     }
     // show error if equipment does not load
     private fun showError(errorMessage: String) {
         tvErrorMessage.text = errorMessage
         tvErrorMessage.visibility = View.VISIBLE
-        equipmentStatusDataRecyclerView.visibility = View.GONE // Hide the RecyclerView
+        equipmentStatusDataRecyclerView.visibility = View.GONE
     }
 
     // hide if equipment shows
@@ -204,4 +211,15 @@ class Equipment_status_fragment : Fragment() {
         tvErrorMessage.visibility = View.GONE
         equipmentStatusDataRecyclerView.visibility = View.VISIBLE
     }
+
+    private fun showLoading() {
+        equipmentLoadingBar.visibility = View.VISIBLE
+        hideError() // Hide the error message
+    }
+
+    private fun hideLoading() {
+        equipmentLoadingBar.visibility = View.GONE
+        equipmentStatusDataRecyclerView.visibility = View.VISIBLE
+    }
+
 }
