@@ -28,8 +28,9 @@ import java.util.TimerTask
 class APICallService : Service() {
 
     private val timer = Timer()
-    private val apiCallInterval: Long = 15 * 1000 // 15 seconds
-
+    private val apiCallInterval: Long = 20 * 1000
+    private var title = ""
+    private var message = ""
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -44,31 +45,68 @@ class APICallService : Service() {
     }
 
     private fun start(){
-
         timer.scheduleAtFixedRate(object :TimerTask(){
             override fun run() {
+
                 CoroutineScope(Dispatchers.IO).launch {
-                    val sensorData = APIServices.fetchSensorDataFromJson()
+
                     val hardwareData = APIServices.fetchhardware()
 
                     if (hardwareData != null) {
                         hardwareData.setValues()
-                        if (hardwareData.getAllStatuses().contains("1")) {
-                            createNotification("Equipment Warning","ERROR: EQUIPMENT OFFLINE" )
+
+                        when {
+                            (hardwareData.Circulation_Pump_Status.equals("False")) -> {
+                                title = "Equipment Warning"
+                                message = "ERROR: CIRCULATION PUMP OFFLINE"
+                            }
+
+                            (hardwareData.Fan_Extractor_Status.equals("False")) -> {
+                                title = "Equipment Warning"
+                                message = "ERROR: EXTRACTOR FAN OFFLINE"
+                            }
+
+                            (hardwareData.Fan_Tent_Status.equals("False")) -> {
+                                title = "Equipment Warning"
+                                message = "ERROR: CIRCULATION FAN OFFLINE"
+                            }
+
+                            (hardwareData.Light_Status.equals("False")) -> {
+                                title = "Equipment Warning"
+                                message = "ERROR: LIGHT OFFLINE"
+                            }
+
+                            }
+                        }else
+                            {
+                                title = "System Warning"
+                                message = "ERROR: EQUIPMENT NOT FOUND"
+                                Log.i("Check foreground  service", "hardware not found")
+                            }
+                    }
+
+                        /*if (hardwareData.Circulation_Pump_Status.equals("False") || hardwareData.Fan_Extractor_Status.equals("False") || hardwareData.Fan_Tent_Status.equals("False")
+                            || hardwareData.Light_Status.equals("False")) {
+                            title = "Equipment Warning"
+                            message = "ERROR: EQUIPMENT OFFLINE"
 
                             Log.i("Check bg service", "hardware not on")
                         }
                     } else
                         if (hardwareData == null) {
-                            createNotification("hardware data is empty",
-                                "hardware data is empty ")
+                            title = "hardware data is empty"
+                            message = "hardware data is empty"
                             Log.i("Check bg service", "hardware not found")
-                        }
+                        }*/
+
+                    if(title.isNotEmpty() && message.isNotEmpty())
+                    {
+                        var notification =  createNotification(title,message)
+                        startForeground(1,notification)
+                    }
                 }
-            }
         },0,apiCallInterval)
-        val notification = createNotification("SmartHydro", "Real time updates")
-        startForeground(1, notification)
+
     }
 
     override fun onDestroy() {
@@ -79,26 +117,28 @@ class APICallService : Service() {
     enum class Actions{
         START,STOP
     }
-    private fun createNotification(title: String, message: String): Notification {
-        val intent = Intent(applicationContext, GoogleLogin::class.java)
+    private fun createNotification(title: String, message: String): Notification? {
+
+        //Confirm usage of intent
+
+        /*val intent = Intent(applicationContext, GoogleLogin::class.java)
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,
             intent,
             PendingIntent.FLAG_IMMUTABLE
-        )
+        )*/
 
-
-
-        val customNotificationLayout = RemoteViews(applicationContext.packageName, R.layout.warning_notification_layout)
-        customNotificationLayout.setTextViewText(R.id.txtNotificationHeader, "SmartHydro")
-        customNotificationLayout.setTextViewText(R.id.txtNotificationTitle, title)
-        customNotificationLayout.setTextViewText(R.id.txtNotificationDescription, message)
+        val color = ContextCompat.getColor(applicationContext,R.color.red)
 
         val notification = NotificationCompat.Builder(applicationContext, "Channel_id")
-            .setContentIntent(pendingIntent)
-            .setCustomContentView(customNotificationLayout)
-            .setSmallIcon(R.drawable.sh_logo)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setOngoing(false)
+            .setColorized(true)
+            .setColor(color)
+            .setSmallIcon(R.drawable.ic_notification_danger)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
         val notificationManager = NotificationManagerCompat.from(applicationContext)

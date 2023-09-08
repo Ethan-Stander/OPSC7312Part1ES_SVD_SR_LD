@@ -13,16 +13,34 @@
             android:layout_height="wrap_content"
             android:padding="20dp">
 
-            <!--[HEADING]-->
+            <!--[Sign in error message]-->
             <TextView
+                android:id="@+id/txtMeasurementPopUpError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="350dp"
+                android:text="Please sign in to view measurement information"
+                android:textColor="#858585"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:visibility="gone"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/txtMeasurementPopUpHeading"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <!--[HEADING]-->
+            <TextView
+                android:id="@+id/txtMeasurementPopUpHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Measurements"
                 android:textColor="@color/dark_green"
                 android:textSize="30dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -31,6 +49,7 @@
 
             <!--[CLOSE BUTTON]-->
             <ImageButton
+                app:layout_constraintBaseline_toBaselineOf="@+id/txtMeasurementPopUpHeading"
                 android:id="@+id/btnMeasurementsClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,11 +58,11 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
                 android:contentDescription="close"/>
 
             <!--[TEMPERATURE]-->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutTemp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,6 +89,7 @@
 
             <!--[UNIT OF DISTANCE]-->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutUnitOfDistance"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -96,6 +116,7 @@
 
             <!--[STORE RANGE]-->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutStoreRange"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="220dp"

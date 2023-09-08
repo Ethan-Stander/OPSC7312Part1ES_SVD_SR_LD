@@ -16,11 +16,11 @@
                     android:icon="@drawable/ic_construction" />
                 <item
                     android:id="@+id/nav_where_to_shop"
-                    android:title="Where to Shop"
+                    android:title="Where to Shop (Coming soon)"
                     android:icon="@drawable/ic_location" />
                 <item
                     android:id="@+id/nav_mystores"
-                    android:title="My Stores"
+                    android:title="My Stores (Coming soon)"
                     android:icon="@drawable/ic_stores" />
             </menu>
         </item>
