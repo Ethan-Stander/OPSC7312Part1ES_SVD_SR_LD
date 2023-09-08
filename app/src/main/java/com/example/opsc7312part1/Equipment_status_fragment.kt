@@ -178,7 +178,7 @@ class Equipment_status_fragment : Fragment() {
             equipmentStatus = emptyArray()
         }
 
-        delay(2000)
+        delay(1000)
         // check / show error
         if (equipmentStatus.isNullOrEmpty()) {
             showError("Error loading equipment...\n (please reconnect)")

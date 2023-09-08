@@ -83,7 +83,7 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
         val scope = CoroutineScope(Dispatchers.Main)
         val job = scope.launch {
             showLoading() // Show loading bar
-            delay(2000)
+            delay(1000)
             if (sensorDataInitialize()) {
                 // Data loaded successfully, hide error message
                 hideError()
