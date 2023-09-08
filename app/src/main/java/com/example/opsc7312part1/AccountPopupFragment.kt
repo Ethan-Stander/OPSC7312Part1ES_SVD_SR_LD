@@ -43,8 +43,9 @@ class AccountPopupFragment : DialogFragment() {
             binding.lvUsernameInformation.visibility = View.GONE
             binding.lvGmailInformation.visibility = View.GONE
 
-        }
+        }else
         // User object
+        {
         val user = User(
             UserID = UserID,
             Username = UserName)
@@ -56,6 +57,8 @@ class AccountPopupFragment : DialogFragment() {
             .into(userPFP)
 
         getUserAccountInfo(user)
+        }
+
 
         //close popup
         binding.btnAccountClose.setOnClickListener {
