@@ -101,10 +101,15 @@ class GoogleLogin : AppCompatActivity() {
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                handleResults(task)
+            try {
+                if (result.resultCode == Activity.RESULT_OK) {
+                    Log.i("Check result",result.resultCode.toString())
+                    val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    handleResults(task)
+                }
+            } catch (e: Exception) {
+                // Handle the exception here
+                Log.e("Google login error", "Error occurred: ${e.message}")
             }
         }
     private fun handleResults(task: Task<GoogleSignInAccount>) {
@@ -136,6 +141,7 @@ class GoogleLogin : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                Log.i("Check login succesful", task.isSuccessful.toString())
                 dbref = FirebaseDatabase.getInstance().getReference("Users")
                 dbref.child(account.id.toString()).get().addOnSuccessListener { dataSnapshot ->
                     if (!dataSnapshot.exists()) {

@@ -3,11 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+<!--    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>-->
+    <!--<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>-->
+    <!--add below in application-->
+    <!--android:name=".RunningApp"-->
 
     <application
-        android:name=".RunningApp"
+
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -20,10 +22,10 @@
         tools:targetApi="34">
 
         <!--service for APIs and notifications-->
-        <service
+        <!--<service
             android:name=".APICallService"
             android:enabled="true"
-            android:exported="false" />
+            android:exported="false" />-->
         <activity
             android:name=".FragmentTesting"
             android:exported="false"
