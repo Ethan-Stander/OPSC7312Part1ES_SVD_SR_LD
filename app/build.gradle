@@ -9,7 +9,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.opsc7312part1"
+        applicationId "com.smart.SmartHydro"
         minSdk 24
         targetSdk 33
         versionCode 1
