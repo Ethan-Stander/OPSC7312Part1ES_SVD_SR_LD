@@ -10,7 +10,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="549dp"
         android:padding="20dp">
 
         <!--[Sign in error message]-->
@@ -18,63 +18,64 @@
             android:id="@+id/txtAccountPopUpError"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
             android:text="Please sign in to view account information"
             android:textColor="#858585"
-            android:gravity="center"
-            android:visibility="gone"
             android:textSize="20dp"
             android:textStyle="bold"
-            android:layout_marginTop="50dp"
-            app:layout_constraintTop_toBottomOf="@+id/txtAccountPopUpHeading"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtAccountPopUpHeading"
             app:layout_constraintVertical_bias="0.5" />
 
         <!--[HEADING]-->
+
+        <!--[CLOSE BUTTON]-->
+
         <TextView
             android:id="@+id/txtAccountPopUpHeading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
             android:text="Account"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="10dp"
             android:textColor="@color/dark_green"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_bias="0.454"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!--[CLOSE BUTTON]-->
         <ImageButton
             android:id="@+id/btnAccountClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="close"
             android:src="@drawable/ic_exit"
             app:layout_constraintBaseline_toBaselineOf="@+id/txtAccountPopUpHeading"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginEnd="8dp"
-            android:contentDescription="close"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <!--[GOOGLE PROFILE PICTURE]-->
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/accountPopUpImage"
-            android:layout_marginTop="15dp"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/spinach"
-            app:layout_constraintTop_toBottomOf="@+id/txtAccountPopUpHeading"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
 
         <!--[NAME]-->
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/accountPopUpImage"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_marginTop="28dp"
+            android:src="@drawable/spinach"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtAccountPopUpHeading" />
+
         <LinearLayout
             android:id="@+id/lvUsernameInformation"
             android:layout_width="match_parent"
@@ -157,6 +158,22 @@
                 android:textColor="@color/black"
                 android:textSize="18dp" />
         </LinearLayout>
+
+        <Button
+            android:id="@+id/btnDeleteAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="144dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="153dp"
+            android:layout_marginBottom="26dp"
+            android:text="Delete Account"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lvGmailInformation"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
