@@ -6,22 +6,39 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.tasks.await
 
-class Notification {
+class NotificationDataClass {
     var notificationType: String? = null
     var notificationMessage: String? = null
-    var timestamp: Long? = null
+    var timestamp: String? = null
+
 
     companion object{
 
         val database = FirebaseDatabase.getInstance()
 
-        suspend fun insertNotificationForUser(user: User, notification: Notification) : Boolean {
-            val currentUser = user.UserID
-            val reference = currentUser?.let { database.getReference("Users").child(it).child("notifications") }
-
+        suspend fun insertNotificationForUser(user: User, notification: NotificationDataClass): Boolean {
             return try {
+                val currentUser = user.UserID
+                val reference = currentUser?.let { database.getReference("Users").child(it).child("notifications") }
+
                 if (reference != null) {
-                    reference.setValue(notification).await()
+                    // Generate a unique key for each notification
+                    val notificationKey = reference.push().key
+                    if (notificationKey != null) {
+                        // Get the current count of notifications
+                        val snapshot = reference.get().await()
+                        val notificationCount = snapshot.childrenCount.toInt()
+
+                        // Check if the count exceeds the limit (e.g., 10)
+                        if (notificationCount >= 10) {
+                            // If there are more than 10 notifications, remove the oldest one
+                            val oldestNotification = snapshot.children.first()
+                            oldestNotification.ref.removeValue().await()
+                        }
+
+                        // Set the new notification under the generated key
+                        reference.child(notificationKey).setValue(notification).await()
+                    }
                 }
                 true // Data was successfully written to the database
             } catch (e: Exception) {
@@ -29,38 +46,26 @@ class Notification {
             }
         }
 
-        suspend fun getNotificationsForUser(user: User): MutableList<Notification>? {
+        suspend fun getNotificationsForUser(user: User): MutableList<NotificationDataClass>? {
             val currentUser = user.UserID
             val reference = currentUser?.let { database.getReference("Users").child(it).child("notifications") }
 
-            val notifications = mutableListOf<Notification>()
+            val notifications = mutableListOf<NotificationDataClass>()
 
-            try {
-                reference?.addListenerForSingleValueEvent(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        for (childSnapshot in snapshot.children) {
-                            val notification = childSnapshot.getValue(Notification::class.java)
-                            notification?.let { notifications.add(it) }
-                        }
-                    }
+            return try {
+                val dataSnapshot = reference?.get()?.await() // Use get().await() to retrieve data
 
-                    override fun onCancelled(error: DatabaseError) {
-                      return
-                    }
-                })
+                dataSnapshot?.children?.forEach { childSnapshot ->
+                    val notification = childSnapshot.getValue(NotificationDataClass::class.java)
+                    notification?.let { notifications.add(it) }
+                }
+
+                notifications // Return the populated list of notifications
             } catch (e: Exception) {
-                return null
+                null // Handle exceptions or errors appropriately
             }
-
-            return notifications
         }
-
-
-
-
-
-
     }
-    }
+}
 
 

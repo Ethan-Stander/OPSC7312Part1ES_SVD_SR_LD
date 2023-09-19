@@ -3,8 +3,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="@color/red"
-    android:padding="16dp">
+    android:background="@drawable/rounded_bg"
+    android:backgroundTint="@color/red"
+    android:padding="16dp"
+    android:layout_marginTop="20dp">
 
     <!-- Horizontal layout for icon, header, and timestamp -->
     <LinearLayout

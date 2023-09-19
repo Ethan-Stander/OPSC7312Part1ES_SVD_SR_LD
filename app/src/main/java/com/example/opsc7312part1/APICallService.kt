@@ -19,9 +19,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import java.util.Timer
 import java.util.TimerTask
 
@@ -76,14 +81,15 @@ class APICallService : Service() {
                                 message = "ERROR: LIGHT OFFLINE"
                             }
 
-                            }
-                        }else
-                            {
-                                title = "System Warning"
-                                message = "ERROR: EQUIPMENT NOT FOUND"
-                                Log.i("Check foreground  service", "hardware not found")
-                            }
+                        }
+                    } else {
+                        title = "System Warning"
+                        message = "ERROR: EQUIPMENT NOT FOUND"
+                        Log.i("Check foreground  service", "hardware not found")
+
+                        writeToFirebase()
                     }
+                }
 
                         /*if (hardwareData.Circulation_Pump_Status.equals("False") || hardwareData.Fan_Extractor_Status.equals("False") || hardwareData.Fan_Tent_Status.equals("False")
                             || hardwareData.Light_Status.equals("False")) {
@@ -107,6 +113,44 @@ class APICallService : Service() {
                 }
         },0,apiCallInterval)
 
+    }
+
+    fun writeToFirebase() {
+        val user = User(
+            UserID = UserID,
+            Username = UserName
+        )
+
+        CoroutineScope(Dispatchers.IO).launch {
+            // Check if the user is signed in
+            val currentUser = FirebaseUtils.Get(user)
+            if (currentUser != null) {
+                // Create a NotificationDataClass object for the notification
+                val notificationData = NotificationDataClass()
+                notificationData.notificationType = "System Warning"
+
+                notificationData.notificationMessage = "ERROR: EQUIPMENT NOT FOUND"
+
+                val sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                val timestamp = sdf.format(Date()) // Format the current time
+                notificationData.timestamp = timestamp
+
+                // Get the User object for the currently signed-in user
+                val user = User(UserID, UserName)
+
+                // Insert the notification for the user
+                val isInserted = NotificationDataClass.insertNotificationForUser(
+                    user,
+                    notificationData
+                )
+
+                if (isInserted) {
+                    Log.i("Notification Insert", "Notification inserted successfully")
+                } else {
+                    Log.e("Notification Insert", "Failed to insert notification")
+                }
+            }
+        }
     }
 
     override fun onDestroy() {

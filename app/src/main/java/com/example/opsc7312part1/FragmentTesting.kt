@@ -96,7 +96,7 @@ class FragmentTesting :AppCompatActivity() {
                 R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
                 R.id.nav_equipment ->replaceFragment(Equipment_status_fragment(),it.title.toString())
                 R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
-                R.id.nav_notification_history ->replaceFragment(SettingsFragment(),it.title.toString())
+                R.id.nav_notification_history ->replaceFragment(NotificationHistory(),it.title.toString())
                 R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
                     startActivity(intent) }
             }

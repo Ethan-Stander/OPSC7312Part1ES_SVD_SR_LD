@@ -32,13 +32,13 @@
         <item android:title="Additional">
             <menu>
                 <item
-                    android:id="@+id/nav_settings"
-                    android:title="Settings"
-                    android:icon="@drawable/ic_settings" />
-                <item
                     android:id="@+id/nav_notification_history"
                     android:title="Notification History"
                     android:icon="@drawable/ic_notifications" />
+                <item
+                    android:id="@+id/nav_settings"
+                    android:title="Settings"
+                    android:icon="@drawable/ic_settings" />
                 <item
                     android:id="@+id/nav_logout"
                     android:title="Logout"
