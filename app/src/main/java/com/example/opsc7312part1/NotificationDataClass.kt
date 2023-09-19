@@ -65,6 +65,20 @@ class NotificationDataClass {
                 null // Handle exceptions or errors appropriately
             }
         }
+
+        suspend fun deleteAllNotificationsForUser(user: User): Boolean {
+            val currentUser = user.UserID
+            val reference = currentUser?.let { database.getReference("Users").child(it).child("notifications") }
+
+            return try {
+                reference?.removeValue()?.await() // Use removeValue().await() to delete all notifications
+
+                true // Deletion was successful
+            } catch (e: Exception) {
+                false // Handle exceptions or errors appropriately
+            }
+        }
+
     }
 }
 
