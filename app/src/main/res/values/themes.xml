@@ -37,7 +37,6 @@
     <!--for dialog alerts-->
     <style name="settings_custom_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
-
     </style>
 
 </resources>

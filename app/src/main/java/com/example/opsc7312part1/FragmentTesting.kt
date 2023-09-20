@@ -68,6 +68,13 @@ class FragmentTesting :AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#428948")))
 
+        // Set the theme based on the saved preference
+        val sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val savedTheme = sharedPreferences.getString("theme", "Light Mode")
+        val themeId = if (savedTheme == "Light Mode") R.style.AppTheme_Light else R.style.AppTheme_Dark
+        setTheme(themeId)
+
+
         //for the API foreground service
         Intent(applicationContext, APICallService::class.java).also {
             it.action = APICallService.Actions.START.toString()
