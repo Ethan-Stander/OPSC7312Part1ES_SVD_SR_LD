@@ -5,8 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.opsc7312part1.NotificationDataClass.Companion.deleteAllNotificationsForUser
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,6 +21,8 @@ class NotificationHistory : Fragment() {
 
     private lateinit var notification_history_recycler: RecyclerView
     private lateinit var notificationHistoryAdapter: NotificationHistoryAdapter
+    private lateinit var btnClearNotifications: ImageButton
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,6 +40,7 @@ class NotificationHistory : Fragment() {
         notification_history_recycler.layoutManager = LinearLayoutManager(activity)
         notificationHistoryAdapter = NotificationHistoryAdapter(emptyList()) // Initially empty
         notification_history_recycler.adapter = notificationHistoryAdapter
+        btnClearNotifications = view.findViewById(R.id.btnClearNotifications)
 
         // Retrieve notifications and update the adapter when available
         val user = User(
@@ -51,6 +56,12 @@ class NotificationHistory : Fragment() {
                 }
             }
         }
+        btnClearNotifications.setOnClickListener {
+            CoroutineScope(Dispatchers.IO).launch {
+                deleteAllNotificationsForUser(user)
+            }
+        }
+
 
         return view
     }

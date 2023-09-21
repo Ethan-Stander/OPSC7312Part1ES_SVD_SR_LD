@@ -18,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -33,7 +34,7 @@ import java.util.TimerTask
 class APICallService : Service() {
 
     private val timer = Timer()
-    private val apiCallInterval: Long = 20 * 1000
+    private val apiCallInterval: Long = 10 * 1000
     private var title = ""
     private var message = ""
 
@@ -87,7 +88,10 @@ class APICallService : Service() {
                         message = "ERROR: EQUIPMENT NOT FOUND"
                         Log.i("Check foreground  service", "hardware not found")
 
-                        writeToFirebase()
+                        if (ContextCompat.checkSelfPermission(this@APICallService, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
+                            writeToFirebase()
+                        }
+
                     }
                 }
 
