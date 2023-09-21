@@ -53,7 +53,6 @@ class AccountPopupFragment : DialogFragment() {
 
                 lifecycleScope.launch {
 
-
                     val isDeleted = deleteUser(user)
 
                     if (isDeleted) {
