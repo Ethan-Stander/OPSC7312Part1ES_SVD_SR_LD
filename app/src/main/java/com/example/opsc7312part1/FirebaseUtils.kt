@@ -21,6 +21,21 @@ class FirebaseUtils {
             }
         }
 
+        suspend fun deleteUser(user: User): Boolean {
+            val currentUser = user.UserID
+            val reference = currentUser?.let { database.getReference("Users").child(it) }
+
+            return try {
+                if (reference != null) {
+                    reference.removeValue().await()
+                }
+                true // Data was successfully deleted from the database
+            } catch (e: Exception) {
+                false // Failed to delete data from the database
+            }
+        }
+
+
         suspend fun updateSettingForUser(user: User, setting: Setting): Boolean {
             val currentUser = user.UserID
             val reference = currentUser?.let { database.getReference("Users").child(it).child("settings") }
