@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".AppSettingsPopupFragment"
     android:id="@+id/fragment_app_settings"
-    android:theme="@style/Theme.GreenTheme"
+    style="@style/Theme.GreenTheme"
     android:background="@drawable/rounded_bg">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="300dp"
             android:text="App Settings"
-            android:textColor="@color/dark_green"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -28,7 +27,8 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5" />
+            app:layout_constraintVertical_bias="0.5"
+            android:textColor="@color/dark_green"/>
 
         <!--[CLOSE BUTTON]-->
         <ImageButton
@@ -47,20 +47,19 @@
 
         <!--[APP THEME]-->
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+            style="@style/DropdownTheme"
+            android:theme="@style/GreenCursor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
             android:hint="App Theme"
-            app:boxStrokeColor="@color/dark_green"
-            app:hintTextColor="@color/dark_green"
+            android:textColorHint="@color/light_grey"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            android:textColorHint="@color/light_grey">
+            app:layout_constraintVertical_bias="0.5">
 
             <AutoCompleteTextView
                 android:id="@+id/tvAppTheme"
@@ -69,7 +68,8 @@
                 android:layout_weight="1"
                 android:editable="false"
                 android:text="Light Mode"
-                android:textColor="@color/light_grey"/>
+                android:textColor="@color/light_grey"
+                android:paddingStart="20dp"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -142,7 +142,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5"
-            app:thumbTint="#f5f5f5 "
+            app:thumbTint="#f5f5f5"
             app:track="@drawable/switch_track" />
 
         <androidx.appcompat.widget.SwitchCompat
@@ -170,12 +170,10 @@
             android:text="Changing above permissions will redirect you to your phone settigs"
             android:textColor="#858585"
             android:textSize="20dp"
-            app:layout_constraintTop_toBottomOf="@+id/switchLocation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            />
-
+            app:layout_constraintTop_toBottomOf="@+id/switchLocation" />
 
         <!--<Button
             android:id="@+id/btnAppSettingSave"

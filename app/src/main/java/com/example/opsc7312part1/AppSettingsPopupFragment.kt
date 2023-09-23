@@ -90,7 +90,8 @@ class AppSettingsPopupFragment : DialogFragment() {
 
     private fun applyTheme(selectedTheme: String) {
         requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-        val themeId = if (selectedTheme == "Light Mode") R.style.AppTheme_Light else R.style.AppTheme_Dark
+        val themeId = if (selectedTheme == "Light Mode") AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+        AppCompatDelegate.setDefaultNightMode(themeId)
         requireActivity().setTheme(themeId)
         requireActivity().recreate() // Recreate the activity to apply the new theme
     }

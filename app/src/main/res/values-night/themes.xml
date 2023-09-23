@@ -1,8 +1,53 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!--ORIGINAL THEME-->
+    <style name="Theme.OPSC7312Part1" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <!-- Base application theme. -->
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+    </style>
     <style name="Base.Theme.OPSC7312Part1" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/dark_green</item>
     </style>
+
+    <!--SETTINGS THEME-->
+    <style name="Theme.SettingsPage" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <item name="colorPrimary">@color/black</item>
+    </style>
+
+    <!--GREEN THEME-->
+    <style name="Theme.GreenTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:backgroundTint">@color/grey</item>
+    </style>
+
+    <!--LOGIN THEME-->
+    <style name="Theme.LoginPage" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <!-- Base application theme. -->
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+        <item name="android:background">@color/grey</item>
+    </style>
+    <style name="Base.Theme.LoginPage" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+    </style>
+    <color name="SkipButton">@color/black</color>
+
+    <!--DROPDOWN THEME-->
+    <style name="DropdownTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/dark_green</item>
+        <item name="hintTextColor">@color/dark_green</item>
+        <item name="boxBackgroundColor">@color/grey</item>
+    </style>
+    <style name="GreenCursor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="colorPrimary">@color/dark_green</item>
+    </style>
+
+    <!--for dialog alerts-->
+    <style name="settings_custom_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
 </resources>

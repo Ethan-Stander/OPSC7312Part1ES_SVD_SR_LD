@@ -14,6 +14,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -58,7 +59,8 @@ class GoogleLogin : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val selectedTheme = sharedPreferences.getString("theme", "Light Mode")
         // Apply the selected theme
-        val themeId = if (selectedTheme == "Light Mode") R.style.Theme_LoginPage else R.style.Theme_LoginPage_Dark
+        val themeId = if (selectedTheme == "Light Mode") AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+        AppCompatDelegate.setDefaultNightMode(themeId)
         setTheme(themeId)
 
         super.onCreate(savedInstanceState)
@@ -82,9 +84,9 @@ class GoogleLogin : AppCompatActivity() {
             signInGoogle()
         }
 
-        findViewById<TextView>(R.id.lblskip).setOnClickListener {
+        findViewById<Button>(R.id.btnSkip).setOnClickListener {
             val intent = Intent(this, FragmentTesting::class.java)
-            UserName =""
+            UserName = ""
             startActivity(intent)
         }
 

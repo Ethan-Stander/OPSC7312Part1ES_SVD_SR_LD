@@ -87,7 +87,7 @@ class APICallService : Service() {
                         message = "ERROR: EQUIPMENT NOT FOUND"
                         Log.i("Check foreground  service", "hardware not found")
 
-                        writeToFirebase()
+                        //writeToFirebase()
                     }
                 }
 

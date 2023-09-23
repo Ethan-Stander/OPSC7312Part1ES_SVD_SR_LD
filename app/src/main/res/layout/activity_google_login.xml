@@ -21,8 +21,9 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:text="Smart Hydro"
-        android:textColor="#428948"
+        android:textColor="@color/dark_green"
         android:textSize="40dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -30,8 +31,7 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        android:layout_marginBottom="30dp"/>
+        app:layout_constraintVertical_bias="0.5" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnGoogleLogin"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="250dp"
         android:background="@drawable/rounded_button"
-        android:backgroundTint="#428948"
+        android:backgroundTint="@color/dark_green"
         android:text="Sign in with Google"
         android:textSize="16dp"
         app:icon="@drawable/googlelogo"
@@ -60,6 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/imgloading"
         android:layout_width="match_parent"
@@ -87,19 +88,21 @@
         app:mwhStartColor="#428948"
         app:mwhWaveHeight="60dp" />
 
-    <TextView
-        android:id="@+id/lblskip"
+    <Button
+        android:id="@+id/btnSkip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Skip Log in"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="500dp"
+        android:backgroundTint="@color/SkipButton"
+        android:drawableEnd="@drawable/ic_logout"
+        android:drawableTint="@color/light_green"
+        android:text="Skip Sign In"
         android:textAllCaps="false"
-        android:textColor="#000000"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/btnGoogleLogin"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.738" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -33,6 +33,16 @@
         <item name="colorPrimary">@color/dark_green</item>
         <item name="android:statusBarColor">@color/dark_green</item>
     </style>
+    <color name="SkipButton">@color/dark_green</color>
+
+    <!--DROPDOWN THEME-->
+    <style name="DropdownTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/dark_green</item>
+        <item name="hintTextColor">@color/dark_green</item>
+    </style>
+    <style name="GreenCursor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="colorPrimary">@color/dark_green</item>
+    </style>
 
     <!--for dialog alerts-->
     <style name="settings_custom_popups" parent="Theme.AppCompat.Light.Dialog.Alert">

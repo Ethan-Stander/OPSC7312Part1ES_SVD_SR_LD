@@ -25,6 +25,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -71,7 +72,8 @@ class FragmentTesting :AppCompatActivity() {
         // Set the theme based on the saved preference
         val sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val savedTheme = sharedPreferences.getString("theme", "Light Mode")
-        val themeId = if (savedTheme == "Light Mode") R.style.AppTheme_Light else R.style.AppTheme_Dark
+        val themeId = if (savedTheme == "Light Mode") AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
+        AppCompatDelegate.setDefaultNightMode(themeId)
         setTheme(themeId)
 
 
