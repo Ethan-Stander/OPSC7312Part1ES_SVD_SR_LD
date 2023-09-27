@@ -50,7 +50,7 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
     private lateinit var popupWindow: PopupWindow
     private lateinit var popupView: View
 
-    private lateinit var tvSensorErrorMessage: TextView // Added error TextView
+    private lateinit var tvSensorErrorMessage: TextView
 
     private lateinit var sensorLoadingBar: ProgressBar
 

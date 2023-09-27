@@ -21,12 +21,12 @@ class APIServices {
 
     companion object {
         private const val ip = "http://192.168.1.10"
-        //private const val ip = "http://100.66.16.44"
         private val httpClient = (CIO)
-        private const val JSON_URL_SENSOR_DATA = ip+"/sensor.json"
-        private const val JSON_URL_HARDWARE = ip+"/hardware.json"
+        private const val JSON_URL_SENSOR_DATA = ip+"/sensor"
+        private const val JSON_URL_HARDWARE = ip+"/hardware"
+        private const val JSON_URL_AI_TOGGLE =  ip+"/toggleAI"
+        private const val JSON_URL_AI_PREDICTIONS = ip +"/predictions"
 
-        /*"http://192.168.1.10/hardware.json"*/
 
         suspend fun fetchSensorDataFromJson(): SensorDataAPI? {
             return withContext(Dispatchers.IO)
@@ -129,9 +129,82 @@ class APIServices {
             }
         }
 
+        suspend fun toggle_AI_Switch() : Boolean
+        {
+            return withContext(Dispatchers.IO)
+            {
+                try{
+                    val connection = URL(JSON_URL_AI_TOGGLE).openConnection() as HttpURLConnection
+                    connection.requestMethod = "POST"
+                    connection.connectTimeout = 5000
+                    connection.readTimeout = 5000
 
+                    val responseCode = connection.responseCode
 
+                    if(responseCode == 200){
+                        return@withContext true
+                    } else
+                    {
+                        return@withContext false
+                    }
+                } catch (e:Exception) {
+                    Log.i("Kill me",e.message.toString())
+                }
+                return@withContext false
+            }
+        }
 
+        suspend fun fetchPredictions() : Predictions?
+        {
+            return withContext(Dispatchers.IO)
+            {
+
+                var predictions : Predictions? = null
+                try {
+                    val url = URL(JSON_URL_AI_PREDICTIONS)
+                    val json = url.readText()
+                    predictions = Gson().fromJson(json, Predictions::class.java)
+                }
+                catch (e:Exception)
+                {
+                    Log.i("fetch predictions API error",e.message.toString())
+                    return@withContext null
+                }
+                if(predictions != null)
+                {
+                    return@withContext predictions
+                }
+                else
+                    return@withContext null
+
+            }
+        }
+
+        suspend fun fetchPredictionstest() : Predictions?
+        {
+            return withContext(Dispatchers.IO)
+            {
+
+                var predictions : Predictions? = null
+                try {
+                    val url = URL(JSON_URL_AI_TOGGLE)
+                    val json = url.readText()
+                    predictions = Gson().fromJson(json, Predictions::class.java)
+                }
+                catch (e:Exception)
+                {
+                    Log.i("fetch predictions API error",e.message.toString())
+                    return@withContext null
+                }
+                if(predictions != null)
+                {
+                    return@withContext predictions
+                }
+                else
+                    return@withContext null
+
+            }
+        }
 
 
     }

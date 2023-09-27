@@ -166,13 +166,12 @@ class Equipment_status_fragment : Fragment() {
     private suspend fun equipmentDataInitialize()
     {
 
-            var Statuses : hardware? = APIServices.fetchhardware()
+        var Statuses : hardware? = APIServices.fetchhardware()
 
         if (Statuses != null) {
             Statuses.setValues()
             equipmentStatus = Statuses.getAllStatuses()
         }
-
         else
         {
             equipmentStatus = emptyArray()

@@ -22,6 +22,10 @@ object InfoDataInitializer {
                 infoTitles = context.resources.getStringArray(R.array.sensor_info_title)
                 infoDescriptions = context.resources.getStringArray(R.array.sensor_info_desc)
             }
+            "Control/Predictions" ->{
+                infoTitles = context.resources.getStringArray(R.array.control_prediction_info_title)
+                infoDescriptions = context.resources.getStringArray(R.array.control_prediction_info_desc)
+            }
             else -> {
                 infoTitles = emptyArray() 
                 infoDescriptions = emptyArray()

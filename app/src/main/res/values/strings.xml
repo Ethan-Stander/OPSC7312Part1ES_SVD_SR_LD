@@ -14,12 +14,12 @@
     <string name="head_6">Humidity</string>
 
 
-    <string name="range_1">5.8-6.3</string>
-    <string name="range_2">2.0-3.5</string>
-    <string name="range_3">18.3-25</string>
-    <string name="range_4">5.8-6.3</string>
-    <string name="range_5">5.8-6.3</string>
-    <string name="range_6">5.8-6.3</string>
+    <string name="range_1">10.3-25.3</string>
+    <string name="range_2">50-70</string>
+    <string name="range_3">80-150</string>
+    <string name="range_4">0-300</string>
+    <string name="range_5">5.8-14</string>
+    <string name="range_6">10-50</string>
 
 
     <string name="reading_1">6</string>
@@ -29,7 +29,7 @@
 
     <string name="status_1">true</string>
     <string name="status_2">true</string>
-    <string name="status_3">false</string>
+    <string name="status_3">true</string>
     <string name="status_4">true</string>
     <string name="status_5">true</string>
     <string name="status_6">true</string>
@@ -76,6 +76,23 @@
         <item name="sensor_desc_4">Controls nutrient delivery.</item>
         <item name="sensor_desc_5">Impacts photosynthesis.</item>
         <item name="sensor_desc_6">Amount of moisture in the air in a hydroponic system</item>
+    </string-array>
+
+    <!--control/predictions info-->
+    <string-array name="control_prediction_info_title">
+        <item name="control_prediction_1">AI Status:</item>
+        <item name="control_prediction_2">Temperature:</item>
+        <item name="control_prediction_3">Humidity:</item>
+        <item name="control_prediction_4">pH:</item>
+        <item name="control_prediction_5">EC:</item>
+    </string-array>
+
+    <string-array name="control_prediction_info_desc">
+        <item name="control_prediction_desc_1">AI can be turned off for manual control over the equipment.</item>
+        <item name="control_prediction_desc_2">Current temperature will determine if the light is on/off. Temperature OK/HIGH wil turn light off. Temperature LOW will turn light on.</item>
+        <item name="control_prediction_desc_3">Current humidity will determine if the extractor fan is on/off. Humidity LOW/OK will turn light off. Humidity HIGH wil turn extractor fan on. </item>
+        <item name="control_prediction_desc_4">Current ph will determine if the ph pumps are increasing pH or decreasing pH. pH LOW will increase pH. pH HIGH will decrease pH. ph OK will turn pumps off.</item>
+        <item name="control_prediction_desc_5">Current EC will determine if the EC pumps are increasing EC or decreasing EC. EC LOW will increase EC. EC HIGH will decrease EC. EC OK will turn pumps off.</item>
     </string-array>
 
 
