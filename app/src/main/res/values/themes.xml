@@ -1,22 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.OPSC7312Part1" parent="Theme.MaterialComponents.Light.NoActionBar" >
+    <!--ORIGINAL THEME-->
+    <style name="Theme.OPSC7312Part1" parent="Theme.MaterialComponents.Light.DarkActionBar" >
     <!-- Base application theme. -->
         <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
     </style>
-
     <style name="Base.Theme.OPSC7312Part1" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/dark_green</item>
     </style>
 
+    <!--SETTINGS THEME-->
+    <style name="Theme.SettingsPage" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <item name="colorPrimary">#D9D9D9</item>
+    </style>
+
+    <!--GREEN THEME-->
+    <style name="Theme.GreenTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <item name="colorPrimary">@color/dark_green</item>
+    </style>
+
+    <!--LOGIN THEME-->
+    <style name="Theme.LoginPage" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <!-- Base application theme. -->
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+    </style>
+    <style name="Base.Theme.LoginPage" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+    </style>
 
     <!--for dialog alerts-->
     <style name="settings_custom_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
-        <item name="android:background">@color/white</item>
-        <item name="android:textColorPrimary">@android:color/white</item>
-        <item name="android:textColorSecondary">@android:color/white</item>
+
     </style>
+
 </resources>

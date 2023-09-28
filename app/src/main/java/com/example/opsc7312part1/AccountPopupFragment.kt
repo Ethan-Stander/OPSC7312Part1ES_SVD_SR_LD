@@ -1,13 +1,17 @@
 package com.example.opsc7312part1
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
+import com.example.opsc7312part1.FirebaseUtils.Companion.deleteUser
 import com.example.opsc7312part1.databinding.FragmentAccountPopupBinding
-import com.example.opsc7312part1.databinding.FragmentMeasurementPopupBinding
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.launch
 
 private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
@@ -31,14 +35,74 @@ class AccountPopupFragment : DialogFragment() {
         // Inflate the layout for this fragment
         _binding = FragmentAccountPopupBinding.inflate(inflater, container, false)
 
+        if(UserID == "")
+        {
+            binding.txtAccountPopUpError.visibility = View.VISIBLE
+            binding.accountPopUpImage.visibility = View.GONE
+            binding.lvUsernameInformation.visibility = View.GONE
+            binding.lvGmailInformation.visibility = View.GONE
+
+        }else
+        // User object
+        {
+            val user = User(
+                UserID = UserID,
+                Username = UserName
+            )
+            binding.btnDeleteAccount.setOnClickListener {
+
+                lifecycleScope.launch {
+
+                    val isDeleted = deleteUser(user)
+
+                    if (isDeleted) {
+
+                        val googleSignInIntent = Intent(requireContext(), GoogleLogin::class.java)
+                        startActivity(googleSignInIntent)
+
+                    } else {
+                        // Failed to delete the user, you can handle the error here
+                        // For example:
+
+                    }
+                }
+
+            }
+
+
+
+
+            var userPFP = binding.accountPopUpImage
+
+            Picasso.get()
+                .load(UserURL)
+                .into(userPFP)
+
+            getUserAccountInfo(user)
+        }
+
+
         //close popup
         binding.btnAccountClose.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
         }
 
         return binding.root
-
     }
+
+    fun getUserAccountInfo(user: User?) {
+        user?.let {
+            lifecycleScope.launch {
+                val setting = FirebaseUtils.Get(user)
+                setting?.let {
+                    // Update the TextView elements with the retrieved information
+                    binding.tvUsername.text = UserName
+                    binding.tvGmail.text = UserEmail
+                }
+            }
+        }
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

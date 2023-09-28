@@ -1,40 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MeasurementPopupFragment"
-    android:theme="@style/Theme.MaterialComponents.Light">
-
-    <androidx.cardview.widget.CardView
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/white"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
+    android:theme="@style/Theme.GreenTheme"
+    android:background="@drawable/rounded_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp">
 
-            <!--[HEADING]-->
+            <!--[Sign in error message]-->
             <TextView
+                android:id="@+id/txtMeasurementPopUpError"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="350dp"
+                android:text="Please sign in to view measurement information"
+                android:textColor="#858585"
+                android:gravity="center"
+                android:layout_marginTop="50dp"
+                android:visibility="gone"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/txtMeasurementPopUpHeading"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintVertical_bias="0.5" />
+
+            <!--[HEADING]-->
+            <TextView
+                android:id="@+id/txtMeasurementPopUpHeading"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="Measurements"
                 android:textColor="@color/dark_green"
                 android:textSize="30dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
@@ -43,24 +49,22 @@
 
             <!--[CLOSE BUTTON]-->
             <ImageButton
+                app:layout_constraintBaseline_toBaselineOf="@+id/txtMeasurementPopUpHeading"
                 android:id="@+id/btnMeasurementsClose"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="270dp"
-                android:layout_marginBottom="350dp"
                 android:background="?android:attr/selectableItemBackgroundBorderless"
                 android:src="@drawable/ic_exit"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
+                android:layout_marginEnd="8dp"
+                android:contentDescription="close"/>
 
             <!--[TEMPERATURE]-->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutTemp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="276dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="150dp"
                 android:hint="Temperature"
@@ -85,8 +89,9 @@
 
             <!--[UNIT OF DISTANCE]-->
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutUnitOfDistance"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-                android:layout_width="276dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:hint="Unit of Distance"
@@ -111,7 +116,8 @@
 
             <!--[STORE RANGE]-->
             <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="276dp"
+                android:id="@+id/textInputLayoutStoreRange"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="220dp"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -130,12 +136,26 @@
                     android:layout_height="match_parent"
                     android:background="@color/white"
                     android:textColor="@color/black"
-                    android:inputType="numberDecimal"/>
+                    android:inputType="numberDecimal"
+                    android:id="@+id/tvMaxStoreRange"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <Button
+                android:id="@+id/btnMeasurementSave"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="400dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.5"
+                android:background="@drawable/leaf_button"
+                android:text="save"
+                android:textSize="12dp" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

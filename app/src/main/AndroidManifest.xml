@@ -3,32 +3,45 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
 
     <application
+        android:name=".RunningApp"
         android:allowBackup="true"
+        android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_shlogo"
         android:label="SmartHydro"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_shlogo_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.OPSC7312Part1"
         tools:targetApi="34">
 
+        <!--service for APIs and notifications-->
+        <service
+            android:name=".APICallService"
+            android:enabled="true"
+            android:exported="false" />
         <activity
             android:name=".FragmentTesting"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light" />
+            android:theme="@style/Theme.OPSC7312Part1"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_fragment_testing"
-            android:theme="@style/Theme.OPSC7312Part1" />
+            android:theme="@style/Theme.OPSC7312Part1"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GoogleLogin"
             android:exported="true"
             android:label="SmartHydro"
-            android:theme="@style/Theme.MaterialComponents.Light">
+            android:theme="@style/Theme.LoginPage"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

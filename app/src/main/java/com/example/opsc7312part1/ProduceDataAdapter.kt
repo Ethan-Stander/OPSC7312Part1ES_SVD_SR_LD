@@ -45,6 +45,7 @@ class ProduceDataAdapter(private val produceDataList :ArrayList<ProduceData>) : 
         holder.produceTitle.text = currentItem.produceTitle
         Log.i("adapter images","url : ${currentItem.produceImage}")
         Picasso.get().load(currentItem.produceImage).into(holder.produceImage)
+        holder.produceImage.setImageResource(currentItem.produceImage)
     }
 
     override fun getItemCount(): Int {

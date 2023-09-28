@@ -11,16 +11,16 @@
                     android:title="Produce"
                     android:icon="@drawable/ic_grass" />
                 <item
-                    android:id="@+id/nav_equipment"
-                    android:title="Equipment"
+                    android:id="@+id/nav_controls"
+                    android:title="Controls"
                     android:icon="@drawable/ic_construction" />
                 <item
                     android:id="@+id/nav_where_to_shop"
-                    android:title="Where to Shop"
+                    android:title="Where to Shop (Coming soon)"
                     android:icon="@drawable/ic_location" />
                 <item
                     android:id="@+id/nav_mystores"
-                    android:title="My Stores"
+                    android:title="My Stores (Coming soon)"
                     android:icon="@drawable/ic_stores" />
             </menu>
         </item>
