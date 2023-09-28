@@ -1,36 +1,33 @@
 package com.example.opsc7312part1
 
-import android.content.pm.PackageManager
-import android.content.pm.PackageManager.Property
-
 data class hardware(
-    val pH_In_Pump: String?,
+    val pH_Up_Pump: String?,
     var pH_In_Pump_Status: String,
-    val pH_Out_Pump: String?,
+    val pH_Down_Pump: String?,
     var pH_Out_Pump_Status: String,
-    val EC_In_Pump: String?,
+    val EC_Up_Pump: String?,
     var EC_In_Pump_Status: String,
-    val EC_Out_Pump: String?,
+    val EC_Down_Pump: String?,
     var EC_Out_Pump_Status: String,
     val Circulation_Pump: String?,
     var Circulation_Pump_Status: String,
-    val Fan_Extractor: String?,
+    val Extractor_Fan: String?,
     var Fan_Extractor_Status: String,
-    val Fan_Tent: String?,
+    val Tent_Fan: String?,
     var Fan_Tent_Status: String,
-    val Light: String?,
+    val Grow_Light: String?,
     var Light_Status: String,
 
-) {
+    ) {
     fun setValues() {
-        pH_In_Pump_Status = if (pH_In_Pump == "0") "True" else "False"
-        pH_Out_Pump_Status = if (pH_Out_Pump == "0") "True" else "False"
-        EC_In_Pump_Status = if (EC_In_Pump == "0") "True" else "False"
-        EC_Out_Pump_Status = if (EC_Out_Pump == "0") "True" else "False"
+        pH_In_Pump_Status = if (pH_Up_Pump == "0") "True" else "False"
+        pH_Out_Pump_Status = if (pH_Down_Pump == "0") "True" else "False"
+        EC_In_Pump_Status = if (EC_Up_Pump == "0") "True" else "False"
+        EC_Out_Pump_Status = if (EC_Down_Pump == "0") "True" else "False"
         Circulation_Pump_Status = if (Circulation_Pump == "0") "True" else "False"
-        Fan_Extractor_Status = if (Fan_Extractor == "0") "True" else "False"
-        Fan_Tent_Status = if (Fan_Tent == "0") "True" else "False"
-        Light_Status = if (Light == "0") "True" else "False"
+        Fan_Extractor_Status = if (Extractor_Fan == "0") "True" else "False"
+        Fan_Tent_Status = if (Tent_Fan == "0") "True" else "False"
+        Light_Status = if (Grow_Light == "0") "True" else "False"
     }
 
 

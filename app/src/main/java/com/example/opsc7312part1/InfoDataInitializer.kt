@@ -15,8 +15,8 @@ object InfoDataInitializer {
 
         when (infoTitle) {
             "Equipment" -> {
-                infoTitles = context.resources.getStringArray(R.array.equip_info_title)
-                infoDescriptions = context.resources.getStringArray(R.array.equip_info_desc)
+                infoTitles = context.resources.getStringArray(R.array.control_info_title)
+                infoDescriptions = context.resources.getStringArray(R.array.control_info_desc)
             }
             "Sensors" -> {
                 infoTitles = context.resources.getStringArray(R.array.sensor_info_title)

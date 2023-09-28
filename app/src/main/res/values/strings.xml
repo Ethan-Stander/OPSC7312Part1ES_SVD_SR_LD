@@ -6,20 +6,20 @@
     <string name="second_fragment_label">Second Fragment Label</string>
 
     <!--dummy data for sensor data-->
-    <string name="head_1">pH</string>
-    <string name="head_2">EC</string>
-    <string name="head_3">Temperature</string>
-    <string name="head_4">Humidity</string>
-    <string name="head_5">Humidity</string>
-    <string name="head_6">Humidity</string>
+    <string name="head_1">temp</string>
+    <string name="head_2">humidty</string>
+    <string name="head_3">lightlevel</string>
+    <string name="head_4">flowrate</string>
+    <string name="head_5">ph</string>
+    <string name="head_6">ec</string>
 
 
-    <string name="range_1">5.8-6.3</string>
-    <string name="range_2">2.0-3.5</string>
-    <string name="range_3">18.3-25</string>
-    <string name="range_4">5.8-6.3</string>
-    <string name="range_5">5.8-6.3</string>
-    <string name="range_6">5.8-6.3</string>
+    <string name="range_1">18.29-25.00</string>
+    <string name="range_2">64.96-75.02</string>
+    <string name="range_3">80-300</string>
+    <string name="range_4">0-2</string>
+    <string name="range_5">5.79-6.30</string>
+    <string name="range_6">1.99-3.50</string>
 
 
     <string name="reading_1">6</string>
@@ -29,7 +29,7 @@
 
     <string name="status_1">true</string>
     <string name="status_2">true</string>
-    <string name="status_3">false</string>
+    <string name="status_3">true</string>
     <string name="status_4">true</string>
     <string name="status_5">true</string>
     <string name="status_6">true</string>
@@ -39,23 +39,36 @@
     <string name="close">Close</string>
 
 
-    <!--equipment info-->
-    <string-array name="equip_info_title">
-        <item name="equip_title_1">Light:</item>
-        <item name="equip_title_2">Water pump:</item>
-        <item name="equip_title_3">ph Pump:</item>
-        <item name="equip_title_4">EC pump:</item>
-        <item name="equip_title_5">Extractor Fan:</item>
-        <item name="equip_title_6">Regular Fan:</item>
+    <!--controls info (equipment controls and predictions )-->
+    <string-array name="control_info_title">
+        <item name="control_title_1">AI Controls:</item>
+        <item name="control_title_2">Light:</item>
+        <item name="control_title_3">Water pump:</item>
+        <item name="control_title_4">ph Pump:</item>
+        <item name="control_title_5">EC pump:</item>
+        <item name="control_title_6">Extractor Fan:</item>
+        <item name="control_title_7">Regular Fan:</item>
+        <item name="control_title_8">AI Status:</item>
+        <item name="control_title_9">Temperature:</item>
+        <item name="control_title_10">Humidity:</item>
+        <item name="control_title_11">pH:</item>
+        <item name="control_title_12">EC:</item>
     </string-array>
 
-    <string-array name="equip_info_desc">
-        <item name="equip_desc_1">Provides illumination essential for photosynthesis in plants and visibility in indoor environments.</item>
-        <item name="equip_desc_2">Circulates water through a system, such as in hydroponics or aquariums.</item>
-        <item name="equip_desc_3">Dispenses precise amounts of pH-adjusting solutions to regulate and maintain the pH level of a fluid.</item>
-        <item name="equip_desc_4">Dispenses specific amounts of nutrient solutions to control the electrical conductivity and nutrient levels of a solution in applications like hydroponics.</item>
-        <item name="equip_desc_5">Removes stale air or unwanted odors from an enclosed space</item>
-        <item name="equip_desc_6">Generates airflow for ventilation or cooling purposes in various applications</item>
+    <string-array name="control_info_desc">
+        <item name="control_desc_1">To manually control the equipment turn AI off. Turn AI on for AI predictions and automatic controls</item>
+        <item name="control_desc_1">Provides illumination essential for photosynthesis in plants and visibility in indoor environments.</item>
+        <item name="control_desc_2">Circulates water through a system, such as in hydroponics or aquariums.</item>
+        <item name="control_desc_3">Dispenses precise amounts of pH-adjusting solutions to regulate and maintain the pH level of a fluid.</item>
+        <item name="control_desc_4">Dispenses specific amounts of nutrient solutions to control the electrical conductivity and nutrient levels of a solution in applications like hydroponics.</item>
+        <item name="control_desc_5">Removes stale air or unwanted odors from an enclosed space</item>
+        <item name="control_desc_6">Generates airflow for ventilation or cooling purposes in various applications</item>
+        <item name="control_desc_7">AI can be turned off for manual control over the equipment.</item>
+        <item name="control_desc_8">Current temperature will determine if the light is on/off. Temperature OK/HIGH wil turn light off. Temperature LOW will turn light on.</item>
+        <item name="control_desc_9">Current humidity will determine if the extractor fan is on/off. Humidity LOW/OK will turn light off. Humidity HIGH wil turn extractor fan on. </item>
+        <item name="control_desc_10">Current ph will determine if the ph pumps are increasing pH or decreasing pH. pH LOW will increase pH. pH HIGH will decrease pH. ph OK will turn pumps off.</item>
+        <item name="control_desc_11">Current EC will determine if the EC pumps are increasing EC or decreasing EC. EC LOW will increase EC. EC HIGH will decrease EC. EC OK will turn pumps off.</item>
+
     </string-array>
 
 
@@ -76,6 +89,24 @@
         <item name="sensor_desc_4">Controls nutrient delivery.</item>
         <item name="sensor_desc_5">Impacts photosynthesis.</item>
         <item name="sensor_desc_6">Amount of moisture in the air in a hydroponic system</item>
+    </string-array>
+
+    <!--control/predictions info-->
+    <string-array name="control_prediction_info_title">
+        <item name="control_prediction_1">AI Status:</item>
+        <item name="control_prediction_2">Temperature:</item>
+        <item name="control_prediction_3">Humidity:</item>
+        <item name="control_prediction_4">pH:</item>
+        <item name="control_prediction_5">EC:</item>
+    </string-array>
+
+    <string-array name="control_prediction_info_desc">
+        <item name="control_prediction_desc_1">AI can be turned off for manual control over the equipment.</item>
+        <item name="control_prediction_desc_2">Current temperature will determine if the light is on/off. Temperature OK/HIGH wil turn light off. Temperature LOW will turn light on.</item>
+        <item name="control_prediction_desc_3">Current humidity will determine if the extractor fan is on/off. Humidity LOW/OK will turn light off. Humidity HIGH wil turn extractor fan on. </item>
+        <item name="control_prediction_desc_4">Current ph will determine if the ph pumps are increasing pH or decreasing pH. pH LOW will increase pH. pH HIGH will decrease pH. ph OK will turn pumps off.</item>
+        <item name="control_prediction_desc_5">Current EC will determine if the EC pumps are increasing EC or decreasing EC. EC LOW will increase EC. EC HIGH will decrease EC. EC OK will turn pumps off.</item>
+
     </string-array>
 
 
