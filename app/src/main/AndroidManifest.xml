@@ -27,17 +27,21 @@
         <activity
             android:name=".FragmentTesting"
             android:exported="false"
-            android:theme="@style/Theme.OPSC7312Part1" />
+            android:theme="@style/Theme.OPSC7312Part1"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name=".MainActivity"
             android:exported="false"
             android:label="@string/title_activity_fragment_testing"
-            android:theme="@style/Theme.OPSC7312Part1" />
+            android:theme="@style/Theme.OPSC7312Part1"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".GoogleLogin"
             android:exported="true"
             android:label="SmartHydro"
-            android:theme="@style/Theme.LoginPage">
+            android:theme="@style/Theme.LoginPage"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
