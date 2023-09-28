@@ -107,7 +107,7 @@ class APIServices {
             return withContext(Dispatchers.IO) {
                 try {
                     val connection = URL(url).openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
+                    connection.requestMethod = "POST"
                     connection.connectTimeout = 5000 // Set your desired timeout
                     connection.readTimeout = 5000 // Set your desired timeout
 

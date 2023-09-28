@@ -11,13 +11,9 @@
                     android:title="Produce"
                     android:icon="@drawable/ic_grass" />
                 <item
-                    android:id="@+id/nav_equipment"
-                    android:title="Equipment"
+                    android:id="@+id/nav_controls"
+                    android:title="Controls"
                     android:icon="@drawable/ic_construction" />
-                <item
-                    android:id="@+id/nav_controls_predictions"
-                    android:title="AI Predictions"
-                    android:icon="@drawable/ic_prediction" />
                 <item
                     android:id="@+id/nav_where_to_shop"
                     android:title="Where to Shop (Coming soon)"

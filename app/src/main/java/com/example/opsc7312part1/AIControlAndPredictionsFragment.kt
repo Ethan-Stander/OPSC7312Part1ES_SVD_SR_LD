@@ -18,6 +18,7 @@ import android.widget.Switch
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isGone
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
@@ -54,10 +55,6 @@ class AIControlAndPredictionsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-
-
         //AI control/predictions
         tvHeader = view.findViewById(R.id.tvHeader)
         AISwicth = view.findViewById(R.id.AIStatusSwitch)
@@ -91,10 +88,17 @@ class AIControlAndPredictionsFragment : Fragment() {
                     AISwicth.text = "On"
                     AISwicth.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.green))
                     AISwicth.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.green))
+                    tvPredictionsHeader.visibility = View.VISIBLE
+                    tvPrediction.visibility = View.VISIBLE
+                    tvPrediction.text =
+                        "${predictionstemp.Temperature}\n${predictionstemp.Humidity}\n${predictionstemp.pH}\n${predictionstemp.EC}\n"
                 }else {
+
                     AISwicth.text = "Off"
                     AISwicth.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.red))
                     AISwicth.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.red))
+                    tvPredictionsHeader.visibility = View.GONE
+                    tvPrediction.visibility = View.GONE
                 }
             }
         }
@@ -148,23 +152,25 @@ class AIControlAndPredictionsFragment : Fragment() {
                             AISwicth.text = "On"
                             AISwicth.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.green))
                             AISwicth.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.green))
+                            tvPredictionsHeader.visibility = View.VISIBLE
+                            tvPrediction.visibility = View.VISIBLE
+
+                            if (predictions != null) {
+                                tvPrediction.text =
+                                    "${predictionstemp.Temperature}\n${predictionstemp.Humidity}\n${predictionstemp.pH}\n${predictionstemp.EC}\n"
+                            }
+
                         }else {
                             AISwicth.text = "Off"
                             AISwicth.thumbTintList = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.red))
                             AISwicth.trackTintList = ColorStateList.valueOf(ContextCompat.getColor(requireActivity(), R.color.red))
+                            tvPredictionsHeader.visibility = View.GONE
+                            tvPrediction.visibility = View.GONE
                         }
                     }
                 }
             }
-
-            if (predictions != null) {
-                tvPrediction.text =
-                    "${predictions.Temperature}\n${predictions.Humidity}\n${predictions.pH}\n${predictions.EC}\n"
-            }
-
         }
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
