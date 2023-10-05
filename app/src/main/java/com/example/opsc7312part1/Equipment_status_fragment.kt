@@ -138,8 +138,7 @@ class Equipment_status_fragment : Fragment() {
                     //Enables equipment controls display
                     equipmentDataInitialize()
                     val gridLayoutManager = GridLayoutManager(context, 2)
-                    equipmentStatusDataRecyclerView =
-                        view.findViewById(R.id.EquipmentStatusRecyclerView)
+                    equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
                     equipmentStatusDataRecyclerView.layoutManager = gridLayoutManager
                     equipmentStatusDataRecyclerView.setHasFixedSize(true)
                     equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList)

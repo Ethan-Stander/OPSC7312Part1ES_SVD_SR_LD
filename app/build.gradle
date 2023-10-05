@@ -91,5 +91,4 @@ dependencies {
 
     //circle images
     implementation 'de.hdodenhof:circleimageview:3.1.0'
-
 }
