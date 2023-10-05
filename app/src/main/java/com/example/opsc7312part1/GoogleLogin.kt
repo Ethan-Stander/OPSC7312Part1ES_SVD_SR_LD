@@ -41,15 +41,9 @@ var UserID: String? = ""
 
 class GoogleLogin : AppCompatActivity() {
 
-    companion object{
+    /*companion object{
         const val userLoggedPreference = "UserLoginPreferences"
-    }
-
-    /*private lateinit var shUserLogged: SharedPreferences
-    private var name : String? = null
-    private var email : String? = null
-    private var pfp : String? = null
-    private var id : String? = null*/
+    }*/
 
     //fire base authentication
     private lateinit var auth: FirebaseAuth
@@ -65,14 +59,6 @@ class GoogleLogin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_login)
-
-
-        /*shUserLogged = getSharedPreferences("userLoggedPreference", MODE_PRIVATE)
-         name = shUserLogged.getString("shUserName_key",null)
-         email = shUserLogged.getString("shUserEmail_key", null)
-         pfp = shUserLogged.getString("shUserURL_key", null)
-         id = shUserLogged.getString("shUserID_key", null)*/
-
 
         progressBar = findViewById(R.id.loginProgressBar)
         progressBarbackground = findViewById(R.id.imgloading)
@@ -103,7 +89,20 @@ class GoogleLogin : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         // Fetching the stored data from the SharedPreference
-        val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+        val userDataList = SharedPreferencesManager(this).getUserData()
+
+        UserName = userDataList[0]
+        UserEmail = userDataList[1]
+        UserURL = userDataList[2]
+        UserID = userDataList[3]
+
+        if(!UserName.isNullOrEmpty() && !UserEmail.isNullOrEmpty() && !UserURL.isNullOrEmpty() && !UserID.isNullOrEmpty())
+        {
+            val intent = Intent(this, FragmentTesting::class.java)
+            startActivity(intent)
+        }
+
+        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
         UserName = sharedPreferences.getString("shUserName_key", "")
         UserEmail = sharedPreferences.getString("shUserEmail_key", "")
         UserURL = sharedPreferences.getString("shUserURL_key", "")
@@ -113,7 +112,7 @@ class GoogleLogin : AppCompatActivity() {
         {
             val intent = Intent(this, FragmentTesting::class.java)
             startActivity(intent)
-        }
+        }*/
     }
 
 
@@ -232,13 +231,14 @@ class GoogleLogin : AppCompatActivity() {
                     UserID = account.id.toString()
 
                     //set sharedPreferences data
-                    val sharedPreferences = getSharedPreferences(userLoggedPreference, MODE_PRIVATE)
+                    SharedPreferencesManager(this).saveUserData(UserName, UserEmail, UserURL, UserID)
+                    /*val sharedPreferences = getSharedPreferences(userLoggedPreference, MODE_PRIVATE)
                     val editor = sharedPreferences.edit()
                     editor.putString("shUserName_key", UserName)
                     editor.putString("shUserEmail_key", UserEmail)
                     editor.putString("shUserURL_key", UserURL)
                     editor.putString("shUserID_key", UserID)
-                    editor.apply()
+                    editor.apply()*/
 
                     // Show the progress bar
                     showProgressBar()
