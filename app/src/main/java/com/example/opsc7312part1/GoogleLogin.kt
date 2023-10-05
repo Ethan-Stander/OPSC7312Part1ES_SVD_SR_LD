@@ -2,6 +2,7 @@ package com.example.opsc7312part1
 
 import android.app.Activity
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -31,14 +32,24 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 //global var to store user details across pages more effective than pulling from database everytime
-var UserName: String = ""
-var UserEmail: String = ""
-var UserURL: String = ""
-var UserID: String = ""
+var UserName: String? = ""
+var UserEmail: String? = ""
+var UserURL: String? = ""
+var UserID: String? = ""
+
 
 
 class GoogleLogin : AppCompatActivity() {
 
+    companion object{
+        const val userLoggedPreference = "UserLoginPreferences"
+    }
+
+    /*private lateinit var shUserLogged: SharedPreferences
+    private var name : String? = null
+    private var email : String? = null
+    private var pfp : String? = null
+    private var id : String? = null*/
 
     //fire base authentication
     private lateinit var auth: FirebaseAuth
@@ -55,6 +66,14 @@ class GoogleLogin : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_login)
 
+
+        /*shUserLogged = getSharedPreferences("userLoggedPreference", MODE_PRIVATE)
+         name = shUserLogged.getString("shUserName_key",null)
+         email = shUserLogged.getString("shUserEmail_key", null)
+         pfp = shUserLogged.getString("shUserURL_key", null)
+         id = shUserLogged.getString("shUserID_key", null)*/
+
+
         progressBar = findViewById(R.id.loginProgressBar)
         progressBarbackground = findViewById(R.id.imgloading)
 
@@ -69,6 +88,7 @@ class GoogleLogin : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
+
         findViewById<Button>(R.id.btnGoogleLogin).setOnClickListener {
             signInGoogle()
         }
@@ -78,8 +98,26 @@ class GoogleLogin : AppCompatActivity() {
             UserName =""
             startActivity(intent)
         }
-
     }
+
+    override fun onResume() {
+        super.onResume()
+        // Fetching the stored data from the SharedPreference
+        val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+        UserName = sharedPreferences.getString("shUserName_key", "")
+        UserEmail = sharedPreferences.getString("shUserEmail_key", "")
+        UserURL = sharedPreferences.getString("shUserURL_key", "")
+        UserID = sharedPreferences.getString("shUserID_key", "")
+
+        if(!UserName.isNullOrEmpty() && !UserEmail.isNullOrEmpty() && !UserURL.isNullOrEmpty() && !UserID.isNullOrEmpty())
+        {
+            val intent = Intent(this, FragmentTesting::class.java)
+            startActivity(intent)
+        }
+    }
+
+
+
 
     //disables back button on phone default navigation bar
     //don't remove, its works
@@ -160,7 +198,7 @@ class GoogleLogin : AppCompatActivity() {
                                 dbref = FirebaseDatabase.getInstance().getReference("Users")
 
                                 // Perform the user data insertion
-                                dbref.child(UserID).setValue(user).await()
+                                UserID?.let { dbref.child(it).setValue(user).await() }
 
                                 val setting = Setting()
                                 FirebaseUtils.insertSettingForUser(user, setting)
@@ -192,6 +230,15 @@ class GoogleLogin : AppCompatActivity() {
                     UserEmail = account.email.toString()
                     UserURL = account.photoUrl.toString()
                     UserID = account.id.toString()
+
+                    //set sharedPreferences data
+                    val sharedPreferences = getSharedPreferences(userLoggedPreference, MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("shUserName_key", UserName)
+                    editor.putString("shUserEmail_key", UserEmail)
+                    editor.putString("shUserURL_key", UserURL)
+                    editor.putString("shUserID_key", UserID)
+                    editor.apply()
 
                     // Show the progress bar
                     showProgressBar()
@@ -228,7 +275,5 @@ class GoogleLogin : AppCompatActivity() {
             }
         }
     }
-
-
 }
 
