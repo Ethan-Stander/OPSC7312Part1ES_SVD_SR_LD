@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginTop="10dp"
+                android:id="@+id/reset_options"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_guide_header"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/reset_options"
+                android:id="@+id/reset_reset_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_option_soft_title"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/reset_reset_title"
+                android:id="@+id/reset_option_soft_reset_step_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_option_soft_reset_step_1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/reset_option_soft_reset_step_1"
+                android:id="@+id/reset_option_soft_reset_step_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_option_soft_reset_step_2"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/reset_option_soft_reset_step_2"
+                android:id="@+id/reset_option_soft_reset_step_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_option_soft_reset_step_3"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/soft_reset_image"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="15dp"
+                android:layout_below="@id/reset_option_soft_reset_step_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/googlelogo"/>
+
+            <TextView
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/soft_reset_image"
+                android:id="@+id/reset_hard_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_option_hard_title"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/reset_hard_title"
+                android:id="@+id/reset_option_hard_reset_step_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_option_hard_reset_step_1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/reset_option_hard_reset_step_1"
+                android:id="@+id/reset_option_hard_reset_step_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_option_hard_reset_step_2"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/reset_option_hard_reset_step_2"
+                android:id="@+id/reset_option_hard_reset_step_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/reset_option_hard_reset_step_3"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/hard_reset_image"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="15dp"
+                android:layout_below="@id/reset_option_hard_reset_step_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/googlelogo"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

@@ -24,13 +24,21 @@
                     android:icon="@drawable/ic_stores" />
             </menu>
         </item>
-
     </group>
-
 
     <group>
         <item android:title="Additional">
             <menu>
+                <item
+                    android:id="@+id/nav_feedback"
+                    android:title="Feedback"
+                    android:icon="@drawable/ic_feedback"
+                    />
+                <item
+                    android:id="@+id/nav_howToGuides"
+                    android:title="How to Guides"
+                    android:icon="@drawable/ic_howtoguide"
+                    />
                 <item
                     android:id="@+id/nav_settings"
                     android:title="Settings"

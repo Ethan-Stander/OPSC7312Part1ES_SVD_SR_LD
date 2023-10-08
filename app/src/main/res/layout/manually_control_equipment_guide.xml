@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:id="@+id/manually_control_equipment_step_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/manually_control_equipment_step_1"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/manually_control_equipment_step_1"
+                android:id="@+id/manually_control_equipment_step_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/manually_control_equipment_step_2"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="16dp"
+                android:layout_below="@+id/manually_control_equipment_step_2"
+                android:id="@+id/manually_control_equipment_step_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="@string/manually_control_equipment_step_3"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <ImageView
+                android:id="@+id/manually_control_equipment_image"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="15dp"
+                android:layout_below="@id/manually_control_equipment_step_3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/googlelogo"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

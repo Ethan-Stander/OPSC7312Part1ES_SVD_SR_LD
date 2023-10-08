@@ -185,7 +185,6 @@ class GoogleLogin : AppCompatActivity() {
                         val user = User(
                             UserID = account.id,
                             Username = account.displayName,
-
                         )
 
                         val parentJob = Job()
