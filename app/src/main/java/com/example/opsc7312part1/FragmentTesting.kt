@@ -7,6 +7,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -99,10 +100,34 @@ class FragmentTesting :AppCompatActivity() {
                 R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
                 R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
                 R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
+
+                    SharedPreferencesManager(this).clearUserData()
+                    /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.clear()
+                    editor.apply()
+                    UserName = null
+                    UserEmail = null
+                    UserID = null
+                    UserURL = null*/
                     startActivity(intent) }
             }
             true
         }
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        SharedPreferencesManager(this).saveUserData(UserName, UserEmail, UserURL, UserID)
+        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString("shUserName_key", UserName)
+        editor.putString("shUserEmail_key", UserEmail)
+        editor.putString("shUserURL_key", UserURL)
+        editor.putString("shUserID_key", UserID)
+        editor.apply()*/
     }
 
     //disables back button on phone default navigation bar

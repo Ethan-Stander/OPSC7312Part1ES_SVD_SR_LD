@@ -58,6 +58,7 @@ class AccountPopupFragment : DialogFragment() {
 
                     if (isDeleted) {
 
+                        SharedPreferencesManager(requireActivity()).clearUserData()
                         val googleSignInIntent = Intent(requireContext(), GoogleLogin::class.java)
                         startActivity(googleSignInIntent)
 
