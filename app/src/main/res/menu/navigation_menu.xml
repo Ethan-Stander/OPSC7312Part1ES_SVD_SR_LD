@@ -11,8 +11,8 @@
                     android:title="Produce"
                     android:icon="@drawable/ic_grass" />
                 <item
-                    android:id="@+id/nav_equipment"
-                    android:title="Equipment"
+                    android:id="@+id/nav_controls"
+                    android:title="Controls"
                     android:icon="@drawable/ic_construction" />
                 <item
                     android:id="@+id/nav_where_to_shop"
@@ -24,21 +24,26 @@
                     android:icon="@drawable/ic_stores" />
             </menu>
         </item>
-
     </group>
-
 
     <group>
         <item android:title="Additional">
             <menu>
                 <item
-                    android:id="@+id/nav_notification_history"
-                    android:title="Notification History"
-                    android:icon="@drawable/ic_notifications" />
+                    android:id="@+id/nav_feedback"
+                    android:title="Feedback"
+                    android:icon="@drawable/ic_feedback"
+                    />
+                <item
+                    android:id="@+id/nav_howToGuides"
+                    android:title="How to Guides"
+                    android:icon="@drawable/ic_howtoguide"
+                    />
                 <item
                     android:id="@+id/nav_settings"
                     android:title="Settings"
-                    android:icon="@drawable/ic_settings" />
+                    android:icon="@drawable/ic_settings"
+                    />
                 <item
                     android:id="@+id/nav_logout"
                     android:title="Logout"

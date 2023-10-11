@@ -31,6 +31,30 @@
           }
         },
         {
+          "client_id": "701300943026-hcmn6o9c25d3jc41i04ijrk6c8kk60gt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opsc7312part1",
+            "certificate_hash": "78a4c50c0d66f852bb794cb36bce05551fb0d65f"
+          }
+        },
+        {
+          "client_id": "701300943026-ip0m38ps9kb1013jiv0rol9as9pbd99r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opsc7312part1",
+            "certificate_hash": "5897a9eed38c6dab0606d773b2507e6e013ef1b4"
+          }
+        },
+        {
+          "client_id": "701300943026-rsi6fjvd7l2ddl1hdvftrk0d7lq4ovim.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.opsc7312part1",
+            "certificate_hash": "81824e14fc1752285c07d6dac95662c731e50376"
+          }
+        },
+        {
           "client_id": "701300943026-4ctm8f8l6onrbrf39apj7ojc03ldugt6.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -67,6 +91,35 @@
             "certificate_hash": "5f89b5dc4f81825c9274d60d493d4a4e71c5afdb"
           }
         },
+        {
+          "client_id": "701300943026-4ctm8f8l6onrbrf39apj7ojc03ldugt6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCcBkTHmmVit2Rv1ObTjf5zzOEyO_Z4T3Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701300943026-4ctm8f8l6onrbrf39apj7ojc03ldugt6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701300943026:android:579230e2ea0a55b314c1ab",
+        "android_client_info": {
+          "package_name": "com.smart.SmartHydro"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "701300943026-4ctm8f8l6onrbrf39apj7ojc03ldugt6.apps.googleusercontent.com",
           "client_type": 3

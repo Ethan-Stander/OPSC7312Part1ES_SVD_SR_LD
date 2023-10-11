@@ -7,6 +7,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -69,10 +70,10 @@ class FragmentTesting :AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#428948")))
 
         //for the API foreground service
-        Intent(applicationContext, APICallService::class.java).also {
+        /*Intent(applicationContext, APICallService::class.java).also {
             it.action = APICallService.Actions.START.toString()
             startService(it)
-        }
+        }*/
 
         //implement binding
         binding = ActivityFragmentTestingBinding.inflate(layoutInflater)
@@ -94,14 +95,40 @@ class FragmentTesting :AppCompatActivity() {
             it.isChecked = true
             when(it.itemId){
                 R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
-                R.id.nav_equipment ->replaceFragment(Equipment_status_fragment(),it.title.toString())
+                R.id.nav_controls ->replaceFragment(Equipment_status_fragment(),it.title.toString())
+                R.id.nav_feedback -> replaceFragment(feedbackFragment(),it.title.toString())
+                R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
                 R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
                 R.id.nav_notification_history ->replaceFragment(NotificationHistory(),it.title.toString())
                 R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
+
+                    SharedPreferencesManager(this).clearUserData()
+                    /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.clear()
+                    editor.apply()
+                    UserName = null
+                    UserEmail = null
+                    UserID = null
+                    UserURL = null*/
                     startActivity(intent) }
             }
             true
         }
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        SharedPreferencesManager(this).saveUserData(UserName, UserEmail, UserURL, UserID)
+        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString("shUserName_key", UserName)
+        editor.putString("shUserEmail_key", UserEmail)
+        editor.putString("shUserURL_key", UserURL)
+        editor.putString("shUserID_key", UserID)
+        editor.apply()*/
     }
 
     //disables back button on phone default navigation bar

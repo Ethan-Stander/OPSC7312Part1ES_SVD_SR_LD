@@ -1,5 +1,6 @@
 package com.example.opsc7312part1
 
+import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.tasks.await
 
@@ -15,11 +16,26 @@ class FirebaseUtils {
                 if (reference != null) {
                     reference.setValue(setting).await()
                 }
-                true // Data was successfully written to the database
+                true
             } catch (e: Exception) {
-                false // Failed to write data to the database
+                false
             }
         }
+
+        suspend fun deleteUser(user: User): Boolean {
+            val currentUser = user.UserID
+            val reference = currentUser?.let { database.getReference("Users").child(it) }
+
+            return try {
+                if (reference != null) {
+                    reference.removeValue().await()
+                }
+                true // Data was successfully deleted from the database
+            } catch (e: Exception) {
+                false // Failed to delete data from the database
+            }
+        }
+
 
         suspend fun updateSettingForUser(user: User, setting: Setting): Boolean {
             val currentUser = user.UserID
@@ -44,18 +60,18 @@ class FirebaseUtils {
                     val dataSnapshot = reference.get().await()
                     if (dataSnapshot.exists()) {
                         val setting = dataSnapshot.getValue(Setting::class.java)
-                        setting // Return the retrieved setting object
+                        // Returns the setting object
+                        setting
                     } else {
-                        null // No data exists for the user's settings
+                        null
                     }
                 } else {
-                    null // Reference is null, possibly due to a missing UserID
+                    null
                 }
             } catch (e: Exception) {
-                null // An error occurred while retrieving data
+                Log.i("get setting error", e.message.toString())
+                null
             }
         }
-
-
     }
 }
