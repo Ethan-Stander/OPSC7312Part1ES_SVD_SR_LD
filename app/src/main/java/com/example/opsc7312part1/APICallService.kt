@@ -1,27 +1,16 @@
 package com.example.opsc7312part1
 
-import android.Manifest
 import android.app.Notification
-import android.app.NotificationManager
-import android.app.PendingIntent
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import android.widget.RemoteViews
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +19,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.Timer
 import java.util.TimerTask
+
 
 class APICallService : Service() {
 
@@ -89,7 +79,14 @@ class APICallService : Service() {
                         Log.i("Check foreground  service", "hardware not found")
 
                         if (ContextCompat.checkSelfPermission(this@APICallService, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
-                            writeToFirebase()
+
+                            var sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                            var currentTime = sdf.format(Date())
+                            var newNotification = NotificationDataClass()
+                            newNotification.notificationMessage = message
+                            newNotification.notificationType = title
+                            newNotification.timestamp = currentTime.toString()
+                            WriteToSQL(newNotification)
                         }
 
                     }
@@ -119,42 +116,9 @@ class APICallService : Service() {
 
     }
 
-    fun writeToFirebase() {
-        val user = User(
-            UserID = UserID,
-            Username = UserName
-        )
-
-        CoroutineScope(Dispatchers.IO).launch {
-            // Check if the user is signed in
-            val currentUser = FirebaseUtils.Get(user)
-            if (currentUser != null) {
-                // Create a NotificationDataClass object for the notification
-                val notificationData = NotificationDataClass()
-                notificationData.notificationType = "System Warning"
-
-                notificationData.notificationMessage = "ERROR: EQUIPMENT NOT FOUND"
-
-                val sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                val timestamp = sdf.format(Date()) // Format the current time
-                notificationData.timestamp = timestamp
-
-                // Get the User object for the currently signed-in user
-                val user = User(UserID, UserName)
-
-                // Insert the notification for the user
-                val isInserted = NotificationDataClass.insertNotificationForUser(
-                    user,
-                    notificationData
-                )
-
-                if (isInserted) {
-                    Log.i("Notification Insert", "Notification inserted successfully")
-                } else {
-                    Log.e("Notification Insert", "Failed to insert notification")
-                }
-            }
-        }
+    fun WriteToSQL(Temp : NotificationDataClass) {
+        val databaseHandler = DatabaseHelper(this)
+        databaseHandler.addNotification(Temp)
     }
 
     override fun onDestroy() {

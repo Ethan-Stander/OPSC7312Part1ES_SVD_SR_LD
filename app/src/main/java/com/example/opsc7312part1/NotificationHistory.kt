@@ -48,7 +48,8 @@ class NotificationHistory : Fragment() {
             Username = UserName
         )
         CoroutineScope(Dispatchers.IO).launch {
-            val notifications = NotificationDataClass.getNotificationsForUser(user)
+            val databaseHandler = DatabaseHelper(context = APICallService())
+            val notifications = databaseHandler.getAllNotifications()
             withContext(Dispatchers.Main) {
                 if (notifications != null) {
                     notificationHistoryAdapter = NotificationHistoryAdapter(notifications)

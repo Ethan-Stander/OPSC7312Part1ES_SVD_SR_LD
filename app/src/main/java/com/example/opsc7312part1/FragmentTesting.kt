@@ -99,7 +99,7 @@ class FragmentTesting :AppCompatActivity() {
                 R.id.nav_feedback -> replaceFragment(feedbackFragment(),it.title.toString())
                 R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
                 R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
-                R.id.nav_notification_history ->replaceFragment(NotificationHistory(),it.title.toString())
+                R.id.notification_history_recycler ->replaceFragment(NotificationHistory(),it.title.toString())
                 R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
 
                     SharedPreferencesManager(this).clearUserData()
