@@ -5,7 +5,7 @@ import android.content.ContentValues
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class DatabaseHelper(context: APICallService) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class DatabaseHelper(context: APIServices.Companion) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
         private const val DATABASE_NAME = "MyDatabase.db"
@@ -48,6 +48,20 @@ class DatabaseHelper(context: APICallService) : SQLiteOpenHelper(context, DATABA
             )
         """.trimIndent()
         db.execSQL(createHardwareTableQuery)
+
+        val createSensorDataTableQuery = """
+    CREATE TABLE IF NOT EXISTS sensor_data (
+        sensorID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Temperature TEXT,
+        Humidity TEXT,
+        LightLevel TEXT,
+        FlowRate TEXT,
+        pH TEXT,
+        EC TEXT
+    )
+""".trimIndent()
+        db.execSQL(createSensorDataTableQuery)
+
     }
     fun addHardware(hardware: hardware) {
         val db = this.writableDatabase
@@ -72,6 +86,27 @@ class DatabaseHelper(context: APICallService) : SQLiteOpenHelper(context, DATABA
         db.insert("hardware", null, values)
         db.close()
     }
+    // Inside your DatabaseHelper class
+
+    // Add a method to insert SensorDataAPI into the sensor_data table
+    fun addSensorData(sensorData: SensorDataAPI) {
+        val db = this.writableDatabase
+        val values = ContentValues()
+
+        // Map the SensorDataAPI properties to table columns
+        values.put("Temperature", sensorData.Temperature)
+        values.put("Humidity", sensorData.Humidity)
+        values.put("LightLevel", sensorData.LightLevel)
+        values.put("FlowRate", sensorData.FlowRate)
+        values.put("pH", sensorData.pH)
+        values.put("EC", sensorData.EC)
+
+        // Insert the values into the table
+        db.insert("sensor_data", null, values)
+
+        db.close()
+    }
+
 
     // Add a notification object to the "notifications" table
     fun addNotification(notification: NotificationDataClass) {
