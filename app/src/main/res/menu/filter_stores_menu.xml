@@ -3,17 +3,16 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_favorite"
+            android:id="@+id/store_filter_favorite"
             android:title="Favorite" />
 
         <item
-            android:id="@+id/nav_rating"
+            android:id="@+id/store_filter_rating"
             android:title="Rating" />
 
         <item
-            android:id="@+id/nav_alphabetical"
+            android:id="@+id/store_filter_alphabetical"
             android:title="Alphabetical" />
-
 
     </group>
 </menu>

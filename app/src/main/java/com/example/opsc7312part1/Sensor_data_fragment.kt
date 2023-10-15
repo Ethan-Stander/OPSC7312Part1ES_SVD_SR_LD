@@ -144,6 +144,11 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
 
                 return true
             }
+
+            R.id.Refresh ->{
+                FragmentUtils().refreshFragment(requireActivity(), Sensor_data_fragment())
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
