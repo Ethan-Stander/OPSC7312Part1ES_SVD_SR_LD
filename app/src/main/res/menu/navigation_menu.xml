@@ -20,7 +20,7 @@
                     android:icon="@drawable/ic_location" />
                 <item
                     android:id="@+id/nav_mystores"
-                    android:title="My Stores (Coming soon)"
+                    android:title="My Stores"
                     android:icon="@drawable/ic_stores" />
             </menu>
         </item>
