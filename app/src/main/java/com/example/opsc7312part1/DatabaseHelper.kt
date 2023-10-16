@@ -58,10 +58,27 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         LightLevel TEXT,
         FlowRate TEXT,
         pH TEXT,
-        EC TEXT
+        EC TEXT,
+        timeCalled TEXT,
+        isDeleted INTEGER DEFAULT 0
     )
 """.trimIndent()
         db.execSQL(createSensorDataTableQuery)
+
+
+        val createActionTableQuery = """
+    CREATE TABLE IF NOT EXISTS actions (
+        actionID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Date TEXT,
+        EquipmentChanged TEXT,
+        PreviousState TEXT,
+        NewState TEXT,
+        IsDeleted INTEGER DEFAULT 0
+    )
+""".trimIndent()
+        db.execSQL(createActionTableQuery)
+
+
 
     }
     fun addHardware(hardware: hardware) {
@@ -94,13 +111,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         val db = this.writableDatabase
         val values = ContentValues()
 
-        // Map the SensorDataAPI properties to table columns
+        val currentTime = System.currentTimeMillis().toString()
         values.put("Temperature", sensorData.Temperature)
         values.put("Humidity", sensorData.Humidity)
         values.put("LightLevel", sensorData.LightLevel)
         values.put("FlowRate", sensorData.FlowRate)
         values.put("pH", sensorData.pH)
         values.put("EC", sensorData.EC)
+        values.put("timeCalled", currentTime)
+        values.put("isDeleted", true)
 
         // Insert the values into the table
         db.insert("sensor_data", null, values)
@@ -119,6 +138,18 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         db.insert("notifications", null, values)
         db.close()
     }
+
+    fun addAction(action: Action) {
+        val contentValues = ContentValues()
+        contentValues.put("Date", action.Date)
+        contentValues.put("EquipmentChanged", action.EquipmentChanged)
+        contentValues.put("PreviousState", action.PreviousState)
+        contentValues.put("NewState", action.NewState)
+        contentValues.put("IsDeleted", 0) // Set IsDeleted to 0
+        writableDatabase.insert("actions", null, contentValues)
+        writableDatabase.close()
+    }
+
 
     // Retrieve a list of hardware objects from the "hardware" table
     @SuppressLint("Range")
@@ -179,6 +210,75 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         return notificationList
     }
+
+    @SuppressLint("Range")
+    fun getAllSensorData(): List<SensorDataAPISqlLite> {
+        val sensorDataList = mutableListOf<SensorDataAPISqlLite>()
+        val query = "SELECT * FROM sensor_data WHERE isDeleted = true"
+
+        val cursor = readableDatabase.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val sensorData = SensorDataAPISqlLite(
+                Temperature = cursor.getString(cursor.getColumnIndex("Temperature")),
+                Humidity = cursor.getString(cursor.getColumnIndex("Humidity")),
+                LightLevel = cursor.getString(cursor.getColumnIndex("LightLevel")),
+                FlowRate = cursor.getString(cursor.getColumnIndex("FlowRate")),
+                pH = cursor.getString(cursor.getColumnIndex("pH")),
+                EC = cursor.getString(cursor.getColumnIndex("EC")),
+                timeCalled = cursor.getString(cursor.getColumnIndex("timeCalled")),
+                isDeleted = true
+            )
+            sensorDataList.add(sensorData)
+
+            // Mark the record as deleted in the database
+            val values = ContentValues()
+            values.put("isDeleted", false)
+            writableDatabase.update(
+                "sensor_data",
+                values,
+                "sensorID = ?",
+                arrayOf(cursor.getInt(cursor.getColumnIndex("sensorID")).toString())
+            )
+        }
+
+        cursor.close()
+        return sensorDataList
+    }
+
+    @SuppressLint("Range")
+    fun getAllActionsMarkAsDeleted(): List<Action> {
+        val actionList = mutableListOf<Action>()
+        val query = "SELECT * FROM actions WHERE IsDeleted = true"
+
+        val cursor = readableDatabase.rawQuery(query, null)
+
+        while (cursor.moveToNext()) {
+            val action = Action(
+                Date = cursor.getString(cursor.getColumnIndex("Date")),
+                EquipmentChanged = cursor.getString(cursor.getColumnIndex("EquipmentChanged")),
+                PreviousState = cursor.getString(cursor.getColumnIndex("PreviousState")),
+                NewState = cursor.getString(cursor.getColumnIndex("NewState")),
+                IsDeleted = true
+            )
+            actionList.add(action)
+
+            // Mark the action as deleted in the database
+            val values = ContentValues()
+            values.put("IsDeleted", false)
+            writableDatabase.update(
+                "actions",
+                values,
+                "actionID = ?",
+                arrayOf(cursor.getInt(cursor.getColumnIndex("actionID")).toString())
+            )
+        }
+
+        cursor.close()
+        return actionList
+    }
+
+
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
         // Handle database upgrades here
     }

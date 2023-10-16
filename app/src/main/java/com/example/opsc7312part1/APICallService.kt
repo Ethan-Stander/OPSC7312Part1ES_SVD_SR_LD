@@ -5,8 +5,11 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
@@ -15,10 +18,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.FirebaseApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.Timer
@@ -49,6 +55,12 @@ class APICallService() : Service() {
         timer.scheduleAtFixedRate(object :TimerTask(){
             override fun run() {
 
+// In your Application class or main activity
+                FirebaseApp.initializeApp(applicationContext)
+
+
+
+
                 CoroutineScope(Dispatchers.IO).launch {
 
                     val hardwareData = APIServices.fetchhardware(this@APICallService)
@@ -62,19 +74,9 @@ class APICallService() : Service() {
                                 message = "ERROR: CIRCULATION PUMP OFFLINE"
                             }
 
-                            (hardwareData.Fan_Extractor_Status.equals("False")) -> {
-                                title = "Equipment Warning"
-                                message = "ERROR: EXTRACTOR FAN OFFLINE"
-                            }
-
                             (hardwareData.Fan_Tent_Status.equals("False")) -> {
                                 title = "Equipment Warning"
                                 message = "ERROR: CIRCULATION FAN OFFLINE"
-                            }
-
-                            (hardwareData.Light_Status.equals("False")) -> {
-                                title = "Equipment Warning"
-                                message = "ERROR: LIGHT OFFLINE"
                             }
 
                         }
@@ -100,12 +102,49 @@ class APICallService() : Service() {
                         val dbHelper = DatabaseHelper(this@APICallService)
                         dbHelper.addNotification(newNotification)
                     }
+
+
+                    val calendar = Calendar.getInstance()
+                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    val minute = calendar.get(Calendar.MINUTE)
+
+                    if (hour == 23 && minute == 59) {
+                        if (isConnectedToInternet()) {
+                            val dbHelper = DatabaseHelper(this@APICallService)
+                            val ListAction = dbHelper.getAllActionsMarkAsDeleted()
+                            val ListSensorData = dbHelper.getAllSensorData()
+                            sendSensorDataToFirebaseAsync(ListSensorData)
+                            ActionUtils.sendActionsToFirebase(ListAction)
+                        }
+                    }
+
+
+
+
+
+
                 }
              }
         },0,apiCallInterval)
 
     }
 
+    suspend fun sendSensorDataToFirebaseAsync(sensorDataList: List<SensorDataAPISqlLite>) {
+        withContext(Dispatchers.IO) {
+            FirebaseUtils.sendSensorDataToFirebase(sensorDataList)
+        }
+    }
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return capabilities != null &&
+                (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
+    }
 
 
     override fun onDestroy() {

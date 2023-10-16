@@ -2,7 +2,9 @@ package com.example.opsc7312part1
 
 import android.util.Log
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
+import kotlinx.coroutines.withContext
 
 class FirebaseUtils {
     companion object {
@@ -10,7 +12,8 @@ class FirebaseUtils {
 
         suspend fun insertSettingForUser(user: User, setting: Setting): Boolean {
             val currentUser = user.UserID
-            val reference = currentUser?.let { database.getReference("Users").child(it).child("settings") }
+            val reference =
+                currentUser?.let { database.getReference("Users").child(it).child("settings") }
 
             return try {
                 if (reference != null) {
@@ -39,7 +42,8 @@ class FirebaseUtils {
 
         suspend fun updateSettingForUser(user: User, setting: Setting): Boolean {
             val currentUser = user.UserID
-            val reference = currentUser?.let { database.getReference("Users").child(it).child("settings") }
+            val reference =
+                currentUser?.let { database.getReference("Users").child(it).child("settings") }
 
             return try {
                 if (reference != null) {
@@ -53,7 +57,8 @@ class FirebaseUtils {
 
         suspend fun Get(user: User): Setting? {
             val currentUser = user.UserID
-            val reference = currentUser?.let { database.getReference("Users").child(it).child("settings") }
+            val reference =
+                currentUser?.let { database.getReference("Users").child(it).child("settings") }
 
             return try {
                 if (reference != null) {
@@ -73,5 +78,24 @@ class FirebaseUtils {
                 null
             }
         }
+
+        suspend fun sendSensorDataToFirebase(sensorDataList: List<SensorDataAPISqlLite>) {
+            withContext(Dispatchers.IO) {
+                val myRef = database.getReference("sensor_data")
+
+                try {
+                    val sensorDataNode = myRef.push()
+                    sensorDataList.forEachIndexed { index, sensorData ->
+                        Log.d("Debug", "Entering forEach loop")
+                        val sensorDataRef = sensorDataNode.child("sensor_$index")
+                        sensorDataRef.setValue(sensorData)
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
     }
-}
+
+    }
