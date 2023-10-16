@@ -186,6 +186,10 @@ class Equipment_status_fragment : Fragment() {
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
                 return true
             }
+            R.id.Refresh ->{
+                FragmentUtils.refreshFragment(requireActivity(), Equipment_status_fragment(), R.id.frameLayout)
+                return true
+            }
 
             else -> return super.onOptionsItemSelected(item)
         }

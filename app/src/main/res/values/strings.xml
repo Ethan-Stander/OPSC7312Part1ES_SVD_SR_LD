@@ -152,8 +152,6 @@ The SmartHydro Team</string>
     <string name="connect_to_SmartHydro_step_3">Step 3: Connect to SmartHydro with the password: SmartHydro123!</string>
 
 
-
-
     <!--dropdowns-->
     <string-array name="Temperatures">
         <item>Celsius (°C)</item>

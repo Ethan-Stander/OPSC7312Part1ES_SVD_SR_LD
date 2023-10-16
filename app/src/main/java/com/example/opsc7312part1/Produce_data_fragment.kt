@@ -50,7 +50,7 @@ class Produce_data_fragment : Fragment(R.layout.produce_data_fragment) {
                 val produceSensorDataFragment = Sensor_data_fragment()
                 // Replace the current fragment with Sensor_adjustment_fragment
                 replaceFragment(Sensor_data_fragment())
-                (activity as? FragmentTesting)?.title = "$produceTitle : Sensor Data"
+                (activity as? FragmentTesting)?.title = "$produceTitle"
             }
         })
     }
