@@ -187,7 +187,7 @@ class Equipment_status_fragment : Fragment() {
                 return true
             }
             R.id.Refresh ->{
-                FragmentUtils().refreshFragment(requireActivity(), Equipment_status_fragment())
+                FragmentUtils.refreshFragment(requireActivity(), Equipment_status_fragment(), R.id.frameLayout)
                 return true
             }
 
