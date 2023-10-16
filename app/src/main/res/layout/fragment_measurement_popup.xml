@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MeasurementPopupFragment"
-    android:theme="@style/Theme.GreenTheme"
+    style="@style/Theme.GreenTheme"
     android:background="@drawable/rounded_bg">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,7 +19,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Please sign in to view measurement information"
-                android:textColor="#858585"
+                android:textColor="@color/light_grey"
                 android:gravity="center"
                 android:layout_marginTop="50dp"
                 android:visibility="gone"
@@ -63,13 +63,13 @@
             <!--[TEMPERATURE]-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutTemp"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="@style/DropdownTheme"
+                android:theme="@style/GreenCursor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="150dp"
                 android:hint="Temperature"
-                app:boxStrokeColor="@color/dark_green"
-                app:hintTextColor="@color/dark_green"
+                android:textColorHint="@color/light_grey"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -83,20 +83,21 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="Celsius (°C)" />
+                    android:text="Celsius (°C)"
+                    android:textColor="@color/light_grey"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--[UNIT OF DISTANCE]-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutUnitOfDistance"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                style="@style/DropdownTheme"
+                android:theme="@style/GreenCursor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="50dp"
                 android:hint="Unit of Distance"
-                app:boxStrokeColor="@color/dark_green"
-                app:hintTextColor="@color/dark_green"
+                android:textColorHint="@color/light_grey"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -110,13 +111,15 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:editable="false"
-                    android:text="Kilometers (km)" />
+                    android:text="Kilometers (km)"
+                    android:textColor="@color/light_grey"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <!--[STORE RANGE]-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutStoreRange"
+                android:theme="@style/GreenTextBoxCursor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="220dp"
@@ -127,21 +130,23 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
                 android:hint="Store Range"
-                app:hintTextColor="#858585"
+                app:hintTextColor="@color/dark_green"
                 app:boxStrokeColor="@color/dark_green"
+                android:textColorHint="@color/light_grey"
                 android:paddingLeft="-12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/white"
-                    android:textColor="@color/black"
+                    android:textColor="@color/light_grey"
                     android:inputType="numberDecimal"
-                    android:id="@+id/tvMaxStoreRange"/>
+                    android:id="@+id/tvMaxStoreRange"
+                    android:background="@color/transparent"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:theme="@style/Theme.GreenTheme"
                 android:id="@+id/btnMeasurementSave"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"

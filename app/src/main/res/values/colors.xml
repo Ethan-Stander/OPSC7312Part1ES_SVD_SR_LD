@@ -7,8 +7,15 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="dark_grey">#282828</color>
+    <color name="light_grey">#858585</color>
+    <color name="settings_grey">#D9D9D9</color>
     <color name="red">#CC3C3C</color>
+    <color name="dark_mode_green">#0D1B0E</color>
+    <color name="darker_green">#234725</color>
     <color name="dark_green">#428948</color>
     <color name="green">#6FC276</color>
     <color name="light_green">#7EE38B</color>
+    <color name="transparent">#00000000</color>
+    <color name="mtrl_textinput_default_box_stroke_color">#858585</color>
 </resources>

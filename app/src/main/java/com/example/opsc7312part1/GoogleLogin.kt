@@ -1,6 +1,7 @@
 package com.example.opsc7312part1
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatDelegate
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -57,6 +59,14 @@ class GoogleLogin : AppCompatActivity() {
     //timeout used for loading screen if no response is received
     private val TIMEOUT_DURATION = 2000L // 2 seconds
     override fun onCreate(savedInstanceState: Bundle?) {
+
+        // Retrieve the selected theme preference from SharedPreferences
+        val sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
+        val selectedTheme = sharedPreferences.getString("theme", "Light Mode")
+        // Apply the selected theme
+        val themeId = if (selectedTheme == "Light Mode") R.style.Theme_LoginPage else R.style.Theme_LoginPage_Dark
+        setTheme(themeId)
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_login)
 
@@ -79,9 +89,9 @@ class GoogleLogin : AppCompatActivity() {
             signInGoogle()
         }
 
-        findViewById<TextView>(R.id.lblskip).setOnClickListener {
+        findViewById<Button>(R.id.btnSkip).setOnClickListener {
             val intent = Intent(this, FragmentTesting::class.java)
-            UserName =""
+            UserName = ""
             startActivity(intent)
         }
     }

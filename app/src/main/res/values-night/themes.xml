@@ -1,8 +1,44 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
+    <!--ORIGINAL DARK THEME-->
+    <style name="Theme.OPSC7312Part1" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <!-- Base application theme. -->
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+    </style>
     <style name="Base.Theme.OPSC7312Part1" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- Customize your light theme here. -->
         <item name="colorPrimary">@color/dark_green</item>
     </style>
+
+    <!--SETTINGS DARK THEME-->
+    <style name="Theme.SettingsPage" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <item name="colorPrimary">@color/darker_green</item>
+    </style>
+
+    <!--GREEN DARK THEME-->
+    <style name="Theme.GreenTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" >
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:backgroundTint">@color/dark_mode_green</item>
+    </style>
+
+    <!--DROPDOWN DARK THEME-->
+    <style name="DropdownTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/dark_green</item>
+        <item name="hintTextColor">@color/dark_green</item>
+        <item name="boxBackgroundColor">@color/dark_mode_green</item>
+    </style>
+    <style name="GreenCursor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="colorPrimary">@color/dark_green</item>
+    </style>
+
+    <!--DIALOG ALERTS-->
+    <style name="settings_custom_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!--COLORS-->
+    <color name="sub_header_color">@color/settings_grey</color>
+    <color name="settings_text_color">@color/white</color>
+    <color name="settings_arrow_color">@color/dark_mode_green</color>
+
 </resources>

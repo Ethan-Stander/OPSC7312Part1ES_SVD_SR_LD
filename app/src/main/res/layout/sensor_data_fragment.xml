@@ -26,7 +26,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:textAlignment="center"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:textColor="@color/light_grey"/>
 
     <ProgressBar
         android:id="@+id/sensorLoadingBar"
