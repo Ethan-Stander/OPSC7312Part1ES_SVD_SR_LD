@@ -316,7 +316,7 @@ class Equipment_status_fragment : Fragment() {
 
     private suspend fun equipmentDataInitialize() {
 
-        var Statuses: hardware? = APIServices.fetchhardware()
+        var Statuses: hardware? = context?.let { APIServices.fetchhardware(it) }
 
         if (Statuses != null) {
             Statuses.setValues()

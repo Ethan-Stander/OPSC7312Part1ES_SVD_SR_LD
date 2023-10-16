@@ -42,8 +42,7 @@ private lateinit var btnAPi : Button
 
             val scope = CoroutineScope(Dispatchers.Main)
             val job = scope.launch {
-
-                val hardware: hardware? = fetchhardware()
+                val hardware: hardware? = context?.let { it1 -> fetchhardware(it1) }
 
                 if (hardware != null) {
                     // Do something with the fetched sensor data

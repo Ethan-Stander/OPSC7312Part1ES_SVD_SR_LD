@@ -70,10 +70,10 @@ class FragmentTesting :AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#428948")))
 
         //for the API foreground service
-        /*Intent(applicationContext, APICallService::class.java).also {
+        Intent(applicationContext, APICallService::class.java).also {
             it.action = APICallService.Actions.START.toString()
             startService(it)
-        }*/
+        }
 
         //implement binding
         binding = ActivityFragmentTestingBinding.inflate(layoutInflater)

@@ -157,9 +157,7 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
         attributeNames = ArrayList()
         readings = ArrayList()
         sensorDataList = ArrayList()
-
-
-            val sensorDataAPI: SensorDataAPI? = APIServices.fetchSensorDataFromJson()
+            val sensorDataAPI: SensorDataAPI? = context?.let { APIServices.fetchSensorDataFromJson(it) }
 
             if (sensorDataAPI != null) {
                 val sensorDataString = sensorDataAPI.toString() // Convert SensorDataAPI to string

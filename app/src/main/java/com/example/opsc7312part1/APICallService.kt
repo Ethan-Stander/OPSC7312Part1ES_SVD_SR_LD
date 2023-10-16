@@ -1,7 +1,9 @@
 package com.example.opsc7312part1
 
 import android.app.Notification
+import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.IBinder
@@ -21,12 +23,13 @@ import java.util.Timer
 import java.util.TimerTask
 
 
-class APICallService : Service() {
+class APICallService() : Service() {
 
     private val timer = Timer()
     private val apiCallInterval: Long = 10 * 1000
     private var title = ""
     private var message = ""
+
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -46,7 +49,7 @@ class APICallService : Service() {
 
                 CoroutineScope(Dispatchers.IO).launch {
 
-                    val hardwareData = APIServices.fetchhardware()
+                    val hardwareData = APIServices.fetchhardware(this@APICallService)
 
                     if (hardwareData != null) {
                         hardwareData.setValues()
@@ -78,48 +81,30 @@ class APICallService : Service() {
                         message = "ERROR: EQUIPMENT NOT FOUND"
                         Log.i("Check foreground  service", "hardware not found")
 
-                        if (ContextCompat.checkSelfPermission(this@APICallService, android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED) {
 
-                            var sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                            var currentTime = sdf.format(Date())
-                            var newNotification = NotificationDataClass()
-                            newNotification.notificationMessage = message
-                            newNotification.notificationType = title
-                            newNotification.timestamp = currentTime.toString()
-                            WriteToSQL(newNotification)
-                        }
 
                     }
-                }
-
-                        /*if (hardwareData.Circulation_Pump_Status.equals("False") || hardwareData.Fan_Extractor_Status.equals("False") || hardwareData.Fan_Tent_Status.equals("False")
-                            || hardwareData.Light_Status.equals("False")) {
-                            title = "Equipment Warning"
-                            message = "ERROR: EQUIPMENT OFFLINE"
-
-                            Log.i("Check bg service", "hardware not on")
-                        }
-                    } else
-                        if (hardwareData == null) {
-                            title = "hardware data is empty"
-                            message = "hardware data is empty"
-                            Log.i("Check bg service", "hardware not found")
-                        }*/
 
                     if(title.isNotEmpty() && message.isNotEmpty())
                     {
                         var notification =  createNotification(title,message)
                         startForeground(1,notification)
+                        var sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                        var currentTime = sdf.format(Date())
+                        var newNotification = NotificationDataClass()
+                        newNotification.notificationMessage = message
+                        newNotification.notificationType = title
+                        newNotification.timestamp = currentTime.toString()
+                        val dbHelper = DatabaseHelper(this@APICallService)
+                        dbHelper.addNotification(newNotification)
                     }
                 }
+             }
         },0,apiCallInterval)
 
     }
 
-    fun WriteToSQL(Temp : NotificationDataClass) {
-        val databaseHandler = DatabaseHelper(this)
-        databaseHandler.addNotification(Temp)
-    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -133,13 +118,13 @@ class APICallService : Service() {
 
         //Confirm usage of intent
 
-        /*val intent = Intent(applicationContext, GoogleLogin::class.java)
+        val intent = Intent(applicationContext, GoogleLogin::class.java)
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,
             intent,
             PendingIntent.FLAG_IMMUTABLE
-        )*/
+        )
 
         val color = ContextCompat.getColor(applicationContext,R.color.red)
 

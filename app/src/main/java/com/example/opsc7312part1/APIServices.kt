@@ -1,9 +1,11 @@
 package com.example.opsc7312part1
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
 import io.ktor.client.engine.cio.CIO
+
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -20,12 +22,24 @@ class APIServices {
         private const val JSON_URL_HARDWARE = ip+"/hardware"
         private const val JSON_URL_AI_TOGGLE =  ip+"/toggleAI"
         private const val JSON_URL_AI_PREDICTIONS = ip +"/predictions"
-        val databaseHandler = DatabaseHelper(this@Companion)
+
+
+         fun AddSensorDataToDB(context : Context, SensorData : SensorDataAPI)
+        {
+            val dbHelper = DatabaseHelper(context)
+            dbHelper.addSensorData(SensorData)
+        }
+
+        fun AddHardwareToDB(context: Context, Hardware : hardware)
+        {
+            val dbHelper = DatabaseHelper(context)
+            dbHelper.addHardware(Hardware)
+        }
 
 
 
         @SuppressLint("RestrictedApi")
-        suspend fun fetchSensorDataFromJson(): SensorDataAPI? {
+        suspend fun fetchSensorDataFromJson(context: Context): SensorDataAPI? {
             return withContext(Dispatchers.IO)
             {
 
@@ -42,10 +56,7 @@ class APIServices {
                 }
 
                 if (data != null) {
-
-                    if (databaseHandler != null) {
-                        databaseHandler.addSensorData(data)
-                    }
+                    AddSensorDataToDB(context,data)
                     return@withContext data
                 }
 
@@ -55,7 +66,7 @@ class APIServices {
 
         }
 
-        suspend fun fetchhardware() : hardware?
+        suspend fun fetchhardware(context: Context) : hardware?
         {
             return withContext(Dispatchers.IO)
             {
@@ -74,10 +85,7 @@ class APIServices {
                 }
                 if(Hardware != null)
                 {
-                    if (databaseHandler != null) {
-                        databaseHandler.addHardware(Hardware)
-                    }
-
+                    AddHardwareToDB(context,Hardware)
                     return@withContext Hardware
                 }
                 else
