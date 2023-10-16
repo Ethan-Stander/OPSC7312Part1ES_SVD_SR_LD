@@ -14,31 +14,31 @@
     <style name="Theme.SettingsPage" parent="Theme.MaterialComponents.Light.DarkActionBar" >
         <item name="colorPrimary">@color/darker_green</item>
     </style>
-    <color name="settings_text_color">@color/white</color>
-    <color name="settings_arrow_color">@color/light_green</color>
-
-    <!--NAV CATEGORY TITLE DARK COLOR-->
-    <color name="sub_header_color">@color/settings_grey</color>
 
     <!--GREEN DARK THEME-->
     <style name="Theme.GreenTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" >
         <item name="colorPrimary">@color/dark_green</item>
-        <item name="android:backgroundTint">@color/grey</item>
+        <item name="android:backgroundTint">@color/dark_mode_green</item>
     </style>
 
     <!--DROPDOWN DARK THEME-->
     <style name="DropdownTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="boxStrokeColor">@color/dark_green</item>
         <item name="hintTextColor">@color/dark_green</item>
-        <item name="boxBackgroundColor">@color/grey</item>
+        <item name="boxBackgroundColor">@color/dark_mode_green</item>
     </style>
     <style name="GreenCursor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="colorPrimary">@color/dark_green</item>
     </style>
 
-    <!--for dialog alerts-->
+    <!--DIALOG ALERTS-->
     <style name="settings_custom_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
+
+    <!--COLORS-->
+    <color name="sub_header_color">@color/settings_grey</color>
+    <color name="settings_text_color">@color/white</color>
+    <color name="settings_arrow_color">@color/dark_mode_green</color>
 
 </resources>
