@@ -1,41 +1,43 @@
 package com.example.opsc7312part1
 
-import android.Manifest
 import android.app.Notification
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
-import android.widget.RemoteViews
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.FirebaseApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.Timer
 import java.util.TimerTask
 
-class APICallService : Service() {
+
+class APICallService() : Service() {
 
     private val timer = Timer()
-    private val apiCallInterval: Long = 20 * 1000
+    private val apiCallInterval: Long = 10 * 1000
     private var title = ""
     private var message = ""
+
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -53,9 +55,15 @@ class APICallService : Service() {
         timer.scheduleAtFixedRate(object :TimerTask(){
             override fun run() {
 
+// In your Application class or main activity
+                FirebaseApp.initializeApp(applicationContext)
+
+
+
+
                 CoroutineScope(Dispatchers.IO).launch {
 
-                    val hardwareData = APIServices.fetchhardware()
+                    val hardwareData = APIServices.fetchhardware(this@APICallService)
 
                     if (hardwareData != null) {
                         hardwareData.setValues()
@@ -66,19 +74,9 @@ class APICallService : Service() {
                                 message = "ERROR: CIRCULATION PUMP OFFLINE"
                             }
 
-                            (hardwareData.Fan_Extractor_Status.equals("False")) -> {
-                                title = "Equipment Warning"
-                                message = "ERROR: EXTRACTOR FAN OFFLINE"
-                            }
-
                             (hardwareData.Fan_Tent_Status.equals("False")) -> {
                                 title = "Equipment Warning"
                                 message = "ERROR: CIRCULATION FAN OFFLINE"
-                            }
-
-                            (hardwareData.Light_Status.equals("False")) -> {
-                                title = "Equipment Warning"
-                                message = "ERROR: LIGHT OFFLINE"
                             }
 
                         }
@@ -87,71 +85,67 @@ class APICallService : Service() {
                         message = "ERROR: EQUIPMENT NOT FOUND"
                         Log.i("Check foreground  service", "hardware not found")
 
-                        //writeToFirebase()
+
+
                     }
-                }
-
-                        /*if (hardwareData.Circulation_Pump_Status.equals("False") || hardwareData.Fan_Extractor_Status.equals("False") || hardwareData.Fan_Tent_Status.equals("False")
-                            || hardwareData.Light_Status.equals("False")) {
-                            title = "Equipment Warning"
-                            message = "ERROR: EQUIPMENT OFFLINE"
-
-                            Log.i("Check bg service", "hardware not on")
-                        }
-                    } else
-                        if (hardwareData == null) {
-                            title = "hardware data is empty"
-                            message = "hardware data is empty"
-                            Log.i("Check bg service", "hardware not found")
-                        }*/
 
                     if(title.isNotEmpty() && message.isNotEmpty())
                     {
                         var notification =  createNotification(title,message)
                         startForeground(1,notification)
+                        var sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                        var currentTime = sdf.format(Date())
+                        var newNotification = NotificationDataClass()
+                        newNotification.notificationMessage = message
+                        newNotification.notificationType = title
+                        newNotification.timestamp = currentTime.toString()
+                        val dbHelper = DatabaseHelper(this@APICallService)
+                        dbHelper.addNotification(newNotification)
                     }
+
+
+                    val calendar = Calendar.getInstance()
+                    val hour = calendar.get(Calendar.HOUR_OF_DAY)
+                    val minute = calendar.get(Calendar.MINUTE)
+
+                    if (hour == 23 && minute == 59) {
+                        if (isConnectedToInternet()) {
+                            val dbHelper = DatabaseHelper(this@APICallService)
+                            val ListAction = dbHelper.getAllActionsMarkAsDeleted()
+                            val ListSensorData = dbHelper.getAllSensorData()
+                            sendSensorDataToFirebaseAsync(ListSensorData)
+                            ActionUtils.sendActionsToFirebase(ListAction)
+                        }
+                    }
+
+
+
+
+
+
                 }
+             }
         },0,apiCallInterval)
 
     }
 
-    fun writeToFirebase() {
-        val user = User(
-            UserID = UserID,
-            Username = UserName
-        )
-
-        CoroutineScope(Dispatchers.IO).launch {
-            // Check if the user is signed in
-            val currentUser = FirebaseUtils.Get(user)
-            if (currentUser != null) {
-                // Create a NotificationDataClass object for the notification
-                val notificationData = NotificationDataClass()
-                notificationData.notificationType = "System Warning"
-
-                notificationData.notificationMessage = "ERROR: EQUIPMENT NOT FOUND"
-
-                val sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
-                val timestamp = sdf.format(Date()) // Format the current time
-                notificationData.timestamp = timestamp
-
-                // Get the User object for the currently signed-in user
-                val user = User(UserID, UserName)
-
-                // Insert the notification for the user
-                val isInserted = NotificationDataClass.insertNotificationForUser(
-                    user,
-                    notificationData
-                )
-
-                if (isInserted) {
-                    Log.i("Notification Insert", "Notification inserted successfully")
-                } else {
-                    Log.e("Notification Insert", "Failed to insert notification")
-                }
-            }
+    suspend fun sendSensorDataToFirebaseAsync(sensorDataList: List<SensorDataAPISqlLite>) {
+        withContext(Dispatchers.IO) {
+            FirebaseUtils.sendSensorDataToFirebase(sensorDataList)
         }
     }
+    private fun isConnectedToInternet(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+        val network = connectivityManager.activeNetwork
+        val capabilities = connectivityManager.getNetworkCapabilities(network)
+
+        return capabilities != null &&
+                (capabilities.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) ||
+                        capabilities.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR))
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -161,19 +155,30 @@ class APICallService : Service() {
     enum class Actions{
         START,STOP
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotification(title: String, message: String): Notification? {
 
         //Confirm usage of intent
 
-        /*val intent = Intent(applicationContext, GoogleLogin::class.java)
+        val intent = Intent(applicationContext, GoogleLogin::class.java)
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,
             intent,
             PendingIntent.FLAG_IMMUTABLE
-        )*/
+        )
 
         val color = ContextCompat.getColor(applicationContext,R.color.red)
+
+        val channel = NotificationChannel(
+            "Channel_id",
+            "PennSkanvTicChannel",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        channel.description = "PennSkanvTic channel for foreground service notification"
+
+        var notificationManagertest = NotificationManagerCompat.from(this);
+        notificationManagertest.createNotificationChannel(channel)
 
         val notification = NotificationCompat.Builder(applicationContext, "Channel_id")
             .setContentTitle(title)
@@ -185,13 +190,17 @@ class APICallService : Service() {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
+
         val notificationManager = NotificationManagerCompat.from(applicationContext)
         if (ActivityCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        )
+        {
             notificationManager.notify(1, notification)
+
+
         }
         return notification
     }

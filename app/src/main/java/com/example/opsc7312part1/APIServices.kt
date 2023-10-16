@@ -1,18 +1,14 @@
 package com.example.opsc7312part1
 
-import android.provider.ContactsContract.CommonDataKinds.Website.URL
+import android.annotation.SuppressLint
+import android.content.Context
 import android.util.Log
 import com.google.gson.Gson
-import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
-import io.ktor.client.request.get
-import io.ktor.client.statement.HttpResponse
-import io.ktor.client.statement.bodyAsText
+
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import okhttp3.OkHttpClient
-import kotlinx.coroutines.runBlocking
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -21,14 +17,29 @@ class APIServices {
 
     companion object {
         private const val ip = "http://192.168.1.10"
-        //private const val ip = "http://100.66.16.44"
         private val httpClient = (CIO)
-        private const val JSON_URL_SENSOR_DATA = ip+"/sensor.json"
-        private const val JSON_URL_HARDWARE = ip+"/hardware.json"
+        private const val JSON_URL_SENSOR_DATA = ip+"/sensor"
+        private const val JSON_URL_HARDWARE = ip+"/hardware"
+        private const val JSON_URL_AI_TOGGLE =  ip+"/toggleAI"
+        private const val JSON_URL_AI_PREDICTIONS = ip +"/predictions"
 
-        /*"http://192.168.1.10/hardware.json"*/
 
-        suspend fun fetchSensorDataFromJson(): SensorDataAPI? {
+         fun AddSensorDataToDB(context : Context, SensorData : SensorDataAPI)
+        {
+            val dbHelper = DatabaseHelper(context)
+            dbHelper.addSensorData(SensorData)
+        }
+
+        fun AddHardwareToDB(context: Context, Hardware : hardware)
+        {
+            val dbHelper = DatabaseHelper(context)
+            dbHelper.addHardware(Hardware)
+        }
+
+
+
+        @SuppressLint("RestrictedApi")
+        suspend fun fetchSensorDataFromJson(context: Context): SensorDataAPI? {
             return withContext(Dispatchers.IO)
             {
 
@@ -44,16 +55,18 @@ class APIServices {
                     return@withContext null
                 }
 
-            if(data != null) {
-                return@withContext data
-            }
-            else
+                if (data != null) {
+                    AddSensorDataToDB(context,data)
+                    return@withContext data
+                }
+
+                else
                 return@withContext null
             }
 
         }
 
-        suspend fun fetchhardware() : hardware?
+        suspend fun fetchhardware(context: Context) : hardware?
         {
             return withContext(Dispatchers.IO)
             {
@@ -63,6 +76,7 @@ class APIServices {
                     val url = URL(JSON_URL_HARDWARE)
                     val json = url.readText()
                     Hardware = Gson().fromJson(json, hardware::class.java)
+
                 }
                 catch (e:Exception)
                 {
@@ -71,6 +85,7 @@ class APIServices {
                 }
                 if(Hardware != null)
                 {
+                    AddHardwareToDB(context,Hardware)
                     return@withContext Hardware
                 }
                 else
@@ -107,7 +122,7 @@ class APIServices {
             return withContext(Dispatchers.IO) {
                 try {
                     val connection = URL(url).openConnection() as HttpURLConnection
-                    connection.requestMethod = "GET"
+                    connection.requestMethod = "POST"
                     connection.connectTimeout = 5000 // Set your desired timeout
                     connection.readTimeout = 5000 // Set your desired timeout
 
@@ -129,9 +144,82 @@ class APIServices {
             }
         }
 
+        suspend fun toggle_AI_Switch() : Boolean
+        {
+            return withContext(Dispatchers.IO)
+            {
+                try{
+                    val connection = URL(JSON_URL_AI_TOGGLE).openConnection() as HttpURLConnection
+                    connection.requestMethod = "POST"
+                    connection.connectTimeout = 5000
+                    connection.readTimeout = 5000
 
+                    val responseCode = connection.responseCode
 
+                    if(responseCode == 200){
+                        return@withContext true
+                    } else
+                    {
+                        return@withContext false
+                    }
+                } catch (e:Exception) {
+                    Log.i("Kill me",e.message.toString())
+                }
+                return@withContext false
+            }
+        }
 
+        suspend fun fetchPredictions() : Predictions?
+        {
+            return withContext(Dispatchers.IO)
+            {
+
+                var predictions : Predictions? = null
+                try {
+                    val url = URL(JSON_URL_AI_PREDICTIONS)
+                    val json = url.readText()
+                    predictions = Gson().fromJson(json, Predictions::class.java)
+                }
+                catch (e:Exception)
+                {
+                    Log.i("fetch predictions API error",e.message.toString())
+                    return@withContext null
+                }
+                if(predictions != null)
+                {
+                    return@withContext predictions
+                }
+                else
+                    return@withContext null
+
+            }
+        }
+
+        suspend fun fetchPredictionstest() : Predictions?
+        {
+            return withContext(Dispatchers.IO)
+            {
+
+                var predictions : Predictions? = null
+                try {
+                    val url = URL(JSON_URL_AI_TOGGLE)
+                    val json = url.readText()
+                    predictions = Gson().fromJson(json, Predictions::class.java)
+                }
+                catch (e:Exception)
+                {
+                    Log.i("fetch predictions API error",e.message.toString())
+                    return@withContext null
+                }
+                if(predictions != null)
+                {
+                    return@withContext predictions
+                }
+                else
+                    return@withContext null
+
+            }
+        }
 
 
     }

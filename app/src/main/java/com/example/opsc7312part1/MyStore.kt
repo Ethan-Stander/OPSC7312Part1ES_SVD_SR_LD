@@ -3,14 +3,15 @@ package com.example.opsc7312part1
 import com.google.firebase.database.*
 import kotlinx.coroutines.tasks.await
 
-class MyStore {
-    var storeName: String? = null
-    var storeInfo: String? = null
-    var favourite: Boolean? = null
-    var rating: Float? = null
-    var location: String? = null
-    var myNotes: String? = null
-
+class MyStore (
+    var storeName: String?,
+    var storeInfo: String?,
+    var favourite: Boolean?,
+    var rating: Float?,
+    var location: String?,
+    var myNotes: String?
+    )
+{
     companion object {
         private val database = FirebaseDatabase.getInstance()
 

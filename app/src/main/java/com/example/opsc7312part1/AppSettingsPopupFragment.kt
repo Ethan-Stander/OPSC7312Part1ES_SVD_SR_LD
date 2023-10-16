@@ -1,6 +1,5 @@
 package com.example.opsc7312part1
 
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -15,7 +14,6 @@ import android.widget.ArrayAdapter
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
@@ -56,20 +54,8 @@ class AppSettingsPopupFragment : DialogFragment() {
         val arrayAdapter1 = ArrayAdapter(requireContext(), R.layout.dropdown_item, appTheme)
         binding.tvAppTheme.setAdapter((arrayAdapter1))
 
-        // Load the saved theme preference and apply it
-        val sharedPreferences = requireActivity().getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
-        val savedTheme = sharedPreferences.getString("theme", "Light Mode")
-
-        // Set the initial selection based on the saved preference
-        binding.tvAppTheme.setText(savedTheme, false)
-
-        binding.tvAppTheme.setOnItemClickListener { _, _, position, _ ->
-            val selectedTheme = appTheme[position]
-            // Save the selected theme to SharedPreferences
-            sharedPreferences.edit().putString("theme", selectedTheme).apply()
-            applyTheme(selectedTheme)
-        }
-
+        binding.switchNotifications.isChecked =
+            ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         // close popup
         binding.btnAppSettingsClose.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
@@ -88,17 +74,12 @@ class AppSettingsPopupFragment : DialogFragment() {
         return binding.root
     }
 
-    private fun applyTheme(selectedTheme: String) {
-        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
-        val themeId = if (selectedTheme == "Light Mode") AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-        AppCompatDelegate.setDefaultNightMode(themeId)
-        requireActivity().setTheme(themeId)
-        requireActivity().recreate() // Recreate the activity to apply the new theme
-    }
 
     private fun checkNotificationPermission() {
         binding.switchNotifications.isChecked =
             ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+
+
     }
     private fun notificationPermission(){
         val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)

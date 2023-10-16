@@ -3,6 +3,7 @@ package com.example.opsc7312part1
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -33,14 +34,18 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 //global var to store user details across pages more effective than pulling from database everytime
-var UserName: String = ""
-var UserEmail: String = ""
-var UserURL: String = ""
-var UserID: String = ""
+var UserName: String? = ""
+var UserEmail: String? = ""
+var UserURL: String? = ""
+var UserID: String? = ""
+
 
 
 class GoogleLogin : AppCompatActivity() {
 
+    /*companion object{
+        const val userLoggedPreference = "UserLoginPreferences"
+    }*/
 
     //fire base authentication
     private lateinit var auth: FirebaseAuth
@@ -79,6 +84,7 @@ class GoogleLogin : AppCompatActivity() {
 
         googleSignInClient = GoogleSignIn.getClient(this, gso)
 
+
         findViewById<Button>(R.id.btnGoogleLogin).setOnClickListener {
             signInGoogle()
         }
@@ -88,8 +94,39 @@ class GoogleLogin : AppCompatActivity() {
             UserName = ""
             startActivity(intent)
         }
-
     }
+
+    override fun onResume() {
+        super.onResume()
+        // Fetching the stored data from the SharedPreference
+        val userDataList = SharedPreferencesManager(this).getUserData()
+
+        UserName = userDataList[0]
+        UserEmail = userDataList[1]
+        UserURL = userDataList[2]
+        UserID = userDataList[3]
+
+        if(!UserName.isNullOrEmpty() && !UserEmail.isNullOrEmpty() && !UserURL.isNullOrEmpty() && !UserID.isNullOrEmpty())
+        {
+            val intent = Intent(this, FragmentTesting::class.java)
+            startActivity(intent)
+        }
+
+        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+        UserName = sharedPreferences.getString("shUserName_key", "")
+        UserEmail = sharedPreferences.getString("shUserEmail_key", "")
+        UserURL = sharedPreferences.getString("shUserURL_key", "")
+        UserID = sharedPreferences.getString("shUserID_key", "")
+
+        if(!UserName.isNullOrEmpty() && !UserEmail.isNullOrEmpty() && !UserURL.isNullOrEmpty() && !UserID.isNullOrEmpty())
+        {
+            val intent = Intent(this, FragmentTesting::class.java)
+            startActivity(intent)
+        }*/
+    }
+
+
+
 
     //disables back button on phone default navigation bar
     //don't remove, its works
@@ -111,10 +148,15 @@ class GoogleLogin : AppCompatActivity() {
 
     private val launcher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-            if (result.resultCode == Activity.RESULT_OK) {
-
-                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-                handleResults(task)
+            try {
+                if (result.resultCode == Activity.RESULT_OK) {
+                    Log.i("Check result",result.resultCode.toString())
+                    val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                    handleResults(task)
+                }
+            } catch (e: Exception) {
+                // Handle the exception here
+                Log.e("Google login error", "Error occurred: ${e.message}")
             }
         }
     private fun handleResults(task: Task<GoogleSignInAccount>) {
@@ -146,13 +188,13 @@ class GoogleLogin : AppCompatActivity() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {
+                Log.i("Check login succesful", task.isSuccessful.toString())
                 dbref = FirebaseDatabase.getInstance().getReference("Users")
                 dbref.child(account.id.toString()).get().addOnSuccessListener { dataSnapshot ->
                     if (!dataSnapshot.exists()) {
                         val user = User(
                             UserID = account.id,
                             Username = account.displayName,
-
                         )
 
                         val parentJob = Job()
@@ -164,7 +206,7 @@ class GoogleLogin : AppCompatActivity() {
                                 dbref = FirebaseDatabase.getInstance().getReference("Users")
 
                                 // Perform the user data insertion
-                                dbref.child(UserID).setValue(user).await()
+                                UserID?.let { dbref.child(it).setValue(user).await() }
 
                                 val setting = Setting()
                                 FirebaseUtils.insertSettingForUser(user, setting)
@@ -196,6 +238,16 @@ class GoogleLogin : AppCompatActivity() {
                     UserEmail = account.email.toString()
                     UserURL = account.photoUrl.toString()
                     UserID = account.id.toString()
+
+                    //set sharedPreferences data
+                    SharedPreferencesManager(this).saveUserData(UserName, UserEmail, UserURL, UserID)
+                    /*val sharedPreferences = getSharedPreferences(userLoggedPreference, MODE_PRIVATE)
+                    val editor = sharedPreferences.edit()
+                    editor.putString("shUserName_key", UserName)
+                    editor.putString("shUserEmail_key", UserEmail)
+                    editor.putString("shUserURL_key", UserURL)
+                    editor.putString("shUserID_key", UserID)
+                    editor.apply()*/
 
                     // Show the progress bar
                     showProgressBar()
@@ -232,7 +284,5 @@ class GoogleLogin : AppCompatActivity() {
             }
         }
     }
-
-
 }
 

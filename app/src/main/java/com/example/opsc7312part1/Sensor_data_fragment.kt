@@ -50,7 +50,7 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
     private lateinit var popupWindow: PopupWindow
     private lateinit var popupView: View
 
-    private lateinit var tvSensorErrorMessage: TextView // Added error TextView
+    private lateinit var tvSensorErrorMessage: TextView
 
     private lateinit var sensorLoadingBar: ProgressBar
 
@@ -144,6 +144,12 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
 
                 return true
             }
+
+            R.id.Refresh ->{
+
+                FragmentUtils.refreshFragment(requireActivity(), Sensor_data_fragment(), R.id.frameLayout)
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -151,32 +157,13 @@ class Sensor_data_fragment :Fragment(R.layout.sensor_data_fragment) {
     private fun infoDataInitialize() {
         infoDataList = InfoDataInitializer.initializeInfoData(requireContext(),"Sensors")
     }
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Equipment_data_fragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Sensor_data_fragment().apply {
-                arguments = Bundle().apply {
 
-                }
-            }
-    }
     private suspend fun sensorDataInitialize() : Boolean
     {
         attributeNames = ArrayList()
         readings = ArrayList()
         sensorDataList = ArrayList()
-
-
-            val sensorDataAPI: SensorDataAPI? = APIServices.fetchSensorDataFromJson()
+            val sensorDataAPI: SensorDataAPI? = context?.let { APIServices.fetchSensorDataFromJson(it) }
 
             if (sensorDataAPI != null) {
                 val sensorDataString = sensorDataAPI.toString() // Convert SensorDataAPI to string

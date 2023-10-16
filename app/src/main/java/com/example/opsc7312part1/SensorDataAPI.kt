@@ -6,5 +6,5 @@ data class SensorDataAPI(
     val LightLevel: String?,
     val FlowRate: String?,
     val pH: String?,
-    val EC: String?
+    val EC: String?,
 )

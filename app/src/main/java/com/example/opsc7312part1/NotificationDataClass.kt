@@ -21,20 +21,23 @@ class NotificationDataClass {
                 val currentUser = user.UserID
                 val reference = currentUser?.let { database.getReference("Users").child(it).child("notifications") }
 
+                // Get the current count of notifications
+                val snapshot = reference?.get()?.await()
+                val notificationCount = snapshot?.childrenCount?.toInt()
+
+                // Check if the count exceeds the limit (e.g., 10)
+                if (notificationCount != null) {
+                    if (notificationCount >= 10) {
+                        // If there are more than 10 notifications, remove the oldest one
+                        val oldestNotification = snapshot.children.first()
+                        oldestNotification.ref.removeValue().await()
+                    }
+                }
+
                 if (reference != null) {
                     // Generate a unique key for each notification
                     val notificationKey = reference.push().key
                     if (notificationKey != null) {
-                        // Get the current count of notifications
-                        val snapshot = reference.get().await()
-                        val notificationCount = snapshot.childrenCount.toInt()
-
-                        // Check if the count exceeds the limit (e.g., 10)
-                        if (notificationCount >= 10) {
-                            // If there are more than 10 notifications, remove the oldest one
-                            val oldestNotification = snapshot.children.first()
-                            oldestNotification.ref.removeValue().await()
-                        }
 
                         // Set the new notification under the generated key
                         reference.child(notificationKey).setValue(notification).await()
@@ -65,6 +68,20 @@ class NotificationDataClass {
                 null // Handle exceptions or errors appropriately
             }
         }
+
+        suspend fun deleteAllNotificationsForUser(user: User): Boolean {
+            val currentUser = user.UserID
+            val reference = currentUser?.let { database.getReference("Users").child(it).child("notifications") }
+
+            return try {
+                reference?.removeValue()?.await() // Use removeValue().await() to delete all notifications
+
+                true // Deletion was successful
+            } catch (e: Exception) {
+                false // Handle exceptions or errors appropriately
+            }
+        }
+
     }
 }
 
