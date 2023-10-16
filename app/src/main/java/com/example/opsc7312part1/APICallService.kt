@@ -1,18 +1,20 @@
 package com.example.opsc7312part1
 
 import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -114,6 +116,7 @@ class APICallService() : Service() {
     enum class Actions{
         START,STOP
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotification(title: String, message: String): Notification? {
 
         //Confirm usage of intent
@@ -128,6 +131,16 @@ class APICallService() : Service() {
 
         val color = ContextCompat.getColor(applicationContext,R.color.red)
 
+        val channel = NotificationChannel(
+            "Channel_id",
+            "PennSkanvTicChannel",
+            NotificationManager.IMPORTANCE_HIGH
+        )
+        channel.description = "PennSkanvTic channel for foreground service notification"
+
+        var notificationManagertest = NotificationManagerCompat.from(this);
+        notificationManagertest.createNotificationChannel(channel)
+
         val notification = NotificationCompat.Builder(applicationContext, "Channel_id")
             .setContentTitle(title)
             .setContentText(message)
@@ -138,13 +151,17 @@ class APICallService() : Service() {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
+
         val notificationManager = NotificationManagerCompat.from(applicationContext)
         if (ActivityCompat.checkSelfPermission(
                 this,
                 android.Manifest.permission.POST_NOTIFICATIONS
             ) == PackageManager.PERMISSION_GRANTED
-        ) {
+        )
+        {
             notificationManager.notify(1, notification)
+
+
         }
         return notification
     }
