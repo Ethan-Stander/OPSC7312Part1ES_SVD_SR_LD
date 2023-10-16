@@ -31,6 +31,7 @@
     android:fitsSystemWindows="true"
     android:background="@color/dark_green"
     app:itemTextColor="@color/white"
-    app:itemIconTint="@color/light_green" />
+    app:itemIconTint="@color/light_green"
+    app:subheaderColor="@color/sub_header_color"/>
 
 </androidx.drawerlayout.widget.DrawerLayout>

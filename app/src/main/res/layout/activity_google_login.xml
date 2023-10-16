@@ -93,7 +93,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="500dp"
-        android:backgroundTint="@color/SkipButton"
+        android:backgroundTint="@color/black"
         android:drawableEnd="@drawable/ic_logout"
         android:drawableTint="@color/light_green"
         android:text="Skip Sign In"

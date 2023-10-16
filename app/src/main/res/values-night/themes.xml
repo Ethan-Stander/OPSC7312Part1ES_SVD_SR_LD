@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!--ORIGINAL THEME-->
+    <!--ORIGINAL DARK THEME-->
     <style name="Theme.OPSC7312Part1" parent="Theme.MaterialComponents.Light.DarkActionBar" >
         <!-- Base application theme. -->
         <item name="colorPrimary">@color/dark_green</item>
@@ -10,32 +10,23 @@
         <item name="colorPrimary">@color/dark_green</item>
     </style>
 
-    <!--SETTINGS THEME-->
+    <!--SETTINGS DARK THEME-->
     <style name="Theme.SettingsPage" parent="Theme.MaterialComponents.Light.DarkActionBar" >
-        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimary">@color/darker_green</item>
     </style>
+    <color name="settings_text_color">@color/white</color>
+    <color name="settings_arrow_color">@color/light_green</color>
 
-    <!--GREEN THEME-->
+    <!--NAV CATEGORY TITLE DARK COLOR-->
+    <color name="sub_header_color">@color/settings_grey</color>
+
+    <!--GREEN DARK THEME-->
     <style name="Theme.GreenTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" >
         <item name="colorPrimary">@color/dark_green</item>
         <item name="android:backgroundTint">@color/grey</item>
     </style>
 
-    <!--LOGIN THEME-->
-    <style name="Theme.LoginPage" parent="Theme.MaterialComponents.Light.NoActionBar" >
-        <!-- Base application theme. -->
-        <item name="colorPrimary">@color/dark_green</item>
-        <item name="android:statusBarColor">@color/dark_green</item>
-        <item name="android:background">@color/grey</item>
-    </style>
-    <style name="Base.Theme.LoginPage" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/dark_green</item>
-        <item name="android:statusBarColor">@color/dark_green</item>
-    </style>
-    <color name="SkipButton">@color/black</color>
-
-    <!--DROPDOWN THEME-->
+    <!--DROPDOWN DARK THEME-->
     <style name="DropdownTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
         <item name="boxStrokeColor">@color/dark_green</item>
         <item name="hintTextColor">@color/dark_green</item>

@@ -16,6 +16,11 @@
     <style name="Theme.SettingsPage" parent="Theme.MaterialComponents.Light.DarkActionBar" >
         <item name="colorPrimary">#D9D9D9</item>
     </style>
+    <color name="settings_text_color">@color/dark_green</color>
+    <color name="settings_arrow_color">@color/light_grey</color>
+
+    <!--NAV CATEGORY TITLE COLOR-->
+    <color name="sub_header_color">@color/settings_grey</color>
 
     <!--GREEN THEME-->
     <style name="Theme.GreenTheme" parent="Theme.MaterialComponents.Light.DarkActionBar" >
@@ -33,7 +38,12 @@
         <item name="colorPrimary">@color/dark_green</item>
         <item name="android:statusBarColor">@color/dark_green</item>
     </style>
-    <color name="SkipButton">@color/dark_green</color>
+    <style name="Theme.LoginPage_Dark" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <!-- Base application theme. -->
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+        <item name="android:backgroundTint">@color/grey</item>
+    </style>
 
     <!--DROPDOWN THEME-->
     <style name="DropdownTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
@@ -41,6 +51,10 @@
         <item name="hintTextColor">@color/dark_green</item>
     </style>
     <style name="GreenCursor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="colorPrimary">@color/dark_green</item>
+    </style>
+
+    <style name="GreenTextBoxCursor">
         <item name="colorPrimary">@color/dark_green</item>
     </style>
 

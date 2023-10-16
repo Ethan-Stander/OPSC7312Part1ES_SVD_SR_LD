@@ -59,8 +59,7 @@ class GoogleLogin : AppCompatActivity() {
         val sharedPreferences = getSharedPreferences("AppSettings", Context.MODE_PRIVATE)
         val selectedTheme = sharedPreferences.getString("theme", "Light Mode")
         // Apply the selected theme
-        val themeId = if (selectedTheme == "Light Mode") AppCompatDelegate.MODE_NIGHT_NO else AppCompatDelegate.MODE_NIGHT_YES
-        AppCompatDelegate.setDefaultNightMode(themeId)
+        val themeId = if (selectedTheme == "Light Mode") R.style.Theme_LoginPage else R.style.Theme_LoginPage_Dark
         setTheme(themeId)
 
         super.onCreate(savedInstanceState)

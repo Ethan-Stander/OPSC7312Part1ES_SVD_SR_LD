@@ -119,6 +119,7 @@
             <!--[STORE RANGE]-->
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutStoreRange"
+                android:theme="@style/GreenTextBoxCursor"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="220dp"
@@ -129,8 +130,9 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.5"
                 android:hint="Store Range"
-                app:hintTextColor="@color/light_grey"
+                app:hintTextColor="@color/dark_green"
                 app:boxStrokeColor="@color/dark_green"
+                android:textColorHint="@color/light_grey"
                 android:paddingLeft="-12dp">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -138,7 +140,8 @@
                     android:layout_height="match_parent"
                     android:textColor="@color/light_grey"
                     android:inputType="numberDecimal"
-                    android:id="@+id/tvMaxStoreRange"/>
+                    android:id="@+id/tvMaxStoreRange"
+                    android:background="@color/transparent"/>
 
             </com.google.android.material.textfield.TextInputLayout>
 
