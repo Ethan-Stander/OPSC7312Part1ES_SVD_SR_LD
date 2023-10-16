@@ -33,11 +33,34 @@
         <item name="colorPrimary">@color/dark_green</item>
         <item name="android:statusBarColor">@color/dark_green</item>
     </style>
+    <style name="Theme.LoginPage_Dark" parent="Theme.MaterialComponents.Light.NoActionBar" >
+        <!-- Base application theme. -->
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="android:statusBarColor">@color/dark_green</item>
+        <item name="android:backgroundTint">@color/dark_mode_green</item>
+    </style>
 
-    <!--for dialog alerts-->
+    <!--DROPDOWN THEME-->
+    <style name="DropdownTheme" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="boxStrokeColor">@color/dark_green</item>
+        <item name="hintTextColor">@color/dark_green</item>
+    </style>
+    <style name="GreenCursor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu">
+        <item name="colorPrimary">@color/dark_green</item>
+    </style>
+
+    <style name="GreenTextBoxCursor">
+        <item name="colorPrimary">@color/dark_green</item>
+    </style>
+
+    <!--DIALOG ALERTS-->
     <style name="settings_custom_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
-
     </style>
+
+    <!--COLORS-->
+    <color name="sub_header_color">@color/settings_grey</color>
+    <color name="settings_text_color">@color/dark_green</color>
+    <color name="settings_arrow_color">@color/light_grey</color>
 
 </resources>

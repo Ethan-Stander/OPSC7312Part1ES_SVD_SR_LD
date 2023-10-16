@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:gravity="center"
     tools:context=".AccountPopupFragment"
-    android:background="@drawable/rounded_bg">
+    android:background="@drawable/rounded_bg"
+    style="@style/Theme.GreenTheme">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -113,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text=""
-                android:textColor="@color/black"
+                android:textColor="@color/light_grey"
                 android:textSize="18dp" />
         </LinearLayout>
 
@@ -155,7 +156,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text=""
-                android:textColor="@color/black"
+                android:textColor="@color/light_grey"
                 android:textSize="18dp" />
         </LinearLayout>
 
