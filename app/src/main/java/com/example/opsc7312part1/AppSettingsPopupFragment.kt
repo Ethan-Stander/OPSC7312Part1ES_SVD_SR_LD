@@ -54,6 +54,8 @@ class AppSettingsPopupFragment : DialogFragment() {
         val arrayAdapter1 = ArrayAdapter(requireContext(), R.layout.dropdown_item, appTheme)
         binding.tvAppTheme.setAdapter((arrayAdapter1))
 
+        binding.switchNotifications.isChecked =
+            ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
         // close popup
         binding.btnAppSettingsClose.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
@@ -76,6 +78,8 @@ class AppSettingsPopupFragment : DialogFragment() {
     private fun checkNotificationPermission() {
         binding.switchNotifications.isChecked =
             ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.POST_NOTIFICATIONS) == PackageManager.PERMISSION_GRANTED
+
+
     }
     private fun notificationPermission(){
         val intent = Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS)

@@ -70,10 +70,10 @@ class FragmentTesting :AppCompatActivity() {
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(Color.parseColor("#428948")))
 
         //for the API foreground service
-        /*Intent(applicationContext, APICallService::class.java).also {
+        Intent(applicationContext, APICallService::class.java).also {
             it.action = APICallService.Actions.START.toString()
             startService(it)
-        }*/
+        }
 
         //implement binding
         binding = ActivityFragmentTestingBinding.inflate(layoutInflater)
@@ -99,6 +99,7 @@ class FragmentTesting :AppCompatActivity() {
                 R.id.nav_feedback -> replaceFragment(feedbackFragment(),it.title.toString())
                 R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
                 R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
+                R.id.notification_history_recycler ->replaceFragment(NotificationHistory(),it.title.toString())
                 R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
 
                     SharedPreferencesManager(this).clearUserData()

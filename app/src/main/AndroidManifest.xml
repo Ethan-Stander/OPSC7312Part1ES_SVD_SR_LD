@@ -3,17 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-<!--    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>-->
-    <!--<uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>-->
-    <!--add below in application-->
-    <!--android:name=".RunningApp"-->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <!--<add below in application>-->
+    <uses-permission android:name=".RunningApp"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+
+
+
 
     <application
 
+        android:fullBackupContent="@xml/backup_rules"
         android:allowBackup="true"
         android:usesCleartextTraffic="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_shlogo"
         android:label="SmartHydro"
         android:roundIcon="@mipmap/ic_shlogo_round"
@@ -21,11 +29,12 @@
         android:theme="@style/Theme.OPSC7312Part1"
         tools:targetApi="34">
 
+
         <!--service for APIs and notifications-->
-        <!--<service
+        <service
             android:name=".APICallService"
             android:enabled="true"
-            android:exported="false" />-->
+            android:exported="false" />
         <activity
             android:name=".FragmentTesting"
             android:exported="false"

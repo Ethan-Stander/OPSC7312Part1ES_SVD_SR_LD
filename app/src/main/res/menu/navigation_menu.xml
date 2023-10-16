@@ -40,6 +40,12 @@
                     android:icon="@drawable/ic_howtoguide"
                     />
                 <item
+                android:id ="@+id/notification_history_recycler"
+                    android:title="Notification History"
+                    android:icon = "@drawable/ic_notifications"
+                    />
+
+                <item
                     android:id="@+id/nav_settings"
                     android:title="Settings"
                     android:icon="@drawable/ic_settings"

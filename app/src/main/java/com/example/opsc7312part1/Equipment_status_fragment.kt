@@ -141,7 +141,7 @@ class Equipment_status_fragment : Fragment() {
                     equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
                     equipmentStatusDataRecyclerView.layoutManager = gridLayoutManager
                     equipmentStatusDataRecyclerView.setHasFixedSize(true)
-                    equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList)
+                    equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList,requireContext())
                     equipmentStatusDataRecyclerView.adapter = equipmentStatusDataAdapter
 
                     //switch for API calls
@@ -277,7 +277,7 @@ class Equipment_status_fragment : Fragment() {
 
 
                         equipmentDataInitialize()
-                        equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList)
+                        equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList,requireContext())
                         equipmentStatusDataRecyclerView.adapter = equipmentStatusDataAdapter
                         //switch for API calls
                         equipmentStatusDataAdapter.setOnItemClickListener(object :
@@ -320,7 +320,7 @@ class Equipment_status_fragment : Fragment() {
 
     private suspend fun equipmentDataInitialize() {
 
-        var Statuses: hardware? = APIServices.fetchhardware()
+        var Statuses: hardware? = context?.let { APIServices.fetchhardware(it) }
 
         if (Statuses != null) {
             Statuses.setValues()
