@@ -62,5 +62,10 @@
     <color name="sub_header_color">@color/settings_grey</color>
     <color name="settings_text_color">@color/dark_green</color>
     <color name="settings_arrow_color">@color/light_grey</color>
+    <color name="dark_mode_text">@color/black</color>
+    <color name="dark_mode_cards">@color/white</color>
+    <color name="dark_mode_popups">@color/white</color>
+    <color name="divider_line">#DDD5D5</color>
+    <color name="dark_mode_headers">@color/dark_green</color>
 
 </resources>

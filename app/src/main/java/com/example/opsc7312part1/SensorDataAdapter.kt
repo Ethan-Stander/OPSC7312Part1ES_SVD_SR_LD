@@ -55,9 +55,9 @@ class SensorDataAdapter(private val sensorDataList: ArrayList<SensorData>): Recy
 
         val context = holder.itemView.context
         if (currentItem.status) {
-            holder.bgColor.setCardBackgroundColor(context.getColor(R.color.green))
+            holder.bgColor.setCardBackgroundColor(context.getColor(R.color.dark_green))
         } else {
-            holder.bgColor.setCardBackgroundColor(context.getColor(R.color.red))
+            holder.bgColor.setCardBackgroundColor(context.getColor(R.color.dark_red))
         }
 
     }

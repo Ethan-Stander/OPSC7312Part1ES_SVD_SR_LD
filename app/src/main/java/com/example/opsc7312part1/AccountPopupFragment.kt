@@ -42,6 +42,7 @@ class AccountPopupFragment : DialogFragment() {
             binding.accountPopUpImage.visibility = View.GONE
             binding.lvUsernameInformation.visibility = View.GONE
             binding.lvGmailInformation.visibility = View.GONE
+            binding.btnDeleteAccount.visibility = View.GONE
 
         }else
         // User object

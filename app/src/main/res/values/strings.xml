@@ -142,9 +142,9 @@ The SmartHydro Team</string>
     <string name="reset_option_hard_reset_step_3">Step 3: Turn switch off and on again</string>
 
     <!--manually control equipment-->
-    <string name="manually_control_equipment_step_1">Step 1: Head to the control page through the navigation bar</string>
-    <string name="manually_control_equipment_step_2">Step 2: Switch AI off. This will make the equipment controls appear </string>
-    <string name="manually_control_equipment_step_3">Step 3: Switch desired controls on/off </string>
+    <string name="manually_control_equipment_step_1">Head to the control page through the navigation bar</string>
+    <string name="manually_control_equipment_step_2">Switch AI off. This will make the equipment controls appear </string>
+    <string name="manually_control_equipment_step_3">Switch desired controls on/off </string>
 
     <!--Connect to SmartHydro<-->
     <string name="connect_to_SmartHydro_step_1">Step 1: Open Wi-Fi settings on device</string>
