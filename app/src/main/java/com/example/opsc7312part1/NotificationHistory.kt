@@ -40,7 +40,7 @@ class NotificationHistory : Fragment() {
         notification_history_recycler.layoutManager = LinearLayoutManager(activity)
         notificationHistoryAdapter = NotificationHistoryAdapter(emptyList()) // Initially empty
         notification_history_recycler.adapter = notificationHistoryAdapter
-        btnClearNotifications = view.findViewById(R.id.btnClearNotifications)
+
 
         // Retrieve notifications and update the adapter when available
         val user = User(
@@ -57,12 +57,6 @@ class NotificationHistory : Fragment() {
                 }
             }
         }
-        btnClearNotifications.setOnClickListener {
-            CoroutineScope(Dispatchers.IO).launch {
-                deleteAllNotificationsForUser(user)
-            }
-        }
-
 
         return view
     }
