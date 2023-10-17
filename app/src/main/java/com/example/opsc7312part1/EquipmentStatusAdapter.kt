@@ -1,5 +1,6 @@
 package com.example.opsc7312part1
 
+import android.content.Context
 import android.content.res.ColorStateList
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,10 +13,14 @@ import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
-class EquipmentStatusAdapter(private val equipmentStatusDataList :ArrayList<EquipmentStatusData>): RecyclerView.Adapter<EquipmentStatusAdapter.ViewHolder>() {
+class EquipmentStatusAdapter(private val equipmentStatusDataList :ArrayList<EquipmentStatusData>, context : Context): RecyclerView.Adapter<EquipmentStatusAdapter.ViewHolder>() {
 
     private lateinit var mListener: onItemClickListener
+    val context = context
 
     interface onItemClickListener{
         fun onItemClick(position: Int)
@@ -69,17 +74,12 @@ class EquipmentStatusAdapter(private val equipmentStatusDataList :ArrayList<Equi
             val scope = CoroutineScope(Dispatchers.Main)
             val job = scope.launch {
                 var temp: Boolean = APIServices.switch(currentItem.link)
-                Log.i("Switch", "THE API CALL WAS HIT" + currentItem.link)
-
-                if(temp == null)
-                {
-                    Log.i("Api CALL", "Call was null and invalid")
-                }
-                else
-                {
-                    Log.i("Valid", "API call was valid")
-                }
-
+                val myDB = DatabaseHelper(context)
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
+                val currentDateTime: String = sdf.format(Date())
+                val status = !currentItem.equipmentStatus
+                var action = Action(currentDateTime,currentItem.equipmentTitle,status.toString(),currentItem.equipmentStatus.toString(),false)
+                myDB.addAction(action)
 
             // Update the background and thumb/track colors based on the new status
             if (isChecked) {

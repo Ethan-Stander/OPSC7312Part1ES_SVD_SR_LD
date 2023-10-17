@@ -20,17 +20,31 @@
                     android:icon="@drawable/ic_location" />
                 <item
                     android:id="@+id/nav_mystores"
-                    android:title="My Stores (Coming soon)"
+                    android:title="My Stores"
                     android:icon="@drawable/ic_stores" />
             </menu>
         </item>
-
     </group>
-
 
     <group>
         <item android:title="Additional">
             <menu>
+                <item
+                    android:id="@+id/nav_feedback"
+                    android:title="Feedback"
+                    android:icon="@drawable/ic_feedback"
+                    />
+                <item
+                    android:id="@+id/nav_howToGuides"
+                    android:title="How to Guides"
+                    android:icon="@drawable/ic_howtoguide"
+                    />
+                <item
+                android:id ="@+id/notification_history_recycler"
+                    android:title="Notification History"
+                    android:icon = "@drawable/ic_notifications"
+                    />
+
                 <item
                     android:id="@+id/nav_settings"
                     android:title="Settings"

@@ -34,13 +34,14 @@
         android:text="Account"
         android:textAlignment="textStart"
         android:textAllCaps="false"
-        android:textColor="@color/dark_green"
+        android:textColor="@color/settings_text_color"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.5"
+        android:drawableTint="@color/settings_arrow_color"/>
 
     <Button
         android:id="@+id/settings_measurements"
@@ -52,13 +53,14 @@
         android:text="Measurements"
         android:textAlignment="textStart"
         android:textAllCaps="false"
-        android:textColor="#428948"
+        android:textColor="@color/settings_text_color"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.5"
+        android:drawableTint="@color/settings_arrow_color"/>
 
     <Button
         android:id="@+id/settings_appsettings"
@@ -70,13 +72,14 @@
         android:text="App Settings"
         android:textAlignment="textStart"
         android:textAllCaps="false"
-        android:textColor="#428948"
+        android:textColor="@color/settings_text_color"
         android:textSize="25dp"
         android:textStyle="bold"
         app:flow_wrapMode="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" />
+        app:layout_constraintVertical_bias="0.5"
+        android:drawableTint="@color/settings_arrow_color"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

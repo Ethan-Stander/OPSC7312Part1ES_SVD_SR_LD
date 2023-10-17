@@ -138,11 +138,10 @@ class Equipment_status_fragment : Fragment() {
                     //Enables equipment controls display
                     equipmentDataInitialize()
                     val gridLayoutManager = GridLayoutManager(context, 2)
-                    equipmentStatusDataRecyclerView =
-                        view.findViewById(R.id.EquipmentStatusRecyclerView)
+                    equipmentStatusDataRecyclerView = view.findViewById(R.id.EquipmentStatusRecyclerView)
                     equipmentStatusDataRecyclerView.layoutManager = gridLayoutManager
                     equipmentStatusDataRecyclerView.setHasFixedSize(true)
-                    equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList)
+                    equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList,requireContext())
                     equipmentStatusDataRecyclerView.adapter = equipmentStatusDataAdapter
 
                     //switch for API calls
@@ -185,6 +184,10 @@ class Equipment_status_fragment : Fragment() {
                 popupRecyclerView.adapter = infoDataAdapter
 
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0)
+                return true
+            }
+            R.id.Refresh ->{
+                FragmentUtils.refreshFragment(requireActivity(), Equipment_status_fragment(), R.id.frameLayout)
                 return true
             }
 
@@ -274,7 +277,7 @@ class Equipment_status_fragment : Fragment() {
 
 
                         equipmentDataInitialize()
-                        equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList)
+                        equipmentStatusDataAdapter = EquipmentStatusAdapter(equipmentStatusDataList,requireContext())
                         equipmentStatusDataRecyclerView.adapter = equipmentStatusDataAdapter
                         //switch for API calls
                         equipmentStatusDataAdapter.setOnItemClickListener(object :
@@ -317,7 +320,7 @@ class Equipment_status_fragment : Fragment() {
 
     private suspend fun equipmentDataInitialize() {
 
-        var Statuses: hardware? = APIServices.fetchhardware()
+        var Statuses: hardware? = context?.let { APIServices.fetchhardware(it) }
 
         if (Statuses != null) {
             Statuses.setValues()

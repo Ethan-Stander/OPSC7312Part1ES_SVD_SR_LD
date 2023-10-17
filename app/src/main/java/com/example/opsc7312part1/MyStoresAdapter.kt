@@ -1,0 +1,54 @@
+package com.example.opsc7312part1
+
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.PopupWindow
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.RecyclerView
+
+class MyStoresAdapter(private val myStoreList : ArrayList<MyStore>): RecyclerView.Adapter<MyStoresAdapter.ViewHolder>() {
+    class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
+        val storeDetails : TextView = itemView.findViewById(R.id.txtStoreDetails)
+        val storeFavorite : ImageView = itemView.findViewById(R.id.btnFavorite)
+        val btnViewStoreOnMap : Button = itemView.findViewById(R.id.btnViewOnMap)
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.my_stores_details_list,parent,false)
+        return ViewHolder(itemView)
+    }
+
+    override fun getItemCount(): Int {
+        return myStoreList.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val currentItem = myStoreList[position]
+        holder.storeDetails.text = currentItem.storeName +  "\n" +currentItem.storeInfo + "\n" + currentItem.rating
+
+        val favoriteDrawable = if (currentItem.favourite!!) R.drawable.ic_not_favorite else R.drawable.ic_favorite
+        holder.storeFavorite.setImageResource(favoriteDrawable)
+
+        holder.storeFavorite.setOnClickListener {
+            currentItem.favourite = !currentItem.favourite!!
+            val newFavoriteDrawable = if (currentItem.favourite!!) R.drawable.ic_not_favorite else R.drawable.ic_favorite
+            holder.storeFavorite.setImageResource(newFavoriteDrawable)
+        }
+
+        holder.storeDetails.setOnClickListener {
+            val dialogFragment = myStoreDetailPopUp()
+            dialogFragment.show((holder.itemView.context as AppCompatActivity).supportFragmentManager,"MyStoreDetailDialog")
+        }
+
+        holder.btnViewStoreOnMap.setOnClickListener {
+            TODO("Not yet implemented")
+        }
+    }
+
+}

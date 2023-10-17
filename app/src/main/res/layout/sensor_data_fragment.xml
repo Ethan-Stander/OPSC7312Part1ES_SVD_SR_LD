@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Sensor_data_fragment">
+    tools:context=".Sensor_data_fragment"
+    android:id="@+id/Sensor_data_page">
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -25,7 +26,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:textAlignment="center"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:textColor="@color/light_grey"/>
 
     <ProgressBar
         android:id="@+id/sensorLoadingBar"

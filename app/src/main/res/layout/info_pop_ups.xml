@@ -13,14 +13,12 @@
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
         app:contentPadding="5dp"
-        android:background="@drawable/dark_rounded_border_"
-        >
+        android:background="@drawable/dark_rounded_border_">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_bg"
-            >
+            android:background="@drawable/rounded_bg">
 
             <!-- Exit button -->
             <ImageButton
@@ -43,7 +41,7 @@
                 android:textColor="@color/dark_green"
                 android:textStyle="bold"
                 android:textSize="26sp"
-
+                android:background="@color/transparent"
                 android:layout_centerHorizontal="true"/>
 
             <androidx.recyclerview.widget.RecyclerView
