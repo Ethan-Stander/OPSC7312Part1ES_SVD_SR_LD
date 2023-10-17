@@ -5,6 +5,9 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -193,7 +196,12 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun getAllNotifications(): List<NotificationDataClass> {
         val notificationList = mutableListOf<NotificationDataClass>()
         val db = this.readableDatabase
-        val query = "SELECT * FROM notifications"
+
+        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        val yesterdayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000))
+
+        val query = "SELECT * FROM notifications WHERE DATE(timestamp) IN ('$currentDate', '$yesterdayDate')"
+
         val cursor = db.rawQuery(query, null)
 
         while (cursor.moveToNext()) {
@@ -204,12 +212,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
             notificationList.add(notification)
         }
 
-
         cursor.close()
         db.close()
 
         return notificationList
     }
+
+
 
     @SuppressLint("Range")
     fun getAllSensorData(): List<SensorDataAPISqlLite> {
