@@ -1,4 +1,5 @@
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,18 +32,20 @@ class PlacesAdapter (private val fragmentNavigation: FragmentNavigation): Recycl
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         // Define UI elements here (e.g., TextViews)
-        val name: TextView = itemView.findViewById(R.id.txtPlaceName)
-        val phone: TextView = itemView.findViewById(R.id.txtPlacePhone)
-        val rating: TextView = itemView.findViewById(R.id.txtPlaceRating)
-        val directionsButton: Button = itemView.findViewById(R.id.btnDirections)
-        val AddToMyStoresButton: Button = itemView.findViewById(R.id.btnAddmyStores)
 
+        val name: TextView = itemView.findViewById(R.id.txtNearbyStoreItemName)
+        val status: TextView = itemView.findViewById(R.id.txtNearbyStoreOperational)
+        val rating: TextView = itemView.findViewById(R.id.txtNearbyStoreRating)
+        val isOpen: TextView = itemView.findViewById(R.id.txtNearbyStoreisOpen)
+        val directionsButton: Button = itemView.findViewById(R.id.btnNearbyStoresDirections)
+        val AddToMyStoresButton: Button = itemView.findViewById(R.id.btnNearbyStoresAddtoMyStores)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.store_item, parent, false)
         return ViewHolder(itemView)
+
     }
 
     override fun getItemCount(): Int {
@@ -52,9 +55,32 @@ class PlacesAdapter (private val fragmentNavigation: FragmentNavigation): Recycl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = nearbyStoresList[position]
+
         holder.name.text = currentItem.name
-        holder.phone.text = currentItem.phone
-        holder.rating.text = currentItem.rating.toString()
+        holder.rating.text = "Rating: "+currentItem.rating.toString()
+
+        if (currentItem.isOpenNow) {
+            holder.isOpen.text = "Currently Open"
+        }else{
+            holder.isOpen.text = "Currently Closed"
+        }
+
+        holder.status.text = "Status: "+currentItem.status
+        //if exists in my store disable add too my stores
+        databaseReference.child(currentItem.placeId).addListenerForSingleValueEvent(object :
+            ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    // disable button if item exists
+                    holder.AddToMyStoresButton.isEnabled = false
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.e("Error",databaseError.message.toString())
+                holder.AddToMyStoresButton.isEnabled = true
+            }
+        })
 
         holder.directionsButton.setOnClickListener {
             DirLat = currentItem.latitude
@@ -67,7 +93,6 @@ class PlacesAdapter (private val fragmentNavigation: FragmentNavigation): Recycl
             // Disable the button immediately after being clicked
             it.isEnabled = false
 
-            // Check if the item exists in the database
             databaseReference.child(currentItem.placeId).addListenerForSingleValueEvent(object :
                 ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
@@ -78,7 +103,7 @@ class PlacesAdapter (private val fragmentNavigation: FragmentNavigation): Recycl
                 }
 
                 override fun onCancelled(databaseError: DatabaseError) {
-                    // Handle potential errors here
+                    Log.e("Error",databaseError.message.toString())
                     it.isEnabled = true
                 }
             })

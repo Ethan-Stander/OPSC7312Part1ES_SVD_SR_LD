@@ -29,9 +29,7 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCZmLILdvs9CtlAipuMbW08eZ2rkAfgAm0" />
 
-        <activity
-         android:name=".Directions"
-         android:exported="false" /> <!-- service for APIs and notifications -->
+       
         <service
             android:name=".APICallService"
             android:enabled="true"

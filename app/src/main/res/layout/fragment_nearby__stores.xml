@@ -6,17 +6,31 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".Nearby_Stores">
 
-<androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/rNearbyplaces"
-    android:layout_width="0dp"
-    android:layout_height="0dp"
-    android:layout_marginStart="1dp"
-    android:layout_marginTop="1dp"
-    android:layout_marginEnd="1dp"
-    android:layout_marginBottom="1dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    tools:listitem="@layout/store_item"/>
+
+    <Button
+        android:id="@+id/btnNearbyStoresBack"
+        android:layout_width="103dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="12dp"
+        android:text="Back"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rNearbyplaces"
+        android:layout_width="410dp"
+        android:layout_height="666dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.968"
+        tools:listitem="@layout/store_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>

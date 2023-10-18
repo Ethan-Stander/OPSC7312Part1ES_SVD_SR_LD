@@ -7,14 +7,16 @@ android:layout_height="match_parent"
     tools:context=".map_nearby"
 app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-<fragment
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
 
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="652dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="79dp" />
 
-<com.mancj.materialsearchbar.MaterialSearchBar
+    <com.mancj.materialsearchbar.MaterialSearchBar
     style="@style/MaterialSearchBarLight"
     app:mt_speechMode="false"
     app:mt_hint="Search a place"
@@ -27,15 +29,21 @@ app:layout_behavior="@string/appbar_scrolling_view_behavior">
     android:elevation="5dp"
     android:outlineProvider="bounds"
     app:mt_placeholder="Search a place"/>
-<Button
-    android:id="@+id/btn_find"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:text="Find Store"
-    android:textColor="#FFFFFF"
-    android:background="@color/colorPrimary"
-    android:layout_margin="16dp"
-    android:textStyle="bold"/>
+
+    <Button
+        android:id="@+id/btn_find"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="17dp"
+        android:background="@color/colorPrimary"
+        android:text="View Nearby Hardware Stores"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold" />
 
 </RelativeLayout>

@@ -1,10 +1,7 @@
 package com.example.opsc7312part1
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.content.IntentSender
-import android.content.pm.PackageManager
 import android.location.Location
 import android.os.AsyncTask
 import android.os.Bundle
@@ -21,10 +18,8 @@ import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.AppBarConfiguration
-//import com.example.opsc7312part1.
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
@@ -50,8 +45,13 @@ import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationSettingsRequest
 import com.google.android.gms.location.LocationSettingsResponse
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.BufferedReader
@@ -63,10 +63,10 @@ import kotlin.math.roundToInt
 
 val nearbyStoresList: MutableList<Store> = mutableListOf()
 private const val DEFAULT_ZOOM = 15f
-class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearchCallback {
+class map_nearby() : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearchCallback {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private  var mMap: GoogleMap?=null
+    private var mMap: GoogleMap?=null
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var placesClient: PlacesClient
     private lateinit var predictionList: List<AutocompletePrediction>
@@ -81,13 +81,14 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // var intent = Intent(this,NearbyStores::class.java)
+        nearbyStoresList.clear()
         materialSearchBar = view.findViewById(R.id.searchBar)
         btnFind = view.findViewById(R.id.btn_find)
-
+        btnFind.isEnabled = false
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this) // Make sure your Fragment implements OnMapReadyCallback
-        val mapView = mapFragment.view
+        mapView = mapFragment.view
+        mapFragment.getMapAsync(this)
+
 
         mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
@@ -105,7 +106,7 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
 
             override fun onButtonClicked(buttonCode: Int) {
                 if (buttonCode == MaterialSearchBar.BUTTON_NAVIGATION) {
-                    //opening or closing a navigation drawer
+
                 } else if (buttonCode == MaterialSearchBar.BUTTON_BACK) {
                     materialSearchBar.disableSearch()
                 }
@@ -189,31 +190,15 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
             }
             override fun OnItemDeleteListener(position: Int, v: View?) {}
         })
-        btnFind.setOnClickListener(object : View.OnClickListener {                 // btn find stores
+        btnFind.setOnClickListener(object : View.OnClickListener {  // btn find stores
             @SuppressLint("MissingPermission")
             override fun onClick(v: View?) {
-                // Check for location permission here before accessing the user's location
 
-                // Initialize the FusedLocationProviderClient
                 val mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
                 // Define the Nearby Search parameters
                 val apiKey = getString(R.string.google_maps_api)
-                var radius = 5000
-                val user = User(
-                    UserID = UserID,
-                    Username = UserName
-                )
-                lifecycleScope.launch {
-                    val setting = FirebaseUtils.Get(user)
-                    setting?.let {
-                        radius = (setting.MaxDistance * 1000).roundToInt()
-                        if (!setting.KM) {
-                            radius = (setting.MaxDistance * 1.60934 * 1000).roundToInt()
-                        }
-                    }
-                }
-                val type = "harware_store" // Specify the type of place you are searching for
+                val type = "hardware_store"
 
                 // Get the phone's current location
                 mFusedLocationProviderClient.lastLocation
@@ -222,9 +207,8 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
                             val latitude = location.latitude
                             val longitude = location.longitude
                             val locationString = "$latitude,$longitude"
-
                             // Execute the Nearby Search task with the current location
-                            executeNearbySearch(apiKey, locationString, radius, type)
+                            executeNearbySearch(apiKey, locationString, type)
                             (requireActivity() as FragmentTesting).replaceFragment(Nearby_Stores(), "Nearby Stores")
 
                         } else {
@@ -246,16 +230,32 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
                     }
             }
         })
-
     }
-    private fun executeNearbySearch(apiKey: String, location: String, radius: Int, type: String) {
-        val url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=$apiKey&location=$location&radius=$radius&type=$type"
+    private fun executeNearbySearch(apiKey: String, location: String, type: String) {
+        val user = User(
+            UserID = UserID,
+            Username = UserName
+        )
+        var radius:Int =50000
+        var url:String
+        lifecycleScope.launch {
+            val setting = FirebaseUtils.Get(user)
+            setting?.let {
+                Log.i("ERROR","hi")
+                if (!setting.KM) {
+                    radius = (it.MaxDistance * 1609.34 ).roundToInt()
+                } else {
+                    radius = (it.MaxDistance * 1000).roundToInt()
+                }
+                Log.i("ERROR",radius.toString())
 
-        // Create an instance of NearbySearchTask with the callback
-        val nearbySearchTask = NearbySearchTask(this,mMap)
+                url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=$apiKey&location=$location&radius="+radius.toString()+"&type=$type"
+                val nearbySearchTask = NearbySearchTask(this@map_nearby,mMap)
 
-        // Execute the NearbySearchTask
-        nearbySearchTask.execute(url)
+                // Execute the NearbySearchTask
+                nearbySearchTask.execute(url)
+            }
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -271,29 +271,22 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
         return inflater.inflate(R.layout.fragment_map_nearby, container, false)
     }
 
-//    companion object {
-//        // TODO: Rename and change types and number of parameters
-//        @JvmStatic
-//        fun newInstance(param1: String, param2: String) =
-//            map_nearby().apply {
-//                arguments = Bundle().apply {
-//
-//                }
-//            }
-//    }
     @SuppressLint("MissingPermission")
     override fun onMapReady(p0: GoogleMap) {
     mMap = p0
     mMap!!.isMyLocationEnabled = true
     mMap!!.uiSettings.isMyLocationButtonEnabled = true
 
+
     if ((mapView != null) && (mapView!!.findViewById<View>(R.id.map) != null)) {
         val locationButton: View =
-            (mapView!!.findViewById<View>(R.id.map).getParent() as View).findViewById("2".toInt())
-        val layoutParams = locationButton.getLayoutParams() as RelativeLayout.LayoutParams
+            (mapView!!.findViewById<View>(R.id.map).parent as View).findViewById("2".toInt())
+        val layoutParams = locationButton.layoutParams as RelativeLayout.LayoutParams
+        layoutParams.width = 120
+        layoutParams.height = 120
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
-        layoutParams.setMargins(0, 0, 40, 180)
+        layoutParams.setMargins(0, 0, 20, 20)
     }
 
     //check if gps is enabled or not and then request user to enable it
@@ -324,17 +317,8 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
     }
 }
 
+    @SuppressLint("MissingPermission")
     private fun getDeviceLocation() {
-        if (ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                requireActivity(),
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            return
-        }
         mFusedLocationProviderClient!!.lastLocation
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -350,23 +334,10 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
                         )
                         // Trigger nearby search after camera has moved to device's location
                         val apiKey = getString(R.string.google_maps_api)
-                        var radius = 5000
-                        val user = User(
-                            UserID = UserID,
-                            Username = UserName
-                        )
-                        lifecycleScope.launch {
-                            val setting = FirebaseUtils.Get(user)
-                            setting?.let {
-                                radius = (setting.MaxDistance * 1000).roundToInt()
-                                if (!setting.KM) {
-                                    radius = (setting.MaxDistance * 1.60934 * 1000).roundToInt()
-                                }
-                            }
-                        }
-                        val type = "store" // Specify the type of place you are searching for
+                        val type = "hardware_store"
+
                         val locationString = "${mLastKnownLocation!!.latitude},${mLastKnownLocation!!.longitude}"
-                        executeNearbySearch(apiKey, locationString, radius, type)
+                        executeNearbySearch(apiKey, locationString, type)
 
                     } else {
                         val locationRequest: LocationRequest = LocationRequest.create()
@@ -408,10 +379,10 @@ class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearch
                         .show()
                 }
             }
-    } // add checks ?
+    }
 
     override fun onNearbySearchComplete() {
-        //ddsgdgdggd
+        btnFind.isEnabled = true
     }
 }
 class NearbySearchTask(private val callback: NearbySearchCallback,private val mMap: GoogleMap?): AsyncTask<String, Void, String>() {
@@ -439,7 +410,6 @@ class NearbySearchTask(private val callback: NearbySearchCallback,private val mM
         } catch (e: Exception) {
 
         }
-
         return result
     }
 
@@ -449,14 +419,42 @@ class NearbySearchTask(private val callback: NearbySearchCallback,private val mM
             processNearbySearchResult(result)
             callback.onNearbySearchComplete() // Notify that the task is complete
 
-            // Add markers for each store to the map
-            for (store in nearbyStoresList) {
-                val storeLatLng = LatLng(store.latitude, store.longitude)
-                mMap?.addMarker(MarkerOptions().position(storeLatLng).title(store.name))
-            }
+            val placedStores = mutableSetOf<LatLng>() // Set to keep track of placed markers
+
+            val databaseReference = FirebaseDatabase.getInstance().getReference("Users/$UserID/MyStores")
+            databaseReference.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    //place the markers
+                    for (storeSnapshot in dataSnapshot.children) {
+                        val store = storeSnapshot.getValue(Store::class.java)
+                        if (store != null) {
+                            val storeLatLng = LatLng(store.latitude, store.longitude)
+                            mMap?.addMarker(
+                                MarkerOptions()
+                                    .position(storeLatLng)
+                                    .title(store.name)
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                            )
+                            placedStores.add(storeLatLng)
+                        }
+                    }
+
+                    for (store in nearbyStoresList) {
+                        val storeLatLng = LatLng(store.latitude, store.longitude)
+                        if (!placedStores.contains(storeLatLng)) {
+                            mMap?.addMarker(MarkerOptions().position(storeLatLng).title(store.name))
+                        }
+
+                    }
+
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.i("Error","databaseError")
+                }
+            })
         }
     }
-
 
     private fun processNearbySearchResult(jsonData: String) {
         try {
@@ -471,14 +469,21 @@ class NearbySearchTask(private val callback: NearbySearchCallback,private val mM
                 val longitude = placeObject.getJSONObject("geometry").getJSONObject("location").getDouble("lng")
                 val placeID = placeObject.getString("place_id")
                 val ratings = placeObject.getInt("rating")
+                val status = placeObject.getString("business_status")
+
+                val isOpen = if (placeObject.has("opening_hours") && !placeObject.isNull("opening_hours")) {
+                    placeObject.getJSONObject("opening_hours").getBoolean("open_now")
+                } else {
+                    false
+                }
 
                 // Create a Store object and add it to the nearbyStoresList
-                val store = Store(name, vicinity, latitude, longitude, placeID, "", ratings)
+                val store = Store(name, vicinity, latitude, longitude, placeID, status, ratings,isOpen,false)
                 nearbyStoresList.add(store)
 
             }
         } catch (e: Exception) {
-
+            Log.i("Error",e.message.toString())
         }
     }
-} //add logs?
+}

@@ -11,93 +11,73 @@
     android:layout_margin="10dp"
     >
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="138dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="0dp"
-            android:layout_height="79dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnDirections"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
-            <!-- Title -->
             <TextView
-                android:id="@+id/txtPlaceName"
-                android:layout_width="wrap_content"
+                android:id="@+id/txtNearbyStoreItemName"
+                android:layout_width="294dp"
                 android:layout_height="wrap_content"
-                android:text="Store Name"
+                android:layout_weight="1"
+                android:text="Name"
+                android:textColor="@color/dark_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/txtNearbyStoreRating"
+                android:layout_width="294dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rating: "
+                android:textColor="@color/dark_green"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <!-- Optimal Range -->
-            <TextView
-                android:id="@+id/txtPhoneLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtPlaceName"
-                android:layout_marginTop="8dp"
-                android:text="Store Phone: "
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/txtPlacePhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/txtPhoneLabel"
-                android:layout_toRightOf="@id/txtPhoneLabel"
-                android:textSize="14sp" />
-
-            <!-- Current Reading -->
-            <TextView
-                android:id="@+id/txtRatingLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txtPhoneLabel"
-                android:layout_marginTop="8dp"
-                android:text="Current reading: "
-                android:textSize="14sp" />
-
-            <TextView
-                android:id="@+id/txtPlaceRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/txtRatingLabel"
-                android:layout_toRightOf="@id/txtRatingLabel"
-                android:textSize="14sp" />
-        </RelativeLayout>
-
-        <Button
-            android:id="@+id/btnDirections"
-            android:layout_width="wrap_content"
+        </LinearLayout>
+        <TextView
+            android:id="@+id/txtNearbyStoreOperational"
+            android:layout_width="294dp"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="38dp"
-            android:layout_marginBottom="18dp"
-            android:text="Directions"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/relativeLayout"
-            app:layout_constraintTop_toBottomOf="@+id/btnAddmyStores" />
+            android:layout_weight="1"
+            android:text="Operational: "
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/txtNearbyStoreisOpen"
+            android:layout_width="294dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Open Now: "
+            android:textColor="@color/dark_green"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
         <Button
-            android:id="@+id/btnAddmyStores"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="18dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="5dp"
-            android:text="Add to my Stores"
-            app:layout_constraintBottom_toTopOf="@+id/btnDirections"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/relativeLayout"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:id="@+id/btnNearbyStoresDirections"
+            android:layout_marginTop="24dp"
+            android:text="Directions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/leaf_button"/>
+        <Button
+            android:id="@+id/btnNearbyStoresAddtoMyStores"
+            android:layout_marginTop="24dp"
+            android:text="Add to my stores"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/leaf_button"/>
+    </LinearLayout>
 
 
 </androidx.cardview.widget.CardView>
+

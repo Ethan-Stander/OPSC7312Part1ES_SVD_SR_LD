@@ -30,7 +30,7 @@ class Permission : Fragment() {
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) == PackageManager.PERMISSION_GRANTED)
         ) {
-            (requireActivity() as FragmentTesting).replaceFragment(map_nearby(), "map")
+            (requireActivity() as FragmentTesting).replaceFragment(map_nearby(), "Where to Shop")
             //activity?.finish()
             return
         }
@@ -41,7 +41,7 @@ class Permission : Fragment() {
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(object : PermissionListener {
                     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-                        (requireActivity() as FragmentTesting).replaceFragment(map_nearby(), "map")
+                        (requireActivity() as FragmentTesting).replaceFragment(map_nearby(), "Where to Shop")
 
                         //activity?.finish()
                     }

@@ -156,7 +156,7 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
     }
 
     //replaces fragment based on clicked nav item and passes title to be displayed
-     override fun replaceFragment(fragment:Fragment,title:String)
+      override fun replaceFragment(fragment:Fragment,title:String)
      {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
@@ -169,7 +169,7 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
 
 }
 
-public interface FragmentNavigation {
+interface FragmentNavigation {
     fun replaceFragment(fragment: Fragment, title: String)
 }
 
