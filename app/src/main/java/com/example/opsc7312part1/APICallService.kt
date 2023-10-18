@@ -34,7 +34,7 @@ import java.util.TimerTask
 class APICallService() : Service() {
 
     private val timer = Timer()
-    private val apiCallInterval: Long = 10 * 1000
+    private val apiCallInterval: Long = 30 * 1000
     private var title = ""
     private var message = ""
 
@@ -56,7 +56,7 @@ class APICallService() : Service() {
             override fun run() {
 
 // In your Application class or main activity
-                FirebaseApp.initializeApp(applicationContext)
+
 
 
 
@@ -80,20 +80,15 @@ class APICallService() : Service() {
                             }
 
                         }
-                    } else {
-                        title = "System Warning"
-                        message = "ERROR: EQUIPMENT NOT FOUND"
-                        Log.i("Check foreground  service", "hardware not found")
-
-
-
                     }
+
+
 
                     if(title.isNotEmpty() && message.isNotEmpty())
                     {
                         var notification =  createNotification(title,message)
                         startForeground(1,notification)
-                        var sdf = SimpleDateFormat("HH:mm:ss", Locale.getDefault())
+                        var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                         var currentTime = sdf.format(Date())
                         var newNotification = NotificationDataClass()
                         newNotification.notificationMessage = message
