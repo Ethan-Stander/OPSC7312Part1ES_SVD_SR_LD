@@ -284,9 +284,13 @@ class map_nearby() : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySear
         val layoutParams = locationButton.layoutParams as RelativeLayout.LayoutParams
         layoutParams.width = 120
         layoutParams.height = 120
+
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 0)
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_END, 0)
         layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
-        layoutParams.setMargins(0, 0, 20, 20)
+        layoutParams.setMargins(30, 0, 0, 100
+        )
     }
 
     //check if gps is enabled or not and then request user to enable it
