@@ -46,7 +46,7 @@
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.454"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,7 +73,7 @@
             android:layout_marginTop="28dp"
             android:src="@drawable/spinach"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.463"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtAccountPopUpHeading" />
 
@@ -106,7 +106,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="6dp"
-                android:background="#DDD5D5" />
+                android:background="@color/divider_line" />
 
             <TextView
                 android:id="@+id/tvUsername"
@@ -114,7 +114,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text=""
-                android:textColor="@color/light_grey"
+                android:textColor="@color/dark_mode_text"
                 android:textSize="18dp" />
         </LinearLayout>
 
@@ -148,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="6dp"
-                android:background="#DDD5D5" />
+                android:background="@color/divider_line" />
 
             <TextView
                 android:id="@+id/tvGmail"
@@ -156,17 +156,17 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text=""
-                android:textColor="@color/light_grey"
+                android:textColor="@color/dark_mode_text"
                 android:textSize="18dp" />
         </LinearLayout>
 
-        <ImageButton
+        <Button
             android:id="@+id/btnDeleteAccount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="450dp"
+            android:layout_marginTop="470dp"
             android:backgroundTint="@color/red"
-            android:src="@drawable/ic_delete"
+            android:drawableLeft="@drawable/ic_delete"
             android:text="Delete Account"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -14,12 +14,14 @@
         app:cardCornerRadius="10dp"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
-        app:contentPadding="5dp">
+        app:contentPadding="5dp"
+        android:backgroundTint="@color/dark_mode_popups">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/rounded_bg">
+            android:background="@drawable/rounded_bg"
+            android:backgroundTint="@color/dark_mode_popups">
 
             <!-- Exit button -->
             <ImageButton
@@ -43,7 +45,8 @@
                 android:gravity="center_horizontal"
                 android:textColor="@color/dark_green"
                 android:textSize="26sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginBottom="15dp"/>
 
             <FrameLayout
                 android:id="@+id/content_container"

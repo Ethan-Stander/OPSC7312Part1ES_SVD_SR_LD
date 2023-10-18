@@ -20,6 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="300dp"
             android:text="App Settings"
+            android:textColor="@color/dark_green"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,8 +28,7 @@
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5"
-            android:textColor="@color/dark_green"/>
+            app:layout_constraintVertical_bias="0.5" />
 
         <!--[CLOSE BUTTON]-->
         <ImageButton
@@ -48,12 +48,12 @@
         <!--[APP THEME]-->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/DropdownTheme"
-            android:theme="@style/GreenCursor"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="100dp"
             android:hint="App Theme"
             android:textColorHint="@color/light_grey"
+            android:theme="@style/GreenCursor"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
@@ -67,9 +67,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:editable="false"
+                android:paddingStart="20dp"
                 android:text="Light Mode"
-                android:textColor="@color/light_grey"
-                android:paddingStart="20dp"/>
+                android:textColor="@color/dark_mode_text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

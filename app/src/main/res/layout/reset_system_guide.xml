@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,7 +19,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/reset_guide_header"
                 android:gravity="center_horizontal"
-                android:textColor="@color/black"
+                android:textColor="@color/dark_mode_text"
                 android:textSize="24sp"
                 android:textStyle="bold" />
 
@@ -31,47 +32,130 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/reset_option_soft_title"
                 android:gravity="center_horizontal"
-                android:textColor="@color/black"
+                android:textColor="@color/dark_mode_text"
                 android:textSize="22sp"
                 android:textStyle="bold" />
-            <TextView
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="16dp"
+
+            <!--[STEP 1]-->
+            <LinearLayout
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/reset_reset_title"
                 android:id="@+id/reset_option_soft_reset_step_1"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/reset_option_soft_reset_step_1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:layout_constraintVertical_bias="0.5">
 
-            <TextView
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="16dp"
+                <TextView
+                    android:id="@+id/txtStep1Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:text="Step 1"
+                    android:textColor="@color/dark_mode_headers"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <View
+                    android:id="@+id/Step1Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/divider_line" />
+
+                <TextView
+                    android:id="@+id/tvStep1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/reset_option_soft_reset_step_1"
+                    android:textColor="@color/dark_mode_text"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <!--[STEP 2]-->
+            <LinearLayout
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/reset_option_soft_reset_step_1"
                 android:id="@+id/reset_option_soft_reset_step_2"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/reset_option_soft_reset_step_2"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                app:layout_constraintVertical_bias="0.5">
 
-            <TextView
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="16dp"
+                <TextView
+                    android:id="@+id/txtStep2Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:text="Step 2"
+                    android:textColor="@color/dark_mode_headers"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <View
+                    android:id="@+id/Step2Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/divider_line" />
+
+                <TextView
+                    android:id="@+id/tvStep2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/reset_option_soft_reset_step_2"
+                    android:textColor="@color/dark_mode_text"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <!--[STEP 3]-->
+            <LinearLayout
                 android:layout_below="@+id/reset_option_soft_reset_step_2"
                 android:id="@+id/reset_option_soft_reset_step_3"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="@string/reset_option_soft_reset_step_3"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                app:layout_constraintVertical_bias="0.5">
+
+                <TextView
+                    android:id="@+id/txtStep3Header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:text="Step 3"
+                    android:textColor="@color/dark_mode_headers"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <View
+                    android:id="@+id/Step3Divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/divider_line" />
+
+                <TextView
+                    android:id="@+id/tvStep3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/reset_option_soft_reset_step_3"
+                    android:textColor="@color/dark_mode_text"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/soft_reset_image"
@@ -79,8 +163,8 @@
                 android:layout_marginVertical="15dp"
                 android:layout_below="@id/reset_option_soft_reset_step_3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/googlelogo"/>
+                android:layout_height="200dp"
+                android:src="@drawable/soft_reset"/>
 
             <TextView
                 android:layout_marginTop="16dp"
@@ -91,47 +175,127 @@
                 android:layout_centerHorizontal="true"
                 android:text="@string/reset_option_hard_title"
                 android:gravity="center_horizontal"
-                android:textColor="@color/black"
+                android:textColor="@color/dark_mode_text"
                 android:textSize="22sp"
                 android:textStyle="bold" />
-            <TextView
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="16dp"
+
+            <!--[STEP 1]-->
+            <LinearLayout
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/reset_hard_title"
                 android:id="@+id/reset_option_hard_reset_step_1"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/reset_option_hard_reset_step_1"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginTop="20dp"
+                android:orientation="vertical"
+                app:layout_constraintVertical_bias="0.5">
 
-            <TextView
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="16dp"
+                <TextView
+                    android:id="@+id/txtStep1Header2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:text="Step 1"
+                    android:textColor="@color/dark_mode_headers"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <View
+                    android:id="@+id/Step1Divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/divider_line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/reset_option_hard_reset_step_1"
+                    android:textColor="@color/dark_mode_text"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <!--[STEP 2]-->
+            <LinearLayout
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/reset_option_hard_reset_step_1"
                 android:id="@+id/reset_option_hard_reset_step_2"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:text="@string/reset_option_hard_reset_step_2"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginTop="15dp"
+                android:orientation="vertical"
+                app:layout_constraintVertical_bias="0.5">
 
-            <TextView
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="16dp"
+                <TextView
+                    android:id="@+id/txtStep2Header2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:text="Step 2"
+                    android:textColor="@color/dark_mode_headers"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <View
+                    android:id="@+id/Step2Divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/divider_line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/reset_option_hard_reset_step_2"
+                    android:textColor="@color/dark_mode_text"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <!--[STEP 3]-->
+            <LinearLayout
                 android:layout_below="@+id/reset_option_hard_reset_step_2"
                 android:id="@+id/reset_option_hard_reset_step_3"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:text="@string/reset_option_hard_reset_step_3"
-                android:gravity="center_horizontal"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                app:layout_constraintVertical_bias="0.5">
+
+                <TextView
+                    android:id="@+id/txtStep3Header2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="8dp"
+                    android:text="Step 3"
+                    android:textColor="@color/dark_mode_headers"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="center"/>
+
+                <View
+                    android:id="@+id/Step3Divider2"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@color/divider_line" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/reset_option_hard_reset_step_3"
+                    android:textColor="@color/dark_mode_text"
+                    android:textSize="16dp"
+                    android:gravity="center"/>
+            </LinearLayout>
 
             <ImageView
                 android:id="@+id/hard_reset_image"
@@ -139,8 +303,8 @@
                 android:layout_marginVertical="15dp"
                 android:layout_below="@id/reset_option_hard_reset_step_3"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/googlelogo"/>
+                android:layout_height="200dp"
+                android:src="@drawable/hard_reset"/>
         </RelativeLayout>
     </ScrollView>
 

@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 
 class MyStoresAdapter(private val myStoreList : ArrayList<MyStore>): RecyclerView.Adapter<MyStoresAdapter.ViewHolder>() {
@@ -43,7 +44,8 @@ class MyStoresAdapter(private val myStoreList : ArrayList<MyStore>): RecyclerVie
 
         holder.storeDetails.setOnClickListener {
             val dialogFragment = myStoreDetailPopUp()
-            dialogFragment.show((holder.itemView.context as AppCompatActivity).supportFragmentManager,"MyStoreDetailDialog")
+            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.settings_custom_popups)
+            dialogFragment.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "MyStoreDetailDialog")
         }
 
         holder.btnViewStoreOnMap.setOnClickListener {
