@@ -8,6 +8,9 @@ android {
     namespace 'com.example.opsc7312part1'
     compileSdk 33
 
+    viewBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "com.smart.SmartHydro"
         minSdk 24
@@ -49,6 +52,9 @@ android {
 }
 
 dependencies {
+    implementation 'com.github.mancj:MaterialSearchBar:0.8.1'
+    implementation 'com.karumi:dexter:5.0.0'
+
 
     implementation 'androidx.core:core-ktx:1.8.0'
     implementation platform('org.jetbrains.kotlin:kotlin-bom:1.8.0')
@@ -65,10 +71,14 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment-ktx:2.6.0'
     implementation 'androidx.navigation:navigation-ui-ktx:2.6.0'
     implementation 'com.google.firebase:firebase-auth-ktx:22.1.1'
+
     implementation 'com.google.android.gms:play-services-auth:20.6.0'
     implementation 'com.google.firebase:firebase-database-ktx:20.2.2'
+
+
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.google.firebase:firebase-messaging-ktx:23.2.1'
+    implementation 'com.google.android.libraries.places:places:3.2.0'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
@@ -83,6 +93,28 @@ dependencies {
     implementation "io.ktor:ktor-client-cio:2.3.3"
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    implementation "com.mapbox.search:discover:1.0.0-rc.6"
+    implementation 'com.mapbox.maps:android:10.16.1'
+    implementation "com.mapbox.search:mapbox-search-android-ui:1.0.0-rc.6"
+
+    // Mapbox Navigation SDK
+    implementation "com.mapbox.navigation:android:2.10.1"
+    implementation "com.mapbox.navigation:ui-dropin:2.10.1"
+    implementation "com.google.android.gms:play-services-location:20.0.0"
+    implementation "androidx.cardview:cardview:1.0.0"
+    //implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.7.21"
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+
+
+    implementation "com.squareup.leakcanary:leakcanary-android:2.9.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4"
+
+
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.4'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 
     //for loading images
     implementation 'com.squareup.picasso:picasso:2.8'
