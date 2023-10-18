@@ -1,30 +1,3 @@
-<!--<androidx.cardview.widget.CardView-->
-<!--    xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    android:id="@+id/info_list_item"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="wrap_content"-->
-<!--    android:layout_margin="8dp"-->
-<!--    app:cardCornerRadius="10dp"-->
-<!--    app:cardElevation="10dp"-->
-<!--    android:background="@color/dark_mode_cards">-->
-
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:padding="16dp"-->
-<!--        android:background="@color/dark_mode_cards">-->
-
-<!--        <TextView-->
-<!--            -->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="Title"-->
-<!--            android:textSize="18sp"-->
-<!--            android:textColor="@color/dark_green"-->
-<!--            android:textStyle="bold"/>-->
-
 <Button xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/guideTitle"
     android:theme="@style/Theme.SettingsPage"
@@ -40,8 +13,3 @@
     android:textSize="18sp"
     android:textStyle="bold"
     android:drawableTint="@color/settings_arrow_color"/>
-
-
-<!--    </LinearLayout>-->
-
-<!--</androidx.cardview.widget.CardView>-->
