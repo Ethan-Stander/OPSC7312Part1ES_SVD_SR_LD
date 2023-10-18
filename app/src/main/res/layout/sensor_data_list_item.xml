@@ -4,11 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:padding="20dp"
+    android:padding="10dp"
     android:id="@+id/sensorDataItemView"
     app:cardCornerRadius="10dp"
     android:layout_margin="10dp"
-    >
+    android:background="@drawable/rounded_text_bg">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -21,8 +21,10 @@
             android:text="Title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"/>
 
         <!-- Optimal Range -->
         <TextView
@@ -32,7 +34,9 @@
             android:layout_below="@id/textViewTitle"
             android:layout_marginTop="8dp"
             android:text="Optimal range: "
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/settings_grey"/>
 
         <TextView
             android:id="@+id/textViewOptimalRangeData"
@@ -41,17 +45,32 @@
             android:layout_below="@id/textViewOptimalRangeLabel"
             android:layout_marginTop="4dp"
             android:textSize="14sp"
-            android:text="12.3-45.6"/>
+            android:text="12.3-45.6"
+            android:layout_marginBottom="10dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"/>
 
         <!-- Current Reading -->
+        <View
+            android:id="@+id/rangeDivider"
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:layout_below="@+id/textViewOptimalRangeData"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="6dp"
+            android:background="@color/settings_grey" />
+
         <TextView
             android:id="@+id/textViewCurrentReadingLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/textViewOptimalRangeData"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             android:text="Current reading: "
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/settings_grey"/>
 
         <TextView
             android:id="@+id/textViewCurrentReadingData"
@@ -60,7 +79,9 @@
             android:layout_below="@id/textViewCurrentReadingLabel"
             android:textSize="14sp"
             android:layout_marginTop="4dp"
-            android:text="78.9.10.1"/>
+            android:text="78.9.10.1"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"/>
     </RelativeLayout>
 
 

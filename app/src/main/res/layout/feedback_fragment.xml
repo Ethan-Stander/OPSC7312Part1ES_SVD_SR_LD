@@ -18,15 +18,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:boxStrokeColor="@color/dark_green"
-            app:hintTextColor="#858585"
-            android:hint="Title">
+            app:hintTextColor="@color/light_grey"
+            android:hint="Title"
+            android:textColorHint="@color/light_grey">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:textColor="@color/black" />
+                android:background="@color/transparent"
+                android:textColor="@color/dark_mode_text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -37,15 +38,16 @@
             android:layout_below="@id/txtEmailTitle"
             android:layout_marginTop="24dp"
             app:boxStrokeColor="@color/dark_green"
-            app:hintTextColor="#858585"
-            android:hint="Feedback">
+            app:hintTextColor="@color/light_grey"
+            android:hint="Feedback"
+            android:textColorHint="@color/light_grey">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edtEmailBody"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:textColor="@color/black" />
+                android:background="@color/transparent"
+                android:textColor="@color/dark_mode_text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

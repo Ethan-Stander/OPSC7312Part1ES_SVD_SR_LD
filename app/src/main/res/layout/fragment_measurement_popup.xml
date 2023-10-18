@@ -8,159 +8,158 @@
     style="@style/Theme.GreenTheme"
     android:background="@drawable/rounded_bg">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20dp">
+
+        <!--[Sign in error message]-->
+        <TextView
+            android:id="@+id/txtMeasurementPopUpError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:text="Please sign in to view measurement information"
+            android:textColor="@color/light_grey"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtMeasurementPopUpHeading"
+            app:layout_constraintVertical_bias="0.5" />
+
+        <!--[HEADING]-->
+        <TextView
+            android:id="@+id/txtMeasurementPopUpHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Measurements"
+            android:textColor="@color/dark_green"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--[CLOSE BUTTON]-->
+        <ImageButton
+            android:id="@+id/btnMeasurementsClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:background="?android:attr/selectableItemBackgroundBorderless"
+            android:contentDescription="close"
+            android:src="@drawable/ic_exit"
+            app:layout_constraintBaseline_toBaselineOf="@+id/txtMeasurementPopUpHeading"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--[TEMPERATURE]-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutTemp"
+            style="@style/DropdownTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:layout_marginBottom="150dp"
+            android:hint="Temperature"
+            android:textColorHint="@color/light_grey"
+            android:theme="@style/GreenCursor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
 
-            <!--[Sign in error message]-->
-            <TextView
-                android:id="@+id/txtMeasurementPopUpError"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Please sign in to view measurement information"
-                android:textColor="@color/light_grey"
-                android:gravity="center"
-                android:layout_marginTop="50dp"
-                android:visibility="gone"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/txtMeasurementPopUpHeading"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
-
-            <!--[HEADING]-->
-            <TextView
-                android:id="@+id/txtMeasurementPopUpHeading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Measurements"
-                android:textColor="@color/dark_green"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5" />
-
-            <!--[CLOSE BUTTON]-->
-            <ImageButton
-                app:layout_constraintBaseline_toBaselineOf="@+id/txtMeasurementPopUpHeading"
-                android:id="@+id/btnMeasurementsClose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_exit"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginEnd="8dp"
-                android:contentDescription="close"/>
-
-            <!--[TEMPERATURE]-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutTemp"
-                style="@style/DropdownTheme"
-                android:theme="@style/GreenCursor"
+            <AutoCompleteTextView
+                android:id="@+id/tvTemperature"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="150dp"
-                android:hint="Temperature"
-                android:textColorHint="@color/light_grey"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:editable="false"
+                android:text="Celsius (°C)"
+                android:textColor="@color/dark_mode_text" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/tvTemperature"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:editable="false"
-                    android:text="Celsius (°C)"
-                    android:textColor="@color/light_grey"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <!--[UNIT OF DISTANCE]-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutUnitOfDistance"
+            style="@style/DropdownTheme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:hint="Unit of Distance"
+            android:textColorHint="@color/light_grey"
+            android:theme="@style/GreenCursor"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
 
-            <!--[UNIT OF DISTANCE]-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutUnitOfDistance"
-                style="@style/DropdownTheme"
-                android:theme="@style/GreenCursor"
+            <AutoCompleteTextView
+                android:id="@+id/tvUnitOfDistance"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:hint="Unit of Distance"
-                android:textColorHint="@color/light_grey"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:editable="false"
+                android:text="Kilometers (km)"
+                android:textColor="@color/dark_mode_text" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/tvUnitOfDistance"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:editable="false"
-                    android:text="Kilometers (km)"
-                    android:textColor="@color/light_grey"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <!--[STORE RANGE]-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutStoreRange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="220dp"
+            android:hint="Store Range"
+            android:paddingLeft="-12dp"
+            android:textColorHint="@color/light_grey"
+            android:theme="@style/GreenTextBoxCursor"
+            app:boxStrokeColor="@color/dark_green"
+            app:hintTextColor="@color/dark_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5">
 
-            <!--[STORE RANGE]-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayoutStoreRange"
-                android:theme="@style/GreenTextBoxCursor"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/tvMaxStoreRange"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="220dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                android:hint="Store Range"
-                app:hintTextColor="@color/dark_green"
-                app:boxStrokeColor="@color/dark_green"
-                android:textColorHint="@color/light_grey"
-                android:paddingLeft="-12dp">
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:inputType="numberDecimal"
+                android:textColor="@color/dark_mode_text" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/light_grey"
-                    android:inputType="numberDecimal"
-                    android:id="@+id/tvMaxStoreRange"
-                    android:background="@color/transparent"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-            </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:id="@+id/btnMeasurementSave"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="400dp"
+            android:background="@drawable/leaf_button"
+            android:text="save"
+            android:textSize="12dp"
+            android:theme="@style/Theme.GreenTheme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5" />
 
-            <Button
-                android:theme="@style/Theme.GreenTheme"
-                android:id="@+id/btnMeasurementSave"
-                android:layout_width="120dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="400dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.5"
-                android:background="@drawable/leaf_button"
-                android:text="save"
-                android:textSize="12dp" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

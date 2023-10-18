@@ -80,14 +80,9 @@ class APICallService() : Service() {
                             }
 
                         }
-                    } else {
-                        title = "System Warning"
-                        message = "ERROR: EQUIPMENT NOT FOUND"
-                        Log.i("Check foreground  service", "hardware not found")
-
-
-
                     }
+
+
 
                     if(title.isNotEmpty() && message.isNotEmpty())
                     {
