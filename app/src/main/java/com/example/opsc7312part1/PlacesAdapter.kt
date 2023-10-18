@@ -73,19 +73,25 @@ class PlacesAdapter (private val fragmentNavigation: FragmentNavigation): Recycl
                 if (dataSnapshot.exists()) {
                     // disable button if item exists
                     holder.AddToMyStoresButton.isEnabled = false
+                    holder.AddToMyStoresButton.text = "Saved"
+                } else
+                {
+                    holder.AddToMyStoresButton.isEnabled = true
+                    holder.AddToMyStoresButton.text = "Add to my Stores"
                 }
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
                 Log.e("Error",databaseError.message.toString())
                 holder.AddToMyStoresButton.isEnabled = true
+                holder.AddToMyStoresButton.text = "Add to my Stores"
             }
         })
 
         holder.directionsButton.setOnClickListener {
             DirLat = currentItem.latitude
             DirLong = currentItem.longitude
-            fragmentNavigation.replaceFragment(Place_Directions(fragmentNavigation), "map")
+            fragmentNavigation.replaceFragment(Place_Directions(fragmentNavigation), "Directions")
         }
 
         holder.AddToMyStoresButton.setOnClickListener {
