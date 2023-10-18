@@ -1,5 +1,6 @@
 package com.example.opsc7312part1
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -59,7 +60,7 @@ import java.util.Calendar
 import java.util.Date
 import kotlin.concurrent.thread
 
-class FragmentTesting :AppCompatActivity() {
+class FragmentTesting :AppCompatActivity(), FragmentNavigation {
 
     private lateinit var binding: ActivityFragmentTestingBinding
     private lateinit var toggle : ActionBarDrawerToggle
@@ -105,11 +106,13 @@ class FragmentTesting :AppCompatActivity() {
                 R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
                 R.id.nav_controls ->replaceFragment(Equipment_status_fragment(),it.title.toString())
                 R.id.nav_mystores -> replaceFragment(MyStoreFragment(),it.title.toString())
+                R.id.nav_where_to_shop -> replaceFragment(Permission(),it.title.toString())
                 R.id.nav_feedback -> replaceFragment(feedbackFragment(),it.title.toString())
                 R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
                 R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
                 R.id.notification_history_recycler ->replaceFragment(NotificationHistory(),it.title.toString())
                 R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
+
 
                     SharedPreferencesManager(this).clearUserData()
                     /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
@@ -153,7 +156,8 @@ class FragmentTesting :AppCompatActivity() {
     }
 
     //replaces fragment based on clicked nav item and passes title to be displayed
-    private fun replaceFragment(fragment:Fragment,title:String) {
+     override fun replaceFragment(fragment:Fragment,title:String)
+     {
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()
         fragmentTransaction.replace(R.id.frameLayout,fragment)
@@ -162,6 +166,11 @@ class FragmentTesting :AppCompatActivity() {
         setTitle(title)
     }
 
+
+}
+
+public interface FragmentNavigation {
+    fun replaceFragment(fragment: Fragment, title: String)
 }
 
 

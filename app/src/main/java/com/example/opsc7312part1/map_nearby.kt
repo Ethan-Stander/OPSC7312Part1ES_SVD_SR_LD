@@ -1,4 +1,3 @@
-
 package com.example.opsc7312part1
 
 import android.Manifest
@@ -10,36 +9,32 @@ import android.location.Location
 import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Handler
-import android.os.Parcelable
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.ui.AppBarConfiguration
-import com.example.opsc7312part1.databinding.ActivityMapBinding
+//import com.example.opsc7312part1.
 import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationRequest
-import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
-import com.google.android.gms.location.LocationSettingsRequest
-import com.google.android.gms.location.LocationSettingsResponse
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.gms.tasks.OnFailureListener
-import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.AutocompletePrediction
 import com.google.android.libraries.places.api.model.AutocompleteSessionToken
@@ -47,25 +42,29 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.FetchPlaceRequest
 import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
-import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.mancj.materialsearchbar.MaterialSearchBar
 import com.mancj.materialsearchbar.adapter.SuggestionsAdapter
+import com.google.android.gms.common.api.ResolvableApiException
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsResponse
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import kotlinx.coroutines.launch
 import org.json.JSONObject
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 import java.util.Arrays
-
+import kotlin.math.roundToInt
 
 val nearbyStoresList: MutableList<Store> = mutableListOf()
 private const val DEFAULT_ZOOM = 15f
-class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySearchCallback {
-
+class map_nearby : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearchCallback {
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMapBinding
 
     private  var mMap: GoogleMap?=null
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
@@ -79,23 +78,21 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
     private  var mapView: View? = null
     private lateinit var btnFind: Button
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
+        // var intent = Intent(this,NearbyStores::class.java)
+        materialSearchBar = view.findViewById(R.id.searchBar)
+        btnFind = view.findViewById(R.id.btn_find)
 
-        var intent = Intent(this,NearbyStores::class.java)
-        materialSearchBar = findViewById(R.id.searchBar)
-        btnFind = findViewById(R.id.btn_find)
+        val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        mapFragment.getMapAsync(this) // Make sure your Fragment implements OnMapReadyCallback
+        val mapView = mapFragment.view
 
-        val mapFragment = getSupportFragmentManager().findFragmentById(R.id.map) as SupportMapFragment
-        mapFragment.getMapAsync(this)
-        mapView = mapFragment.view
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this@map)
-
-        Places.initialize(this@map, getString(R.string.google_maps_api))
-        placesClient = Places.createClient(this)
+        Places.initialize(requireActivity(), getString(R.string.google_maps_api))
+        placesClient = Places.createClient(requireActivity())
 
         val token = AutocompleteSessionToken.newInstance()
 
@@ -103,7 +100,7 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
             MaterialSearchBar.OnSearchActionListener {
             override fun onSearchStateChanged(enabled: Boolean) {}
             override fun onSearchConfirmed(text: CharSequence) {
-                startSearch(text.toString(), true, null, true)
+                requireActivity().startSearch(text.toString(), true, null, true)
             }
 
             override fun onButtonClicked(buttonCode: Int) {
@@ -159,7 +156,7 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
                 val suggestion = materialSearchBar!!.lastSuggestions[position].toString()
                 materialSearchBar!!.text = suggestion
                 Handler().postDelayed(Runnable { materialSearchBar!!.clearSuggestions() }, 1000)
-                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager?
+                val imm = requireActivity().getSystemService(AppCompatActivity.INPUT_METHOD_SERVICE) as InputMethodManager?
                 imm?.hideSoftInputFromWindow(
                     materialSearchBar!!.windowToken,
                     InputMethodManager.HIDE_IMPLICIT_ONLY
@@ -198,12 +195,25 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
                 // Check for location permission here before accessing the user's location
 
                 // Initialize the FusedLocationProviderClient
-                val mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this@map)
+                val mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
                 // Define the Nearby Search parameters
                 val apiKey = getString(R.string.google_maps_api)
-                val radius = 5000 // Specify the radius in meters
-                val type = "store" // Specify the type of place you are searching for
+                var radius = 5000
+                val user = User(
+                    UserID = UserID,
+                    Username = UserName
+                )
+                lifecycleScope.launch {
+                    val setting = FirebaseUtils.Get(user)
+                    setting?.let {
+                        radius = (setting.MaxDistance * 1000).roundToInt()
+                        if (!setting.KM) {
+                            radius = (setting.MaxDistance * 1.60934 * 1000).roundToInt()
+                        }
+                    }
+                }
+                val type = "harware_store" // Specify the type of place you are searching for
 
                 // Get the phone's current location
                 mFusedLocationProviderClient.lastLocation
@@ -215,12 +225,12 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
 
                             // Execute the Nearby Search task with the current location
                             executeNearbySearch(apiKey, locationString, radius, type)
-                            val intent = Intent(this@map, NearbyStores::class.java)
-                            startActivity(intent)
+                            (requireActivity() as FragmentTesting).replaceFragment(Nearby_Stores(), "Nearby Stores")
+
                         } else {
                             // Handle the case where location is null
                             Toast.makeText(
-                                this@map,
+                                requireActivity(),
                                 "Failed to get current location.",
                                 Toast.LENGTH_SHORT
                             ).show()
@@ -229,7 +239,7 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
                     .addOnFailureListener { exception: Exception ->
                         // Handle any errors that occurred while getting location
                         Toast.makeText(
-                            this@map,
+                            requireActivity(),
                             "Failed to get current location: ${exception.message}",
                             Toast.LENGTH_SHORT
                         ).show()
@@ -247,59 +257,79 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
         // Execute the NearbySearchTask
         nearbySearchTask.execute(url)
     }
-    override fun onNearbySearchComplete() {
-        //Keeping here if there is scope creep
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_map_nearby, container, false)
+    }
+
+//    companion object {
+//        // TODO: Rename and change types and number of parameters
+//        @JvmStatic
+//        fun newInstance(param1: String, param2: String) =
+//            map_nearby().apply {
+//                arguments = Bundle().apply {
+//
+//                }
+//            }
+//    }
     @SuppressLint("MissingPermission")
     override fun onMapReady(p0: GoogleMap) {
-        mMap = p0
-        mMap!!.isMyLocationEnabled = true
-        mMap!!.uiSettings.isMyLocationButtonEnabled = true
+    mMap = p0
+    mMap!!.isMyLocationEnabled = true
+    mMap!!.uiSettings.isMyLocationButtonEnabled = true
 
-        if ((mapView != null) && (mapView!!.findViewById<View>(R.id.map) != null)) {
-            val locationButton: View =
-                (mapView!!.findViewById<View>(R.id.map).getParent() as View).findViewById("2".toInt())
-            val layoutParams = locationButton.getLayoutParams() as RelativeLayout.LayoutParams
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
-            layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
-            layoutParams.setMargins(0, 0, 40, 180)
-        }
-
-        //check if gps is enabled or not and then request user to enable it
-        val locationRequest: LocationRequest = LocationRequest.create()
-        locationRequest.setInterval(10000)
-        locationRequest.setFastestInterval(5000)
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
-
-        val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
-        val settingsClient = LocationServices.getSettingsClient(this@map)
-        val task = settingsClient.checkLocationSettings(builder.build())
-
-        task.addOnSuccessListener(this@map,
-            OnSuccessListener<LocationSettingsResponse?> { getDeviceLocation() })
-        task.addOnFailureListener(this@map, OnFailureListener { e ->
-            if (e is ResolvableApiException) {
-                try {
-                    e.startResolutionForResult(this@map, 51)
-                } catch (e1: IntentSender.SendIntentException) {
-                    e1.printStackTrace()
-                }
-            }
-        })
-        mMap!!.setOnMyLocationButtonClickListener {
-            if (materialSearchBar!!.isSuggestionsVisible) materialSearchBar!!.clearSuggestions()
-            if (materialSearchBar.isSearchEnabled()) materialSearchBar.disableSearch()
-            false
-        }
+    if ((mapView != null) && (mapView!!.findViewById<View>(R.id.map) != null)) {
+        val locationButton: View =
+            (mapView!!.findViewById<View>(R.id.map).getParent() as View).findViewById("2".toInt())
+        val layoutParams = locationButton.getLayoutParams() as RelativeLayout.LayoutParams
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+        layoutParams.setMargins(0, 0, 40, 180)
     }
 
+    //check if gps is enabled or not and then request user to enable it
+    val locationRequest: LocationRequest = LocationRequest.create()
+    locationRequest.setInterval(10000)
+    locationRequest.setFastestInterval(5000)
+    locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+
+    val builder = LocationSettingsRequest.Builder().addLocationRequest(locationRequest)
+    val settingsClient = LocationServices.getSettingsClient(requireActivity())
+    val task = settingsClient.checkLocationSettings(builder.build())
+
+    task.addOnSuccessListener(requireActivity(),
+        OnSuccessListener<LocationSettingsResponse?> { getDeviceLocation() })
+    task.addOnFailureListener(requireActivity(), OnFailureListener { e ->
+        if (e is ResolvableApiException) {
+            try {
+                e.startResolutionForResult(requireActivity(), 51)
+            } catch (e1: IntentSender.SendIntentException) {
+                e1.printStackTrace()
+            }
+        }
+    })
+    mMap!!.setOnMyLocationButtonClickListener {
+        if (materialSearchBar!!.isSuggestionsVisible) materialSearchBar!!.clearSuggestions()
+        if (materialSearchBar.isSearchEnabled()) materialSearchBar.disableSearch()
+        false
+    }
+}
 
     private fun getDeviceLocation() {
         if (ActivityCompat.checkSelfPermission(
-                this,
+                requireActivity(),
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                this,
+                requireActivity(),
                 Manifest.permission.ACCESS_COARSE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
@@ -320,7 +350,20 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
                         )
                         // Trigger nearby search after camera has moved to device's location
                         val apiKey = getString(R.string.google_maps_api)
-                        val radius = 5000 // Specify the radius in meters
+                        var radius = 5000
+                        val user = User(
+                            UserID = UserID,
+                            Username = UserName
+                        )
+                        lifecycleScope.launch {
+                            val setting = FirebaseUtils.Get(user)
+                            setting?.let {
+                                radius = (setting.MaxDistance * 1000).roundToInt()
+                                if (!setting.KM) {
+                                    radius = (setting.MaxDistance * 1.60934 * 1000).roundToInt()
+                                }
+                            }
+                        }
                         val type = "store" // Specify the type of place you are searching for
                         val locationString = "${mLastKnownLocation!!.latitude},${mLastKnownLocation!!.longitude}"
                         executeNearbySearch(apiKey, locationString, radius, type)
@@ -358,7 +401,7 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
                     }
                 } else {
                     Toast.makeText(
-                        this@map,
+                        requireActivity(),
                         "unable to get last location",
                         Toast.LENGTH_SHORT
                     )
@@ -366,13 +409,9 @@ class map : AppCompatActivity(), OnMapReadyCallback, NearbySearchTask.NearbySear
                 }
             }
     } // add checks ?
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 51) {
-            if (resultCode == RESULT_OK) {
-                getDeviceLocation()
-            }
-        }
+
+    override fun onNearbySearchComplete() {
+        //ddsgdgdggd
     }
 }
 class NearbySearchTask(private val callback: NearbySearchCallback,private val mMap: GoogleMap?): AsyncTask<String, Void, String>() {

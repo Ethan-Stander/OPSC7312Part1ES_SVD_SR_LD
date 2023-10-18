@@ -5,16 +5,25 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.opsc7312part1.FragmentNavigation
+import com.example.opsc7312part1.FragmentTesting
+import com.example.opsc7312part1.Nearby_Stores
+import com.example.opsc7312part1.Place_Directions
 import com.example.opsc7312part1.R
 import com.example.opsc7312part1.UserID
+import com.example.opsc7312part1.map_nearby
 import com.example.opsc7312part1.nearbyStoresList
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 
-class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
+
+var DirLat:Double = 0.0
+var DirLong :Double = 0.0
+class PlacesAdapter (private val fragmentNavigation: FragmentNavigation): RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
 
 
     private val databaseReference =
@@ -40,12 +49,18 @@ class PlacesAdapter : RecyclerView.Adapter<PlacesAdapter.ViewHolder>() {
         return nearbyStoresList.size
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = nearbyStoresList[position]
         holder.name.text = currentItem.name
         holder.phone.text = currentItem.phone
         holder.rating.text = currentItem.rating.toString()
 
+        holder.directionsButton.setOnClickListener {
+            DirLat = currentItem.latitude
+            DirLong = currentItem.longitude
+            fragmentNavigation.replaceFragment(Place_Directions(fragmentNavigation), "map")
+        }
 
         holder.AddToMyStoresButton.setOnClickListener {
             val context = holder.itemView.context
