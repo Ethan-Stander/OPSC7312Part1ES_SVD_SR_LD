@@ -53,6 +53,7 @@ class APICallService() : Service() {
 
     private fun start(){
         timer.scheduleAtFixedRate(object :TimerTask(){
+            @RequiresApi(Build.VERSION_CODES.O)
             override fun run() {
 
 // In your Application class or main activity

@@ -2,6 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
+
+    //google maps
+    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
 }
 
 android {
@@ -92,4 +95,10 @@ dependencies {
 
     //circle images
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //google maps
+    implementation "com.google.android.gms:play-services-maps:18.1.0"
+    implementation "com.google.android.gms:play-services-location:21.0.1"
+
+
 }

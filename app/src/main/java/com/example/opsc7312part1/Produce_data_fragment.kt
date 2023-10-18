@@ -58,8 +58,6 @@ class Produce_data_fragment : Fragment(R.layout.produce_data_fragment) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-
-
         }
     }
 
