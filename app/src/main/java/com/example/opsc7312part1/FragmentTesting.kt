@@ -105,8 +105,8 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
             when(it.itemId){
                 R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
                 R.id.nav_controls ->replaceFragment(Equipment_status_fragment(),it.title.toString())
-                R.id.nav_mystores -> replaceFragment(MyStoreFragment(),it.title.toString())
                 R.id.nav_where_to_shop -> replaceFragment(Permission(),it.title.toString())
+                R.id.nav_mystores -> replaceFragment(MyStoreFragment(),it.title.toString())
                 R.id.nav_feedback -> replaceFragment(feedbackFragment(),it.title.toString())
                 R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
                 R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())

@@ -13,7 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 
-class MyStoresAdapter(private val myStoreList : ArrayList<MyStore>): RecyclerView.Adapter<MyStoresAdapter.ViewHolder>() {
+class MyStoresAdapter(private val myStoreList : List<MyStore>): RecyclerView.Adapter<MyStoresAdapter.ViewHolder>() {
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val storeDetails : TextView = itemView.findViewById(R.id.txtStoreDetails)
         val storeFavorite : ImageView = itemView.findViewById(R.id.btnFavorite)
@@ -31,14 +31,14 @@ class MyStoresAdapter(private val myStoreList : ArrayList<MyStore>): RecyclerVie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = myStoreList[position]
-        holder.storeDetails.text = currentItem.storeName +  "\n" +currentItem.storeInfo + "\n" + currentItem.rating
+        holder.storeDetails.text = currentItem.name +  "\n" +currentItem.address + "\n" + currentItem.rating
 
-        val favoriteDrawable = if (currentItem.favourite!!) R.drawable.ic_not_favorite else R.drawable.ic_favorite
+        val favoriteDrawable = if (currentItem.favorite!!) R.drawable.ic_not_favorite else R.drawable.ic_favorite
         holder.storeFavorite.setImageResource(favoriteDrawable)
 
         holder.storeFavorite.setOnClickListener {
-            currentItem.favourite = !currentItem.favourite!!
-            val newFavoriteDrawable = if (currentItem.favourite!!) R.drawable.ic_not_favorite else R.drawable.ic_favorite
+            currentItem.favorite = !currentItem.favorite!!
+            val newFavoriteDrawable = if (currentItem.favorite!!) R.drawable.ic_not_favorite else R.drawable.ic_favorite
             holder.storeFavorite.setImageResource(newFavoriteDrawable)
         }
 

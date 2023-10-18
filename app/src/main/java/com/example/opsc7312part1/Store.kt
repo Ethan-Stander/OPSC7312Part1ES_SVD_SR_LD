@@ -11,3 +11,5 @@ data class Store(
     val isOpenNow: Boolean = false,
     val favorite: Boolean = false
 )
+
+

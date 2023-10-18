@@ -4,13 +4,16 @@ import com.google.firebase.database.*
 import kotlinx.coroutines.tasks.await
 
 class MyStore (
-    var storeName: String?,
-    var storeInfo: String?,
-    var favourite: Boolean?,
-    var rating: Float?,
-    var location: String?,
-    var myNotes: String?
-    )
+    var name: String = "",
+    var address: String = "",
+    var latitude: Double = 0.0,
+    var longitude: Double = 0.0,
+    var placeId: String = "",
+    var status: String = "",
+    var rating: Int = 0,
+    var isOpenNow: Boolean = false,
+    var favorite: Boolean = false
+)
 {
     companion object {
         private val database = FirebaseDatabase.getInstance()
@@ -35,7 +38,7 @@ class MyStore (
             val reference = currentUser?.let { database.getReference("Users").child(it).child("mystores") }
 
             // Query to find the store with the specified properties (e.g., matching storeName)
-            val query: Query? = reference?.orderByChild("storeName")?.equalTo(store.storeName)
+            val query: Query? = reference?.orderByChild("storeName")?.equalTo(store.name)
 
             return try {
                 val snapshot = query?.get()?.await()

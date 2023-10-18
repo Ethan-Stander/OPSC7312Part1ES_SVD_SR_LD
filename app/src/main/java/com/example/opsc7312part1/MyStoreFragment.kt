@@ -10,20 +10,16 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 
 class MyStoreFragment : Fragment() {
 
     private lateinit var myStoresAdapter: MyStoresAdapter
     private lateinit var myStoresRecyclerView: RecyclerView
-    private lateinit var myStoresDetailsList : ArrayList<MyStore>
-
-    //lists for dummy data
-    lateinit var myStoresNames: Array<String>
-    lateinit var myStoresInfo: Array<String>
-    lateinit var myStoresFavorite: Array<Boolean>
-    lateinit var myStoresRating: Array<String>
+    private var myStoresDetailsList : List<MyStore>  = emptyList()
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -73,8 +69,10 @@ class MyStoreFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         //my stores recyclerview
+        lifecycleScope.launch {
+            myStoreDetailsInitialize()
+        }
 
-        myStoreDetailsInitialize()
         val LayoutManager = LinearLayoutManager(context)
         myStoresRecyclerView = view.findViewById(R.id.myStoreRecyclerView)
         myStoresRecyclerView.layoutManager = LayoutManager
@@ -84,33 +82,18 @@ class MyStoreFragment : Fragment() {
 
     }
 
-    private fun myStoreDetailsInitialize() {
-        myStoresDetailsList = arrayListOf<MyStore>()
-
-        myStoresNames = arrayOf(
-            "Builders Warehouse",
-            "Jared Forlee Hardware"
+    suspend fun  myStoreDetailsInitialize() {
+        val user = User(
+            UserID = UserID,
+            Username = UserName
         )
+           val storelist = MyStore.getStoresForUser(user)
 
-        myStoresInfo = arrayOf(
-            "Port Elizabeth",
-            "Port Elizabeth"
-        )
-        myStoresFavorite = arrayOf(
-            true,
-            false
-        )
-        myStoresRating = arrayOf(
-            "4",
-            "3"
-        )
-
-
-        for (i in myStoresNames.indices)
-        {
-            val myStoreData = MyStore(myStoresNames[i],myStoresInfo[i],myStoresFavorite[i],myStoresRating[i].toFloatOrNull(),null,null)
-            myStoresDetailsList.add(myStoreData)
+            storelist?.let {
+                myStoresDetailsList = storelist
+                myStoresAdapter.notifyDataSetChanged()
+            }
         }
+
     }
 
-}
