@@ -501,7 +501,7 @@ class Place_Directions(private val fragmentNavigation: FragmentNavigation) : Fra
             NavigationOptions.Builder(requireActivity())
                 .accessToken(getString(R.string.mapbox_access_token))
                 // comment out the location engine setting block to disable simulation
-                .locationEngine(replayLocationEngine)
+                //.locationEngine(replayLocationEngine)
                 .build()
         )
 
