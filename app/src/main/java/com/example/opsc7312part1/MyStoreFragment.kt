@@ -150,7 +150,7 @@ private fun filterList(query: String?) {
 
         var myStores = (mutableListOf <MyStore>())
         for(i in myStoresDetailsList){
-            if(i.name.lowercase(Locale.ROOT).contains(query)){
+            if(i.name.lowercase(Locale.ROOT).contains(query.lowercase())){
                 myStores.add(i)
             }
         }
