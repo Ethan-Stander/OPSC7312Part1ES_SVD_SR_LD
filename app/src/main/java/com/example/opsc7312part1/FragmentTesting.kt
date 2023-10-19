@@ -100,33 +100,71 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
         replaceFragment(Produce_data_fragment(),"Produce")
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        navView.setNavigationItemSelectedListener {
-            it.isChecked = true
-            when(it.itemId){
-                R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
-                R.id.nav_controls ->replaceFragment(Equipment_status_fragment(),it.title.toString())
-                R.id.nav_mystores -> replaceFragment(MyStoreFragment(),it.title.toString())
-                R.id.nav_where_to_shop -> replaceFragment(Permission(),it.title.toString())
-                R.id.nav_feedback -> replaceFragment(feedbackFragment(),it.title.toString())
-                R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
-                R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
-                R.id.notification_history_recycler ->replaceFragment(NotificationHistory(),it.title.toString())
-                R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
+
+        if(!UserID.isNullOrEmpty())
+        {
+            navView.setNavigationItemSelectedListener {
+                it.isChecked = true
+                when(it.itemId){
+                    R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
+                    R.id.nav_controls ->replaceFragment(Equipment_status_fragment(),it.title.toString())
+                    R.id.nav_mystores -> replaceFragment(MyStoreFragment(),it.title.toString())
+                    R.id.nav_where_to_shop -> replaceFragment(Permission(),it.title.toString())
+                    R.id.nav_feedback -> replaceFragment(feedbackFragment(),it.title.toString())
+                    R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
+                    R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
+                    R.id.notification_history_recycler ->replaceFragment(NotificationHistory(),it.title.toString())
+                    R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
 
 
-                    SharedPreferencesManager(this).clearUserData()
-                    /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    editor.clear()
-                    editor.apply()
-                    UserName = null
-                    UserEmail = null
-                    UserID = null
-                    UserURL = null*/
-                    startActivity(intent) }
+                        SharedPreferencesManager(this).clearUserData()
+                        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.clear()
+                        editor.apply()
+                        UserName = null
+                        UserEmail = null
+                        UserID = null
+                        UserURL = null*/
+                        startActivity(intent) }
+                }
+                true
             }
-            true
         }
+
+        else
+        {
+            navView.setNavigationItemSelectedListener {
+                it.isChecked = true
+                when(it.itemId){
+                    R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
+                    R.id.nav_controls ->replaceFragment(Equipment_status_fragment(),it.title.toString())
+                    R.id.nav_mystores -> Toast.makeText(applicationContext, "Please Sign in to use this feature!", Toast.LENGTH_SHORT).show()
+                    R.id.nav_where_to_shop -> Toast.makeText(applicationContext, "Please Sign in to use this feature!", Toast.LENGTH_SHORT).show()
+                    R.id.nav_feedback -> replaceFragment(feedbackFragment(),it.title.toString())
+                    R.id.nav_howToGuides ->replaceFragment(HowToGuidesFragment(),it.title.toString())
+                    R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
+                    R.id.notification_history_recycler ->replaceFragment(NotificationHistory(),it.title.toString())
+                    R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
+
+
+                        SharedPreferencesManager(this).clearUserData()
+                        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
+                        val editor = sharedPreferences.edit()
+                        editor.clear()
+                        editor.apply()
+                        UserName = null
+                        UserEmail = null
+                        UserID = null
+                        UserURL = null*/
+                        startActivity(intent) }
+                }
+                true
+            }
+
+        }
+
+
     }
 
 
