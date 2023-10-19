@@ -8,6 +8,7 @@
 
     <!--[SEARCH STORE]-->
     <androidx.appcompat.widget.SearchView
+        android:theme="@style/ThemeOverlay.Toobar"
         android:id="@+id/searchStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,10 +17,8 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:elevation="12dp"
-        android:iconifiedByDefault="false"
-        android:queryBackground="@android:color/transparent"
-        android:queryHint="Search user..."
-        app:queryBackground="@color/white" />
+        android:iconifiedByDefault="true"
+        android:queryHint="Search user..." />
 
     <androidx.recyclerview.widget.RecyclerView
         tools:listitem="@layout/my_stores_details_list"
@@ -28,5 +27,28 @@
         android:layout_height="match_parent"
         android:layout_below="@id/searchStore"
         android:layout_marginTop="16dp" />
+
+    <TextView
+        android:id="@+id/tvMyStoreErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="25dp"
+        android:drawableTop="@drawable/ic_wifi_off"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:textColor="@color/light_grey"/>
+
+    <ProgressBar
+        android:id="@+id/myStoreLoadingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
 </RelativeLayout>

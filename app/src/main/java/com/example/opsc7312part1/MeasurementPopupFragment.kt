@@ -38,7 +38,7 @@ class MeasurementPopupFragment : DialogFragment() {
         {
             binding.txtMeasurementPopUpError.visibility = View.VISIBLE
             binding.textInputLayoutUnitOfDistance.visibility = View.GONE
-            binding.textInputLayoutTemp.visibility = View.GONE
+//            binding.textInputLayoutTemp.visibility = View.GONE
             binding.textInputLayoutStoreRange.visibility = View.GONE
             binding.btnMeasurementSave.visibility = View.GONE
 
@@ -48,7 +48,7 @@ class MeasurementPopupFragment : DialogFragment() {
         //Temperature dropdown
         val temperatures = resources.getStringArray(R.array.Temperatures)
         val arrayAdapter1 = ArrayAdapter(requireContext(), R.layout.dropdown_item, temperatures)
-        binding.tvTemperature.setAdapter((arrayAdapter1))
+//        binding.tvTemperature.setAdapter((arrayAdapter1))
 
         //Unit of Distance dropdown
         val unitOfDistance = resources.getStringArray(R.array.UnitOfDistance)
@@ -80,11 +80,11 @@ class MeasurementPopupFragment : DialogFragment() {
 
             retrievedSetting?.let { settings ->
                 // Update the shared settings object
-                val selectedTemperature = binding.tvTemperature.text.toString()
+//                val selectedTemperature = binding.tvTemperature.text.toString()
                 val selectedUnitOfDistance = binding.tvUnitOfDistance.text.toString()
                 val maxStoreRange = binding.tvMaxStoreRange.text.toString().toFloatOrNull() ?: 0f
 
-                settings.Celsius = selectedTemperature == "Celsius (°C)"
+//                settings.Celsius = selectedTemperature == "Celsius (°C)"
                 settings.KM = selectedUnitOfDistance == "Kilometers (km)"
                 settings.MaxDistance = maxStoreRange
 
@@ -111,7 +111,7 @@ class MeasurementPopupFragment : DialogFragment() {
 
             // Set the values of switches and dropdown based on retrieved settings
             setting?.let {
-                binding.tvTemperature.setText(if (it.Celsius) "Celsius (°C)" else "Fahrenheit (°F)", false)
+//                binding.tvTemperature.setText(if (it.Celsius) "Celsius (°C)" else "Fahrenheit (°F)", false)
                 binding.tvUnitOfDistance.setText(if (it.KM) "Kilometers (km)" else "Miles (mi.)", false)
                 binding.tvMaxStoreRange.setText(it.MaxDistance.toString())
             }

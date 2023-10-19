@@ -58,6 +58,14 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <!--SEARCH BAR-->
+    <style name="ThemeOverlay.Toobar" parent="ThemeOverlay.AppCompat.Light">
+        <!-- Text color -->
+        <item name="android:editTextColor">@color/black</item>
+        <!-- Hint text color -->
+        <item name="android:textColorHint">@color/light_grey</item>
+    </style>
+
     <!--COLORS-->
     <color name="sub_header_color">@color/settings_grey</color>
     <color name="settings_text_color">@color/dark_green</color>
@@ -67,7 +75,9 @@
     <color name="dark_mode_popups">@color/white</color>
     <color name="divider_line">#DDD5D5</color>
     <color name="dark_mode_headers">@color/dark_green</color>
-    <color name="light_grey.white">@color/light_grey</color>
+    <color name="light_grey.offwhite">@color/light_grey</color>
     <color name="black.light_grey">@color/black</color>
+    <color name="dark_green.white">@color/dark_green</color>
+    <color name="black.white">@color/black</color>
 
 </resources>

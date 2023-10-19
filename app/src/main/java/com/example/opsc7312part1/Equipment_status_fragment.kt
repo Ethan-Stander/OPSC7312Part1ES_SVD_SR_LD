@@ -300,7 +300,6 @@ class Equipment_status_fragment : Fragment() {
     private fun hidePredictions() {
         tvPrediction.visibility = View.GONE
         tvPredictionsHeader.visibility = View.GONE
-
     }
 
     private fun hideEquipmentControls() {
@@ -356,22 +355,30 @@ class Equipment_status_fragment : Fragment() {
         tvErrorMessage.text = errorMessage
         tvErrorMessage.visibility = View.VISIBLE
         equipmentStatusDataRecyclerView.visibility = View.GONE
+        AISwicth.visibility = View.GONE
+        tvHeader.visibility = View.GONE
     }
 
     // hide if equipment shows
     private fun hideError() {
         tvErrorMessage.visibility = View.GONE
         equipmentStatusDataRecyclerView.visibility = View.VISIBLE
+        AISwicth.visibility = View.VISIBLE
+        tvHeader.visibility = View.VISIBLE
     }
 
     private fun showLoading() {
         equipmentLoadingBar.visibility = View.VISIBLE
+        AISwicth.visibility = View.GONE
+        tvHeader.visibility = View.GONE
         hideError() // Hide the error message
     }
 
     private fun hideLoading() {
         equipmentLoadingBar.visibility = View.GONE
         equipmentStatusDataRecyclerView.visibility = View.VISIBLE
+        AISwicth.visibility = View.VISIBLE
+        tvHeader.visibility = View.VISIBLE
     }
 
 }

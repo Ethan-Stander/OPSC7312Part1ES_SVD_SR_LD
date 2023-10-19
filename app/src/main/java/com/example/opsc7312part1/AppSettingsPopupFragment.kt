@@ -128,14 +128,14 @@ class AppSettingsPopupFragment : DialogFragment() {
                 // Update the shared settings object
                 val selectedTheme = binding.tvAppTheme.text.toString()
                 switchNotifications = binding.switchNotifications.isChecked
-                val switchLocation = binding.switchLocation.isChecked
+//                val switchLocation = binding.switchLocation.isChecked
                 if(switchNotifications)
                 {
                     notificationPermission()
                 }
                 settings.LightTheme = selectedTheme == "Light Mode"
                 settings.Notifications = switchNotifications
-                settings.LocationPermission = switchLocation
+//                settings.LocationPermission = switchLocation
 
                 // Save the updated settings back to Firebase
                 val result = FirebaseUtils.updateSettingForUser(user, settings)
@@ -186,7 +186,7 @@ class AppSettingsPopupFragment : DialogFragment() {
             // Set the values of switches and dropdown based on retrieved settings
             setting?.let {
                 binding.switchNotifications.isChecked = it.Notifications
-                binding.switchLocation.isChecked = it.LocationPermission
+//                binding.switchLocation.isChecked = it.LocationPermission
                 binding.tvAppTheme.setText(if (it.LightTheme) "Light Mode" else "Dark Mode", false)
             }
         }
