@@ -6,46 +6,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MyStoreFragment">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/baseline_search_24"
-        app:tint="@color/light_grey.white" />
-
     <!--[SEARCH STORE]-->
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tvSearchMyStore"
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/searchStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/imageView"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="16dp"
-        android:hint="Search Store"
-        android:paddingLeft="-12dp"
-        android:textColorHint="@color/light_grey"
-        android:theme="@style/GreenTextBoxCursor"
-        app:boxStrokeColor="@color/dark_green"
-        app:hintTextColor="@color/dark_green">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtSearchMyStore"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/transparent"
-            android:textColor="@color/dark_mode_text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:elevation="12dp"
+        android:iconifiedByDefault="false"
+        android:queryBackground="@android:color/transparent"
+        android:queryHint="Search user..."
+        app:queryBackground="@color/white" />
 
     <androidx.recyclerview.widget.RecyclerView
         tools:listitem="@layout/my_stores_details_list"
         android:id="@+id/myStoreRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/tvSearchMyStore"
+        android:layout_below="@id/searchStore"
         android:layout_marginTop="16dp" />
 
 </RelativeLayout>

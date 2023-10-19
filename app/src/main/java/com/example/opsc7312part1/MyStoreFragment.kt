@@ -10,14 +10,20 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
+import java.util.Locale
+import androidx.appcompat.widget.SearchView
 
 class MyStoreFragment : Fragment() {
 
     private lateinit var myStoresAdapter: MyStoresAdapter
     private lateinit var myStoresRecyclerView: RecyclerView
-    private lateinit var myStoresDetailsList : ArrayList<MyStore>
+    private lateinit var myStoresDetailsList: List<MyStore>
+    private lateinit var searchView : SearchView
+
 
     //lists for dummy data
     lateinit var myStoresNames: Array<String>
@@ -36,20 +42,44 @@ class MyStoreFragment : Fragment() {
         when (item.itemId) {
             R.id.store_filter_rating -> {
 
+                val sortedList = myStoresDetailsList.sortedByDescending { it.rating }
+                myStoresAdapter = MyStoresAdapter(sortedList)
+                myStoresRecyclerView.adapter = myStoresAdapter
                 return true
             }
+
             R.id.store_filter_alphabetical -> {
 
+                val sortedList = myStoresDetailsList.sortedBy { it.name }
+                myStoresAdapter = MyStoresAdapter(sortedList)
+                myStoresRecyclerView.adapter = myStoresAdapter
                 return true
             }
+
             R.id.store_filter_favorite -> {
+
+                val filteredList = myStoresDetailsList.filter { it.favorite }
+                myStoresAdapter = MyStoresAdapter(filteredList)
+                myStoresRecyclerView.adapter = myStoresAdapter
+                return true
+
+            }
+
+            R.id.default_filter -> {
+
+                myStoresAdapter = MyStoresAdapter(myStoresDetailsList)
+                myStoresRecyclerView.adapter = myStoresAdapter
 
                 return true
             }
+
 
             else -> return super.onOptionsItemSelected(item)
         }
+
+
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,18 +92,34 @@ class MyStoreFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         val rootView = inflater.inflate(R.layout.fragment_my_store, container, false)
         (activity as AppCompatActivity).supportActionBar?.apply {
             setHasOptionsMenu(true)
         }
+        myStoresDetailsList = emptyList()
+
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //my stores recyclerview
+        searchView  = view.findViewById<SearchView>(R.id.searchStore)
 
+        searchView .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+
+        })
+
+        //my stores recyclerview
         myStoreDetailsInitialize()
         val LayoutManager = LinearLayoutManager(context)
         myStoresRecyclerView = view.findViewById(R.id.myStoreRecyclerView)
@@ -84,33 +130,33 @@ class MyStoreFragment : Fragment() {
 
     }
 
-    private fun myStoreDetailsInitialize() {
-        myStoresDetailsList = arrayListOf<MyStore>()
-
-        myStoresNames = arrayOf(
-            "Builders Warehouse",
-            "Jared Forlee Hardware"
-        )
-
-        myStoresInfo = arrayOf(
-            "Port Elizabeth",
-            "Port Elizabeth"
-        )
-        myStoresFavorite = arrayOf(
-            true,
-            false
-        )
-        myStoresRating = arrayOf(
-            "4",
-            "3"
-        )
+   private fun myStoreDetailsInitialize() {
 
 
-        for (i in myStoresNames.indices)
-        {
-            val myStoreData = MyStore(myStoresNames[i],myStoresInfo[i],myStoresFavorite[i],myStoresRating[i].toFloatOrNull(),null,null)
-            myStoresDetailsList.add(myStoreData)
-        }
+       val user = User(
+           UserID = UserID,
+           Username = UserName
+       )
+
+       lifecycleScope.launch {
+           myStoresDetailsList = MyStore.getStoresForUser(user);
+           myStoresAdapter = MyStoresAdapter(myStoresDetailsList)
+           myStoresRecyclerView.adapter = myStoresAdapter
+       }
     }
+
+private fun filterList(query: String?) {
+    if (query != null){
+
+        var myStores = (mutableListOf <MyStore>())
+        for(i in myStoresDetailsList){
+            if(i.name.lowercase(Locale.ROOT).contains(query)){
+                myStores.add(i)
+            }
+        }
+
+        myStoresAdapter.setFilteredist(myStores)
+    }
+}
 
 }

@@ -9,5 +9,6 @@ data class Store(
     val status: String = "",
     val rating: Int = 0,
     val isOpenNow: Boolean = false,
-    val favorite: Boolean = false
+    var favorite: Boolean = false,
+    var notes : String = ""
 )
