@@ -2,12 +2,17 @@ package com.example.opsc7312part1
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.opsc7312part1.NotificationDataClass.Companion.deleteAllNotificationsForUser
@@ -23,7 +28,6 @@ class NotificationHistory : Fragment() {
 
     private lateinit var notification_history_recycler: RecyclerView
     private lateinit var notificationHistoryAdapter: NotificationHistoryAdapter
-    private lateinit var btnClearNotifications: ImageButton
     private lateinit var tvSensorErrorMessage : TextView
 
 
@@ -39,7 +43,13 @@ class NotificationHistory : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val view = inflater.inflate(R.layout.fragment_notification_history, container, false)
+
+        (activity as AppCompatActivity).supportActionBar?.apply {
+            setHasOptionsMenu(true)
+        }
+
         notification_history_recycler = view.findViewById(R.id.notification_history_recycler)
         notification_history_recycler.layoutManager = LinearLayoutManager(activity)
         notificationHistoryAdapter = NotificationHistoryAdapter(emptyList()) // Initially empty
@@ -77,6 +87,22 @@ class NotificationHistory : Fragment() {
         }
 
         return view
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.action_refresh_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.RefreshOnly ->{
+                FragmentUtils.refreshFragment(requireActivity(), NotificationHistory(), R.id.frameLayout)
+                return true
+            }
+
+            else -> return super.onOptionsItemSelected(item)
+        }
     }
 
     private fun showError(errorMessage: String) {
