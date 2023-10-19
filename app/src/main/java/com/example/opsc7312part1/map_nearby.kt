@@ -63,9 +63,11 @@ import kotlin.math.roundToInt
 
 val nearbyStoresList: MutableList<Store> = mutableListOf()
 private const val DEFAULT_ZOOM = 15f
-class map_nearby() : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearchCallback {
+class map_nearby(latitude : Double?,longitude : Double?,name :String?) : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySearchCallback {
     private lateinit var appBarConfiguration: AppBarConfiguration
-
+    private var  latitude:Double? = latitude
+    private var  longitude:Double? = longitude
+    private var  name:String? = name
     private var mMap: GoogleMap?=null
     private lateinit var mFusedLocationProviderClient: FusedLocationProviderClient
     private lateinit var placesClient: PlacesClient
@@ -96,6 +98,7 @@ class map_nearby() : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySear
         placesClient = Places.createClient(requireActivity())
 
         val token = AutocompleteSessionToken.newInstance()
+
 
         materialSearchBar!!.setOnSearchActionListener(object :
             MaterialSearchBar.OnSearchActionListener {
@@ -250,7 +253,7 @@ class map_nearby() : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySear
                 Log.i("ERROR",radius.toString())
 
                 url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=$apiKey&location=$location&radius="+radius.toString()+"&type=$type"
-                val nearbySearchTask = NearbySearchTask(this@map_nearby,mMap)
+                val nearbySearchTask = NearbySearchTask(this@map_nearby,mMap,latitude,longitude,name)
 
                 // Execute the NearbySearchTask
                 nearbySearchTask.execute(url)
@@ -387,10 +390,19 @@ class map_nearby() : Fragment(), OnMapReadyCallback, NearbySearchTask.NearbySear
 
     override fun onNearbySearchComplete() {
         btnFind.isEnabled = true
+        if (latitude!= null && longitude != null)
+        {
+            mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(latitude!!,longitude!!), DEFAULT_ZOOM))
+            latitude = null
+            longitude = null
+        }
     }
 }
-class NearbySearchTask(private val callback: NearbySearchCallback,private val mMap: GoogleMap?): AsyncTask<String, Void, String>() {
+class NearbySearchTask(private val callback: NearbySearchCallback,private val mMap: GoogleMap?,latitude: Double?,longitude: Double?,name: String?): AsyncTask<String, Void, String>() {
     private val TAG = "NearbySearchTask"
+    private var  latitude:Double? = latitude
+    private var  longitude:Double? = longitude
+    private var  name:String? = name
     interface NearbySearchCallback {
         fun onNearbySearchComplete()
     }
@@ -433,12 +445,24 @@ class NearbySearchTask(private val callback: NearbySearchCallback,private val mM
                         val store = storeSnapshot.getValue(Store::class.java)
                         if (store != null) {
                             val storeLatLng = LatLng(store.latitude, store.longitude)
-                            mMap?.addMarker(
-                                MarkerOptions()
-                                    .position(storeLatLng)
-                                    .title(store.name)
-                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
-                            )
+                            Log.i("ERROR",store.latitude.toString()+"  "+latitude.toString())
+                            if (latitude!=null && longitude != null &&store.latitude == latitude!! && store.longitude == longitude!! )
+                            {
+                                mMap?.addMarker(
+                                    MarkerOptions()
+                                        .position(storeLatLng)
+                                        .title(name)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET))
+                                )
+                            }else
+                            {
+                                mMap?.addMarker(
+                                    MarkerOptions()
+                                        .position(storeLatLng)
+                                        .title(store.name)
+                                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE))
+                                )
+                            }
                             placedStores.add(storeLatLng)
                         }
                     }
@@ -457,6 +481,7 @@ class NearbySearchTask(private val callback: NearbySearchCallback,private val mM
                     Log.i("Error","databaseError")
                 }
             })
+
         }
     }
 

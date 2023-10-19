@@ -66,6 +66,9 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
 
+    companion object {
+        public lateinit var fragmentNavigation: FragmentNavigation
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         WindowCompat.setDecorFitsSystemWindows(window, false)
         super.onCreate(savedInstanceState)
@@ -100,7 +103,6 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
         replaceFragment(Produce_data_fragment(),"Produce")
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         if(!UserID.isNullOrEmpty())
         {
             navView.setNavigationItemSelectedListener {
@@ -163,8 +165,7 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
             }
 
         }
-
-
+        fragmentNavigation = this
     }
 
 

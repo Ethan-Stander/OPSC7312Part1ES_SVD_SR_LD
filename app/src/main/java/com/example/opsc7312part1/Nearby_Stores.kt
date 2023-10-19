@@ -40,7 +40,7 @@ private lateinit var recyclerView : RecyclerView
         recyclerView.adapter = adapter
 
         btnBack.setOnClickListener{
-            (requireActivity() as FragmentTesting).replaceFragment(map_nearby(),"Where to Shop")
+            FragmentTesting.fragmentNavigation.replaceFragment(map_nearby(null,null,null),"Where to Shop")
         }
 
     }

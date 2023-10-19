@@ -78,7 +78,7 @@ class MyStoresAdapter(private var myStoreList : List<MyStore>): RecyclerView.Ada
         }
 
         holder.btnViewStoreOnMap.setOnClickListener {
-            TODO("Not yet implemented")
+            FragmentTesting.fragmentNavigation.replaceFragment(map_nearby(currentItem.latitude,currentItem.longitude,currentItem.name),"Where to Shop")
         }
 
     }

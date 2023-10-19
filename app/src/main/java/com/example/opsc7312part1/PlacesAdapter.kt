@@ -98,7 +98,7 @@ class PlacesAdapter (private val fragmentNavigation: FragmentNavigation): Recycl
             val context = holder.itemView.context
             // Disable the button immediately after being clicked
             it.isEnabled = false
-
+            holder.directionsButton.text = "Saved"
             databaseReference.child(currentItem.placeId).addListenerForSingleValueEvent(object :
                 ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {

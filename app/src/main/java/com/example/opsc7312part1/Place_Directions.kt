@@ -5,6 +5,7 @@ import DirLong
 import android.annotation.SuppressLint
 import android.content.res.Configuration
 import android.content.res.Resources
+import android.graphics.Color
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
@@ -13,8 +14,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.view.children
+import androidx.core.view.get
 import com.example.opsc7312part1.databinding.FragmentPlaceDirectionsBinding
 import com.mapbox.api.directions.v5.models.Bearing
 import com.mapbox.api.directions.v5.models.RouteOptions
@@ -50,6 +54,7 @@ import com.mapbox.navigation.core.trip.session.RouteProgressObserver
 import com.mapbox.navigation.core.trip.session.VoiceInstructionsObserver
 import com.mapbox.navigation.ui.base.util.MapboxNavigationConsumer
 import com.mapbox.navigation.ui.maneuver.api.MapboxManeuverApi
+import com.mapbox.navigation.ui.maneuver.view.MapboxManeuverView
 import com.mapbox.navigation.ui.maps.NavigationStyles
 import com.mapbox.navigation.ui.maps.camera.NavigationCamera
 import com.mapbox.navigation.ui.maps.camera.data.MapboxNavigationViewportDataSource
@@ -69,6 +74,7 @@ import com.mapbox.navigation.ui.tripprogress.model.EstimatedTimeToArrivalFormatt
 import com.mapbox.navigation.ui.tripprogress.model.PercentDistanceTraveledFormatter
 import com.mapbox.navigation.ui.tripprogress.model.TimeRemainingFormatter
 import com.mapbox.navigation.ui.tripprogress.model.TripProgressUpdateFormatter
+import com.mapbox.navigation.ui.tripprogress.view.MapboxTripProgressView
 import com.mapbox.navigation.ui.voice.api.MapboxSpeechApi
 import com.mapbox.navigation.ui.voice.model.SpeechVolume
 import com.mapbox.navigation.ui.voice.api.MapboxVoiceInstructionsPlayer
@@ -80,7 +86,7 @@ import java.util.Locale
 import kotlin.concurrent.thread
 
 class Place_Directions(private val fragmentNavigation: FragmentNavigation) : Fragment() {
-    // TODO: Rename and change types of parameters
+
     private companion object {
         private const val BUTTON_ANIMATION_DURATION = 1500L
     }
@@ -91,7 +97,6 @@ class Place_Directions(private val fragmentNavigation: FragmentNavigation) : Fra
     private val navigationLocationProvider = NavigationLocationProvider()
 
     private lateinit var speechApi: MapboxSpeechApi
-
 
     private lateinit var routeArrowView: MapboxRouteArrowView
 
@@ -325,11 +330,25 @@ class Place_Directions(private val fragmentNavigation: FragmentNavigation) : Fra
             tripProgressApi.getTripProgress(routeProgress)
         )
     }
+
+    fun setTextColorForAllTextViews(view: View, color: Int) {
+        if (view is ViewGroup) {
+            for (i in 0 until view.childCount) {
+                setTextColorForAllTextViews(view.getChildAt(i), color)
+            }
+        } else if (view is TextView) {
+            view.setTextColor(color)
+        }
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val tripProgressView = view.findViewById<MapboxTripProgressView>(R.id.tripProgressView)
+        val ManeuverView = view.findViewById<MapboxManeuverView>(R.id.maneuverView)
 
+
+        tripProgressView.setBackgroundColor(Color.parseColor("#FF428948"))
+        setTextColorForAllTextViews(tripProgressView, Color.WHITE)
         initNavigation()
-
 //        binding = ActivityDirectionsBinding.inflate(layoutInflater)
 //        requireActivity().setContentView(binding.root)
 
@@ -437,11 +456,11 @@ class Place_Directions(private val fragmentNavigation: FragmentNavigation) : Fra
             navigationCamera.requestNavigationCameraToOverview()
             binding.recenter.showTextAndExtend(Place_Directions.BUTTON_ANIMATION_DURATION)
         }
+
         binding.soundButton.setOnClickListener {
             // mute/unmute voice instructions
             isVoiceInstructionsMuted = !isVoiceInstructionsMuted
         }
-
         // set initial sounds button state
         binding.soundButton.unmute()
     }
@@ -482,7 +501,7 @@ class Place_Directions(private val fragmentNavigation: FragmentNavigation) : Fra
             NavigationOptions.Builder(requireActivity())
                 .accessToken(getString(R.string.mapbox_access_token))
                 // comment out the location engine setting block to disable simulation
-                //.locationEngine(replayLocationEngine)
+                .locationEngine(replayLocationEngine)
                 .build()
         )
 
