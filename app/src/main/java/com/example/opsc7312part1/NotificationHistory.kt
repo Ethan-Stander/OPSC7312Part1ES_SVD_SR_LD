@@ -1,11 +1,13 @@
 package com.example.opsc7312part1
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.opsc7312part1.NotificationDataClass.Companion.deleteAllNotificationsForUser
@@ -22,6 +24,7 @@ class NotificationHistory : Fragment() {
     private lateinit var notification_history_recycler: RecyclerView
     private lateinit var notificationHistoryAdapter: NotificationHistoryAdapter
     private lateinit var btnClearNotifications: ImageButton
+    private lateinit var tvSensorErrorMessage : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +34,7 @@ class NotificationHistory : Fragment() {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -40,6 +44,8 @@ class NotificationHistory : Fragment() {
         notification_history_recycler.layoutManager = LinearLayoutManager(activity)
         notificationHistoryAdapter = NotificationHistoryAdapter(emptyList()) // Initially empty
         notification_history_recycler.adapter = notificationHistoryAdapter
+
+        tvSensorErrorMessage = view.findViewById(R.id.tvSensorErrorMessage2)
 
 
         // Retrieve notifications and update the adapter when available
@@ -52,12 +58,37 @@ class NotificationHistory : Fragment() {
             val notifications = databaseHandler?.getAllNotifications()
             withContext(Dispatchers.Main) {
                 if (notifications != null) {
-                    notificationHistoryAdapter = NotificationHistoryAdapter(notifications)
-                    notification_history_recycler.adapter = notificationHistoryAdapter
+                    if (!notifications.isEmpty()) {
+                        notificationHistoryAdapter = NotificationHistoryAdapter(notifications)
+                        notification_history_recycler.adapter = notificationHistoryAdapter
+                        hideError()
+                    } else {
+                        showError("There are no new notifications!")
+
+
+                    }
+                }
+                else {
+                    showError("Error Loading notifications, please try again!")
+
+
                 }
             }
         }
 
         return view
     }
+
+    private fun showError(errorMessage: String) {
+        tvSensorErrorMessage.text = errorMessage
+        tvSensorErrorMessage.visibility = View.VISIBLE
+        notification_history_recycler.visibility = View.GONE // Hide the RecyclerView
+    }
+
+    // hide if equipment shows
+    private fun hideError() {
+        tvSensorErrorMessage.visibility = View.GONE
+        notification_history_recycler.visibility = View.VISIBLE
+    }
+
 }
