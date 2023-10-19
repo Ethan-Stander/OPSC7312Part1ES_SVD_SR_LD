@@ -42,7 +42,7 @@ class MyStoresAdapter(private var myStoreList : List<MyStore>): RecyclerView.Ada
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = myStoreList[position]
-        holder.storeDetails.text = currentItem.name +  "\n" +currentItem.address + "\n" + currentItem.rating
+        holder.storeDetails.text = currentItem.name +  "\n\n" + "Address: " + currentItem.address + "\nRating: " + currentItem.rating
 
         val favoriteDrawable = if (currentItem.favorite) R.drawable.ic_favorite else R.drawable.ic_not_favorite
         holder.storeFavorite.setImageResource(favoriteDrawable)

@@ -63,7 +63,7 @@
             android:layout_below="@+id/description_header"
             android:layout_marginTop="8dp"
             android:text="Port Elizabeth\n4.2\nHardware Store\nOpen"
-            android:textColor="@color/dark_mode_text"
+            android:textColor="@color/black.white"
             android:textSize="16dp" />
 
         <LinearLayout
@@ -94,7 +94,7 @@
                 app:tint="@color/dark_mode_text"/>
         </LinearLayout>
 
-        <!--[SEARCH STORE]-->
+        <!--[EDIT NOTES]-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/edtSearchMyStore"
             android:layout_width="match_parent"
