@@ -363,8 +363,6 @@ class Equipment_status_fragment : Fragment() {
     private fun hideError() {
         tvErrorMessage.visibility = View.GONE
         equipmentStatusDataRecyclerView.visibility = View.VISIBLE
-        AISwicth.visibility = View.VISIBLE
-        tvHeader.visibility = View.VISIBLE
     }
 
     private fun showLoading() {
