@@ -59,33 +59,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!--[TEMPERATURE]-->
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutTemp"
-            style="@style/DropdownTheme"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="150dp"
-            android:hint="Temperature"
-            android:textColorHint="@color/light_grey"
-            android:theme="@style/GreenCursor"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.5">
-
-            <AutoCompleteTextView
-                android:id="@+id/tvTemperature"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:editable="false"
-                android:text="Celsius (°C)"
-                android:textColor="@color/dark_mode_text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <!--[UNIT OF DISTANCE]-->
         <com.google.android.material.textfield.TextInputLayout
@@ -93,7 +66,7 @@
             style="@style/DropdownTheme"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginBottom="140dp"
             android:hint="Unit of Distance"
             android:textColorHint="@color/light_grey"
             android:theme="@style/GreenCursor"
@@ -120,9 +93,9 @@
             android:id="@+id/textInputLayoutStoreRange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="220dp"
             android:hint="Store Range"
             android:paddingLeft="-12dp"
+            android:layout_marginTop="50dp"
             android:textColorHint="@color/light_grey"
             android:theme="@style/GreenTextBoxCursor"
             app:boxStrokeColor="@color/dark_green"
@@ -148,7 +121,7 @@
             android:id="@+id/btnMeasurementSave"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="400dp"
+            android:layout_marginTop="300dp"
             android:background="@drawable/leaf_button"
             android:text="save"
             android:textSize="12dp"

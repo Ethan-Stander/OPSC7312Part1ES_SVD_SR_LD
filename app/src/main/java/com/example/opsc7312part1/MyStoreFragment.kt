@@ -9,6 +9,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +25,8 @@ class MyStoreFragment : Fragment() {
     private lateinit var myStoresRecyclerView: RecyclerView
     private lateinit var myStoresDetailsList: List<MyStore>
     private lateinit var searchView : SearchView
+    private lateinit var tvMyStoreErrorMessage : TextView
+    private lateinit var myStoreLoadingBar : ProgressBar
 
 
     //lists for dummy data
@@ -107,6 +111,12 @@ class MyStoreFragment : Fragment() {
 
         searchView  = view.findViewById<SearchView>(R.id.searchStore)
 
+        myStoresRecyclerView = view.findViewById(R.id.myStoreRecyclerView)
+
+        myStoreLoadingBar = view.findViewById(R.id.myStoreLoadingBar)
+
+        tvMyStoreErrorMessage = view.findViewById(R.id.tvMyStoreErrorMessage)
+
         searchView .setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 return false
@@ -132,17 +142,25 @@ class MyStoreFragment : Fragment() {
 
    private fun myStoreDetailsInitialize() {
 
-
        val user = User(
            UserID = UserID,
            Username = UserName
        )
-
-       lifecycleScope.launch {
-           myStoresDetailsList = MyStore.getStoresForUser(user);
-           myStoresAdapter = MyStoresAdapter(myStoresDetailsList)
-           myStoresRecyclerView.adapter = myStoresAdapter
+       if (UserID == "") {
+           showError("No Stores Found...")
+           searchView.visibility = View.GONE
        }
+       else {
+           showLoading()
+           lifecycleScope.launch {
+               myStoresDetailsList = MyStore.getStoresForUser(user)
+               myStoresAdapter = MyStoresAdapter(myStoresDetailsList)
+               myStoresRecyclerView.adapter = myStoresAdapter
+
+               hideLoading()
+           }
+       }
+
     }
 
 private fun filterList(query: String?) {
@@ -158,5 +176,28 @@ private fun filterList(query: String?) {
         myStoresAdapter.setFilteredist(myStores)
     }
 }
+
+    // show error if stores does not load
+    private fun showError(errorMessage: String) {
+        tvMyStoreErrorMessage.text = errorMessage
+        tvMyStoreErrorMessage.visibility = View.VISIBLE
+        myStoresRecyclerView.visibility = View.GONE // Hide the RecyclerView
+    }
+
+    // hide if stores shows
+    private fun hideError() {
+        tvMyStoreErrorMessage.visibility = View.GONE
+        myStoresRecyclerView.visibility = View.VISIBLE
+    }
+
+    private fun showLoading() {
+        myStoreLoadingBar.visibility = View.VISIBLE
+        hideError() // Hide the error message
+    }
+
+    private fun hideLoading() {
+        myStoreLoadingBar.visibility = View.GONE
+        myStoresRecyclerView.visibility = View.VISIBLE
+    }
 
 }

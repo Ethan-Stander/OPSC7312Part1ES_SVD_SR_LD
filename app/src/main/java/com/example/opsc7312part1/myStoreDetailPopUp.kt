@@ -59,7 +59,7 @@ class myStoreDetailPopUp(myStore: MyStore) : DialogFragment() {
         {
             isOpen = "Closed"
         }
-        description.text = myStore.address + "\n" + myStore.rating + "\n" + "\n" + isOpen
+        description.text = myStore.address + "\n\nRating:   " + myStore.rating + "\n" + "\n" + isOpen
 
 
         editButton.setOnClickListener {
