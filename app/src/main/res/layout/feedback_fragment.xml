@@ -12,6 +12,7 @@
         android:padding="15dp"
         tools:context=".feedbackFragment">
 
+        <!--Title-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/txtEmailTitle"
             android:layout_width="match_parent"
@@ -31,11 +32,33 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!--Sender-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_below="@+id/txtEmailTitle"
+            android:id="@+id/txtEmailSender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:boxStrokeColor="@color/dark_green"
+            app:hintTextColor="@color/light_grey"
+
+            android:hint="Email"
+            android:textColorHint="@color/light_grey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtEmailSender"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:textColor="@color/dark_mode_text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <!--feedback-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayoutBodyTo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/txtEmailTitle"
+            android:layout_below="@id/txtEmailSender"
             android:layout_marginTop="24dp"
             app:boxStrokeColor="@color/dark_green"
             app:hintTextColor="@color/light_grey"
