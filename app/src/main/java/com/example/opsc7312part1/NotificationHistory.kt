@@ -1,6 +1,7 @@
 package com.example.opsc7312part1
 
 import android.annotation.SuppressLint
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.Gravity
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -20,15 +22,22 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import android.widget.DatePicker
+import java.text.SimpleDateFormat
+import java.util.*
 
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
 class NotificationHistory : Fragment() {
 
     private lateinit var notification_history_recycler: RecyclerView
     private lateinit var notificationHistoryAdapter: NotificationHistoryAdapter
     private lateinit var tvSensorErrorMessage : TextView
+
+    //for datepicker
+    private lateinit var btnFilter : Button
+    private val calendar = Calendar.getInstance()
+    private var filteringDate :String = ""
+    private  lateinit var tvFilteredDate : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +55,16 @@ class NotificationHistory : Fragment() {
 
         val view = inflater.inflate(R.layout.fragment_notification_history, container, false)
 
+        //for date picker
+        tvFilteredDate = view.findViewById(R.id.tvFilteredDate)
+        btnFilter = view.findViewById(R.id.btnfilter)
+
+        btnFilter.setOnClickListener {
+
+                showDatePicker()
+
+        }
+
         (activity as AppCompatActivity).supportActionBar?.apply {
             setHasOptionsMenu(true)
         }
@@ -54,7 +73,6 @@ class NotificationHistory : Fragment() {
         notification_history_recycler.layoutManager = LinearLayoutManager(activity)
         notificationHistoryAdapter = NotificationHistoryAdapter(emptyList()) // Initially empty
         notification_history_recycler.adapter = notificationHistoryAdapter
-
         tvSensorErrorMessage = view.findViewById(R.id.tvSensorErrorMessage2)
 
 
@@ -65,7 +83,7 @@ class NotificationHistory : Fragment() {
         )
         CoroutineScope(Dispatchers.IO).launch {
             val databaseHandler = context?.let { DatabaseHelper(context = it) }
-            val notifications = databaseHandler?.getAllNotifications()
+            val notifications = databaseHandler?.getAllNotifications(filteringDate)
             withContext(Dispatchers.Main) {
                 if (notifications != null) {
                     if (!notifications.isEmpty()) {
@@ -87,6 +105,49 @@ class NotificationHistory : Fragment() {
         }
 
         return view
+    }
+
+    private fun showDatePicker() {
+        val datePicker = DatePickerDialog(
+            requireContext(),{DatePicker, year:Int, monthOfYear: Int, dayOfMonth:Int ->
+                val selectedDate = Calendar.getInstance()
+                selectedDate.set(year, monthOfYear,dayOfMonth)
+                val dateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault())
+                val formattedDate = dateFormat.format(selectedDate.time)
+                filteringDate = formattedDate.toString()
+                tvFilteredDate.text = filteringDate
+                CoroutineScope(Dispatchers.IO).launch {
+                    val databaseHandler = context?.let { DatabaseHelper(context = it) }
+                    val notifications = databaseHandler?.getAllNotifications(filteringDate)
+                    withContext(Dispatchers.Main) {
+                        if (notifications != null) {
+                            if (!notifications.isEmpty()) {
+                                notificationHistoryAdapter =
+                                    NotificationHistoryAdapter(notifications)
+                                notification_history_recycler.adapter = notificationHistoryAdapter
+                                hideError()
+                            } else {
+                                showError("There are no new notifications!")
+
+
+                            }
+                        } else {
+                            showError("Error Loading notifications, please try again!")
+
+
+                        }
+                    }
+                }
+            }, calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+        datePicker.show()
+
+
+
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

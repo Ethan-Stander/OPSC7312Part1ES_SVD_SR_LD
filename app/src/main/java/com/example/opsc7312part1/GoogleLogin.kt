@@ -112,17 +112,6 @@ class GoogleLogin : AppCompatActivity() {
             startActivity(intent)
         }
 
-        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
-        UserName = sharedPreferences.getString("shUserName_key", "")
-        UserEmail = sharedPreferences.getString("shUserEmail_key", "")
-        UserURL = sharedPreferences.getString("shUserURL_key", "")
-        UserID = sharedPreferences.getString("shUserID_key", "")
-
-        if(!UserName.isNullOrEmpty() && !UserEmail.isNullOrEmpty() && !UserURL.isNullOrEmpty() && !UserID.isNullOrEmpty())
-        {
-            val intent = Intent(this, FragmentTesting::class.java)
-            startActivity(intent)
-        }*/
     }
 
 
@@ -241,13 +230,6 @@ class GoogleLogin : AppCompatActivity() {
 
                     //set sharedPreferences data
                     SharedPreferencesManager(this).saveUserData(UserName, UserEmail, UserURL, UserID)
-                    /*val sharedPreferences = getSharedPreferences(userLoggedPreference, MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    editor.putString("shUserName_key", UserName)
-                    editor.putString("shUserEmail_key", UserEmail)
-                    editor.putString("shUserURL_key", UserURL)
-                    editor.putString("shUserID_key", UserID)
-                    editor.apply()*/
 
                     // Show the progress bar
                     showProgressBar()
