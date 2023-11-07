@@ -63,7 +63,7 @@ class feedbackFragment : Fragment() {
                     var emailSender = edtSender.text.toString().trim()
                     var body = edtBody.text.toString().trim()
 
-                    val feedback = FeedbackData(title,emailSender,body)
+                    val feedback = FeedbackData("",title,emailSender,body)
                     FeedbackUtil.sendFeedbackToFirebase(listOf(feedback))
 
                     Toast.makeText(requireActivity(), "Feedback sent successfully", Toast.LENGTH_SHORT).show()
@@ -77,7 +77,7 @@ class feedbackFragment : Fragment() {
         }
     }
 
-    //check is email input is in email format
+    //checks if email input is in email format
     fun isValidEmail(email: String): Boolean {
         return email.matches(emailRegex.toRegex())
     }
