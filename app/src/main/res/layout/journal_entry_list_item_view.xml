@@ -1,0 +1,41 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_journal_entry_list"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/dark_mode_cards">
+
+
+            <TextView
+                android:id="@+id/txtJournalDetails"
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:layout_height="0dp"
+                android:text="Title"
+                android:textSize="18sp"
+                android:textColor="@color/settings_text_color"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:id="@+id/imgEntry"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="end"
+                android:clickable="true"
+                android:focusable="true"/>
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
