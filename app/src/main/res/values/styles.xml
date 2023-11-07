@@ -4,4 +4,11 @@
         <item name="android:textStyle">bold</item> <!-- Bold text style -->
     </style>
 
+
+    <style name="CustomDatePickerDialog" parent="Theme.AppCompat.DayNight.Dialog">
+        <item name="android:colorAccent">@color/dark_green</item>
+        <item name="android:textColor">@color/green</item>
+        <!-- Add more custom attributes as needed -->
+    </style>
+
 </resources>
