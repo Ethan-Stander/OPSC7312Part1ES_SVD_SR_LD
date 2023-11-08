@@ -10,11 +10,25 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 
 
 class JournalFragment : Fragment() {
+
+    private lateinit var journalEntryAdapter: JournalEntryAdapter
+    private lateinit var journalEntryRecyclerView: RecyclerView
+    private lateinit var journalEntryList: List<Journal>
+
+    private lateinit var searchView : SearchView
+    private lateinit var journalEntriesLoadingBar : ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,13 +44,37 @@ class JournalFragment : Fragment() {
         (activity as AppCompatActivity).supportActionBar?.apply {
             setHasOptionsMenu(true)
         }
-
+        journalEntryList = emptyList()
         return rootView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        searchView  = view.findViewById(R.id.searchJournalEntry)
+       // myStoreLoadingBar = view.findViewById(R.id.myStoreLoadingBar)
+
+
+        journalEntriesInitialize()
+        val layoutManager = LinearLayoutManager(context)
+        journalEntryRecyclerView = view.findViewById(R.id.journalEntriesRecyclerView)
+        journalEntryRecyclerView.layoutManager = layoutManager
+        journalEntryRecyclerView.setHasFixedSize(true)
+        journalEntryAdapter = JournalEntryAdapter(journalEntryList)
+        journalEntryRecyclerView.adapter = journalEntryAdapter
+    }
+
+    private fun journalEntriesInitialize() {
+        val user = User(
+            UserID = UserID,
+            Username = UserName
+        )
+
+        lifecycleScope.launch {
+            journalEntryList = JournalUtils.getJournalEntries(user)
+            journalEntryAdapter = JournalEntryAdapter(journalEntryList)
+            journalEntryRecyclerView.adapter = journalEntryAdapter
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

@@ -48,6 +48,34 @@ class JournalUtils {
             } ?: callback("")
         }
 
+        suspend fun getJournalEntries(user: User) : List<Journal>{
+            val currentUser = user.UserID
+            val reference = currentUser?.let {FirebaseUtils.database.getReference("Users").child(it).child("journalEntries")  }
 
+            return try{
+                val snapshot =reference?.get()?.await()
+                val entryList = mutableListOf<Journal>()
+
+                if(snapshot != null)
+                {
+                    if(snapshot.exists()){
+                        for (dataSnapShot in snapshot.children)
+                        {
+                            val entry = dataSnapShot.getValue(Journal::class.java)
+                            if(entry != null)
+                            {
+                                Log.i("Check entries:", entry.toString())
+                                entryList.add(entry)
+                            }
+                        }
+                    }
+                }
+                entryList
+            }
+            catch (e: Exception)
+            {   Log.i("Get entries:", e.message.toString())
+                emptyList()
+            }
+        }
     }
 }

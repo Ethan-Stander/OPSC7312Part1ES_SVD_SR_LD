@@ -27,9 +27,11 @@
                 android:textStyle="bold"/>
 
             <ImageView
+                android:layout_marginHorizontal="24dp"
+                android:layout_marginVertical="24dp"
                 android:id="@+id/imgEntry"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:clickable="true"
                 android:focusable="true"/>
