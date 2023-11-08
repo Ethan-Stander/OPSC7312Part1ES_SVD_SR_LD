@@ -19,6 +19,11 @@
         android:background="@drawable/rounded_bg"
         style="@style/Theme.GreenTheme">
 
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -148,7 +153,19 @@
                 android:theme="@style/Theme.GreenTheme"
                 android:text="Save journal entry" />
 
+            <ProgressBar
+                android:id="@+id/creatingLoadingBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="gone"
+                android:elevation="100dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"/>
+
+
         </RelativeLayout>
+        </ScrollView>
     </androidx.cardview.widget.CardView>
 
 

@@ -25,6 +25,29 @@
         android:layout_marginHorizontal="16dp"
         tools:listitem="@layout/journal_entry_list_item_view" />
 
+    <TextView
+        android:id="@+id/tvJournalErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="25dp"
+        android:drawableTop="@drawable/ic_wifi_off"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:textColor="@color/light_grey"/>
+
+    <ProgressBar
+        android:id="@+id/journalLoadingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
 
 
 </RelativeLayout>

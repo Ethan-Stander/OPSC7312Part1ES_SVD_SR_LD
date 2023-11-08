@@ -14,6 +14,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
@@ -33,6 +34,7 @@ class JournalEntryDetailsFragment : DialogFragment() {
     private  lateinit var  btnSaveEntry : Button
     private lateinit var txtTitle : EditText
     private lateinit var  txtNotes : EditText
+    private lateinit var createLoadingBar : ProgressBar
     private var entryDate : String = ""
     private var photoBitMap : Bitmap? = null
     private var photoUri : Uri? = null
@@ -69,6 +71,7 @@ class JournalEntryDetailsFragment : DialogFragment() {
         btnSaveEntry = view .findViewById(R.id.btnSaveEntry)
         txtTitle = view.findViewById(R.id.edt_journal_create_title)
         txtNotes = view.findViewById(R.id.edt_journal_create_notes)
+        createLoadingBar = view.findViewById(R.id.creatingLoadingBar)
 
         btnExit.setOnClickListener {
             dismiss()
@@ -83,6 +86,7 @@ class JournalEntryDetailsFragment : DialogFragment() {
         }
 
         btnSaveEntry.setOnClickListener {
+            showLoading()
             JournalUtils.saveJournalImage(photoUri) { photoLink ->
                 imageLink = photoLink
                 saveEntry()
@@ -92,6 +96,7 @@ class JournalEntryDetailsFragment : DialogFragment() {
     }
 
     private fun saveEntry() {
+
         //user object
         val user = User(
             UserID = UserID,
@@ -112,22 +117,27 @@ class JournalEntryDetailsFragment : DialogFragment() {
                     Toast.makeText(requireContext(), "Please ensure all fields are filled in .", Toast.LENGTH_SHORT).show()
                 }else
                 {
+
                     val result = JournalUtils.saveJournalEntry(user, journal)
                     if (result) {
+
                         Toast.makeText(requireContext(), "Entry saved successfully.", Toast.LENGTH_SHORT).show()
+
+                        FragmentUtils.refreshFragment(requireActivity(), JournalFragment(), R.id.frameLayout)
+
                         dismiss()
                     } else {
                         Toast.makeText(requireContext(), "Failed to save entry.", Toast.LENGTH_SHORT).show()
                     }
+                    hideLoading()
                 }
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                hideLoading()
             }
         }
 
     }
-
-
 
     //lets user pick the date of the journal entry
     private fun selectDate() {
@@ -179,8 +189,26 @@ class JournalEntryDetailsFragment : DialogFragment() {
                 }
             }
         }
-
     }
+
+    private fun showLoading() {
+        createLoadingBar.visibility = View.VISIBLE
+        btnAddPhoto.isEnabled = false
+        btnSelectDate.isEnabled = false
+        btnSaveEntry.isEnabled = false
+        txtNotes.isEnabled = false
+        txtTitle.isEnabled = false
+    }
+
+    private fun hideLoading() {
+        createLoadingBar.visibility = View.GONE
+        btnAddPhoto.isEnabled = true
+        btnSelectDate.isEnabled = true
+        btnSaveEntry.isEnabled = true
+        txtNotes.isEnabled = true
+        txtTitle.isEnabled = true
+    }
+
     // Define the variable pic_id which is the request-id of the clicked image.
     companion object {
         private const val pic_id = 123

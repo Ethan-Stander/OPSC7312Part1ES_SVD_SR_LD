@@ -13,6 +13,9 @@
     android:background="@drawable/rounded_bg"
     style="@style/Theme.GreenTheme">
 
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -27,7 +30,7 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/entryTitle"
+                android:id="@+id/info_Title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -78,16 +81,16 @@
         <Button
             android:layout_marginTop="24dp"
             android:layout_below="@+id/info_photo"
-            android:id="@+id/btnDeleteAccount"
+            android:id="@+id/btnDeleteEntry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/red"
             android:drawableLeft="@drawable/ic_delete"
             android:layout_centerHorizontal="true"
-            android:text="Delete Account" />
-
+            android:text="Delete Entry" />
 
 
     </RelativeLayout>
+   </ScrollView>
 </androidx.cardview.widget.CardView>
 

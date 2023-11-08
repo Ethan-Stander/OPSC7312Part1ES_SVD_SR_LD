@@ -23,6 +23,7 @@ class JournalUtils {
             return try {
                 if (reference != null) {
                     val entryRef = reference.push()
+                    journalEntry.id = entryRef.key!!
                     entryRef.setValue(journalEntry).await()
                 }
                 true
@@ -77,5 +78,22 @@ class JournalUtils {
                 emptyList()
             }
         }
+
+        suspend fun deleteJournalEntry(user: User, journalEntryId: String): Boolean {
+            val currentUser = user.UserID
+            val reference = currentUser?.let {
+                FirebaseUtils.database.getReference("Users").child(it).child("journalEntries").child(journalEntryId)
+            }
+
+            return try {
+                if (reference != null) {
+                    reference.removeValue().await()
+                }
+                true
+            } catch (e: Exception) {
+                false
+            }
+        }
+
     }
 }

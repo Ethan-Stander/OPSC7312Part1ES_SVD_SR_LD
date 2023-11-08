@@ -19,6 +19,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
+import java.util.Locale
 
 
 class JournalFragment : Fragment() {
@@ -29,6 +30,7 @@ class JournalFragment : Fragment() {
 
     private lateinit var searchView : SearchView
     private lateinit var journalEntriesLoadingBar : ProgressBar
+    private lateinit var journalErrorMessage : TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,16 +54,29 @@ class JournalFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         searchView  = view.findViewById(R.id.searchJournalEntry)
-       // myStoreLoadingBar = view.findViewById(R.id.myStoreLoadingBar)
+        journalEntriesLoadingBar = view.findViewById(R.id.journalLoadingBar)
+        journalErrorMessage = view.findViewById(R.id.tvJournalErrorMessage)
+        journalEntryRecyclerView = view.findViewById(R.id.journalEntriesRecyclerView)
+
 
 
         journalEntriesInitialize()
         val layoutManager = LinearLayoutManager(context)
-        journalEntryRecyclerView = view.findViewById(R.id.journalEntriesRecyclerView)
         journalEntryRecyclerView.layoutManager = layoutManager
         journalEntryRecyclerView.setHasFixedSize(true)
         journalEntryAdapter = JournalEntryAdapter(journalEntryList)
         journalEntryRecyclerView.adapter = journalEntryAdapter
+
+        searchView.setOnQueryTextListener(object:SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+        })
     }
 
     private fun journalEntriesInitialize() {
@@ -69,11 +84,16 @@ class JournalFragment : Fragment() {
             UserID = UserID,
             Username = UserName
         )
-
+        showLoading()
         lifecycleScope.launch {
             journalEntryList = JournalUtils.getJournalEntries(user)
             journalEntryAdapter = JournalEntryAdapter(journalEntryList)
             journalEntryRecyclerView.adapter = journalEntryAdapter
+            hideLoading()
+            if(journalEntryList.isEmpty())
+            {
+                showError("No Journal Entries Found...")
+            }
         }
     }
 
@@ -91,17 +111,51 @@ class JournalFragment : Fragment() {
 
             else -> return super.onOptionsItemSelected(item)
         }
-
-
     }
-
-
 
     private fun OpenJournalDetailsPopUp()
     {
         val dialogFragment = JournalEntryDetailsFragment()
         dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.settings_custom_popups)
         dialogFragment.show((activity as AppCompatActivity).supportFragmentManager,"showJournalDetails")
+    }
+
+
+    // show error if stores does not load
+    private fun showError(errorMessage: String) {
+        journalErrorMessage.text = errorMessage
+        journalErrorMessage.visibility = View.VISIBLE
+        journalEntryRecyclerView.visibility = View.GONE // Hide the RecyclerView
+    }
+
+    // hide if stores shows
+    private fun hideError() {
+        journalErrorMessage.visibility = View.GONE
+        journalEntryRecyclerView.visibility = View.VISIBLE
+    }
+
+    private fun showLoading() {
+        journalEntriesLoadingBar.visibility = View.VISIBLE
+        hideError()
+    }
+
+    private fun hideLoading() {
+        journalEntriesLoadingBar.visibility = View.GONE
+        journalEntryRecyclerView.visibility = View.VISIBLE
+    }
+
+    private fun filterList(query: String?) {
+        if (query != null){
+
+            var entries = (mutableListOf <Journal>())
+            for(i in journalEntryList){
+                if(i.title.lowercase(Locale.ROOT).contains(query.lowercase())){
+                    entries.add(i)
+                }
+            }
+
+            journalEntryAdapter.setFilteredList(entries)
+        }
     }
 
 }
