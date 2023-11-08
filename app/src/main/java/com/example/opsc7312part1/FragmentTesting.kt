@@ -100,7 +100,7 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        replaceFragment(Produce_data_fragment(),"Produce")
+        replaceFragment(Sensor_data_fragment(),"Sensor Data")
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         if(!UserID.isNullOrEmpty())
@@ -108,7 +108,7 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
             navView.setNavigationItemSelectedListener {
                 it.isChecked = true
                 when(it.itemId){
-                    R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
+                    R.id.nav_sensor ->replaceFragment(Sensor_data_fragment(),it.title.toString())
                     R.id.nav_controls ->replaceFragment(Equipment_status_fragment(),it.title.toString())
                     R.id.nav_mystores -> replaceFragment(MyStoreFragment(),it.title.toString())
                     R.id.nav_where_to_shop -> replaceFragment(Permission(),it.title.toString())
@@ -121,14 +121,6 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
 
 
                         SharedPreferencesManager(this).clearUserData()
-                        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
-                        val editor = sharedPreferences.edit()
-                        editor.clear()
-                        editor.apply()
-                        UserName = null
-                        UserEmail = null
-                        UserID = null
-                        UserURL = null*/
                         startActivity(intent) }
                 }
                 true
@@ -140,7 +132,7 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
             navView.setNavigationItemSelectedListener {
                 it.isChecked = true
                 when(it.itemId){
-                    R.id.nav_produce ->replaceFragment(Produce_data_fragment(),it.title.toString())
+                    R.id.nav_sensor ->replaceFragment(Sensor_data_fragment(),it.title.toString())
                     R.id.nav_controls ->replaceFragment(Equipment_status_fragment(),it.title.toString())
                     R.id.nav_mystores -> Toast.makeText(applicationContext, "Please Sign in to use this feature!", Toast.LENGTH_SHORT).show()
                     R.id.nav_where_to_shop -> Toast.makeText(applicationContext, "Please Sign in to use this feature!", Toast.LENGTH_SHORT).show()
@@ -153,14 +145,6 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
 
 
                         SharedPreferencesManager(this).clearUserData()
-                        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
-                        val editor = sharedPreferences.edit()
-                        editor.clear()
-                        editor.apply()
-                        UserName = null
-                        UserEmail = null
-                        UserID = null
-                        UserURL = null*/
                         startActivity(intent) }
                 }
                 true
