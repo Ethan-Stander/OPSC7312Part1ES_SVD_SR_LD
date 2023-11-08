@@ -193,14 +193,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
     // Retrieve a list of notification objects from the "notifications" table
     @SuppressLint("Range")
-    fun getAllNotifications(): List<NotificationDataClass> {
+    fun getAllNotifications(Date : String): List<NotificationDataClass> {
         val notificationList = mutableListOf<NotificationDataClass>()
         val db = this.readableDatabase
-
-        val currentDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
-        val yesterdayDate = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000))
-
-        val query = "SELECT * FROM notifications WHERE DATE(timestamp) IN ('$currentDate', '$yesterdayDate')"
+        var date = Date;
+        if(Date.isEmpty())
+        {
+            date = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(Date())
+        }
+        val query = "SELECT * FROM notifications WHERE DATE(timestamp) IN ('$date')"
 
         val cursor = db.rawQuery(query, null)
 

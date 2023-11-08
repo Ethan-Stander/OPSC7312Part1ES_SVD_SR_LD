@@ -64,11 +64,6 @@ class MyStoresAdapter(private var myStoreList : List<MyStore>): RecyclerView.Ada
                 }
 
             }
-
-
-
-
-
         }
 
         holder.storeDetails.setOnClickListener {
