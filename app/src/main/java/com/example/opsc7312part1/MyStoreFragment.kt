@@ -28,21 +28,12 @@ class MyStoreFragment : Fragment() {
     private lateinit var tvMyStoreErrorMessage : TextView
     private lateinit var myStoreLoadingBar : ProgressBar
 
-
-    //lists for dummy data
-    lateinit var myStoresNames: Array<String>
-    lateinit var myStoresInfo: Array<String>
-    lateinit var myStoresFavorite: Array<Boolean>
-    lateinit var myStoresRating: Array<String>
-
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.filter_stores_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        //TODO
         when (item.itemId) {
             R.id.store_filter_rating -> {
 
