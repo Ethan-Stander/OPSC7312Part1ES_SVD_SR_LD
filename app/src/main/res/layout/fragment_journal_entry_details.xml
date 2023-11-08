@@ -94,7 +94,7 @@
                 app:hintTextColor="@color/dark_green">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/myNotes_info"
+                    android:id="@+id/edt_journal_create_notes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
@@ -138,7 +138,7 @@
 
             <!--Add entry-->
             <Button
-                android:id="@+id/btnAddEntry"
+                android:id="@+id/btnSaveEntry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/journalTakenPhoto"

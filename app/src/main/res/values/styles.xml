@@ -5,10 +5,16 @@
     </style>
 
 
-    <style name="CustomDatePickerDialog" parent="Theme.AppCompat.DayNight.Dialog">
-        <item name="android:colorAccent">@color/dark_green</item>
-        <item name="android:textColor">@color/green</item>
-        <!-- Add more custom attributes as needed -->
+    <style name="CustomDatePickerDialog" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorPrimary">@color/dark_green</item>
+        <item name="colorSecondary">@color/dark_green</item>
+        <item name="colorPrimaryDark">@color/dark_green</item>
+        <item name="colorAccent">@color/dark_green</item>
+        <item name="android:textColor">@color/dark_green</item>
+
+
+
+
     </style>
 
 </resources>
