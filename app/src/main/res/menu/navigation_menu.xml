@@ -22,6 +22,10 @@
                     android:id="@+id/nav_mystores"
                     android:title="My Stores"
                     android:icon="@drawable/ic_stores" />
+                <item
+                    android:id="@+id/nav_journal"
+                    android:title="Plant Journal"
+                    android:icon="@drawable/ic_journal" />
             </menu>
         </item>
     </group>
