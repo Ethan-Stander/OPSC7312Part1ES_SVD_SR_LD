@@ -104,7 +104,7 @@
             android:text=""
             android:textColor="@color/black.light_grey"
             android:textSize="18dp"
-            android:textStyle="bold" />
+             />
 
 
 
