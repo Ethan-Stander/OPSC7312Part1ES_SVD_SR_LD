@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
@@ -29,5 +31,11 @@ class JournalEntryAdapter(private var journalEntryList: List<Journal>):RecyclerV
         holder.entryDetails.text = "${currentEntry.title}\nDate: ${currentEntry.date}"
         holder.entryImage.setImageURI(Uri.parse(currentEntry.imageLink))
         Picasso.get().load(Uri.parse(currentEntry.imageLink)).into(holder.entryImage)
+
+        holder.entryDetails.setOnClickListener {
+            val dialogFragment = JournalEntryInfoPopUp(currentEntry)
+            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL,R.style.settings_custom_popups)
+            dialogFragment.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "journalEntryInfoPopup")
+        }
     }
 }

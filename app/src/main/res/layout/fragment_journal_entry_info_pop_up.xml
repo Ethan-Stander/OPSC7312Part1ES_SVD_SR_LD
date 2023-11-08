@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/journal_entry_info_pop_up"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardElevation="10dp"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="false"
+    android:background="@drawable/rounded_bg"
+    style="@style/Theme.GreenTheme">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:id="@+id/info_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/entryTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="BuilderWarehouse"
+                android:textColor="@color/dark_green"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/infoExitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_exit" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/info_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_header"
+            android:layout_marginTop="15dp"
+            android:text="Date:"
+            android:textColor="@color/black.light_grey"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/info_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/info_date"
+            android:layout_marginTop="8dp"
+            android:text="Very comprehensive description"
+            android:textColor="@color/black.white"
+            android:textSize="16dp" />
+
+        <ImageView
+            android:layout_marginTop="16dp"
+            android:layout_below="@+id/info_description"
+            android:id="@+id/info_photo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_centerHorizontal="true"
+            />
+
+        <Button
+            android:layout_marginTop="24dp"
+            android:layout_below="@+id/info_photo"
+            android:id="@+id/btnDeleteAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
+            android:drawableLeft="@drawable/ic_delete"
+            android:layout_centerHorizontal="true"
+            android:text="Delete Account" />
+
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+
