@@ -183,7 +183,7 @@ class GoogleLogin : AppCompatActivity() {
                     if (!dataSnapshot.exists()) {
                         val user = User(
                             UserID = account.id,
-                            Username = account.displayName,
+                            Username = account.displayName
                         )
 
                         val parentJob = Job()
@@ -195,6 +195,7 @@ class GoogleLogin : AppCompatActivity() {
                                 dbref = FirebaseDatabase.getInstance().getReference("Users")
 
                                 // Perform the user data insertion
+                                user.isAdmin = "false"
                                 UserID?.let { dbref.child(it).setValue(user).await() }
 
                                 val setting = Setting()
