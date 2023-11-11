@@ -8,7 +8,7 @@
 
     <!--[SEARCH STORE]-->
     <androidx.appcompat.widget.SearchView
-        android:theme="@style/ThemeOverlay.Toobar"
+        android:theme="@style/ThemeOverlay.Toolbar"
         android:id="@+id/searchStore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

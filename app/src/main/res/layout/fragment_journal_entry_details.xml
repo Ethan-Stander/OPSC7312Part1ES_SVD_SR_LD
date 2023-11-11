@@ -14,157 +14,161 @@
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardElevation="10dp"
-        app:cardPreventCornerOverlap="false"
-        app:cardUseCompatPadding="false"
-        android:background="@drawable/rounded_bg"
-        style="@style/Theme.GreenTheme">
+        app:cardCornerRadius="20dp">
 
         <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <LinearLayout
-                android:id="@+id/journal_pop_up_title"
-                android:layout_width="match_parent"
+            <RelativeLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <TextView
-                    android:id="@+id/popupTitle"
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:id="@+id/journal_pop_up_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="Create a journal entry"
-                    android:textColor="@color/dark_green"
-                    android:textSize="22dp"
-                    android:textStyle="bold" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/journalCreateExitButton"
+                    <TextView
+                        android:id="@+id/popupTitle"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_horizontal"
+                        android:text="Create Journal Entry"
+                        android:textColor="@color/dark_green"
+                        android:textSize="25dp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/journalCreateExitButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:src="@drawable/ic_exit" />
+                </LinearLayout>
+
+
+                <!--title-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/edt_journal_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/journal_pop_up_title"
+                    android:hint="Enter title"
+                    android:paddingLeft="-12dp"
+                    android:textColorHint="@color/light_grey"
+                    android:theme="@style/GreenTextBoxCursor"
+                    app:boxStrokeColor="@color/dark_green"
+                    app:hintTextColor="@color/dark_green">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_journal_create_title"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:textColor="@color/dark_mode_text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--notes-->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_marginTop="16dp"
+                    android:id="@+id/edtSearchMyStore"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/edt_journal_title"
+                    android:hint="Enter notes"
+                    android:paddingLeft="-12dp"
+                    android:textColorHint="@color/light_grey"
+                    android:theme="@style/GreenTextBoxCursor"
+                    app:boxStrokeColor="@color/dark_green"
+                    app:hintTextColor="@color/dark_green">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_journal_create_notes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:textColor="@color/dark_mode_text" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <!--date-->
+                <Button
+                    android:id="@+id/btnSelectDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_exit" />
-            </LinearLayout>
+                    android:layout_below="@id/edtSearchMyStore"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/leaf_button"
+                    android:theme="@style/Theme.GreenTheme"
+                    android:text="Select Date"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"/>
 
+                <!--Image-->
+                <Button
+                    android:id="@+id/btnTakePhoto"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btnSelectDate"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/leaf_button"
+                    android:theme="@style/Theme.GreenTheme"
+                    android:text="Take Photo"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"/>
 
-            <!--title-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="16dp"
-                android:id="@+id/edt_journal_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_below="@+id/journal_pop_up_title"
-                android:hint="Enter title"
-                android:paddingLeft="-12dp"
-                android:textColorHint="@color/light_grey"
-                android:theme="@style/GreenTextBoxCursor"
-                app:boxStrokeColor="@color/dark_green"
-                app:hintTextColor="@color/dark_green">
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/photoCardView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/btnTakePhoto"
+                    android:layout_centerHorizontal="true"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="10dp"
+                    android:layout_marginTop="24dp">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_journal_create_title"
+                    <ImageView
+                        android:id="@+id/journalTakenPhoto"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="centerCrop" />
+
+                </androidx.cardview.widget.CardView>
+
+                <!--Add entry-->
+                <Button
+                    android:id="@+id/btnSaveEntry"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/transparent"
-                    android:textColor="@color/dark_mode_text" />
+                    android:layout_below="@id/photoCardView"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/leaf_button"
+                    android:theme="@style/Theme.GreenTheme"
+                    android:text="Save Entry" />
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!--notes-->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_marginTop="16dp"
-                android:id="@+id/edtSearchMyStore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="16dp"
-                android:layout_below="@+id/edt_journal_title"
-                android:hint="Enter notes"
-                android:paddingLeft="-12dp"
-                android:textColorHint="@color/light_grey"
-                android:theme="@style/GreenTextBoxCursor"
-                app:boxStrokeColor="@color/dark_green"
-                app:hintTextColor="@color/dark_green">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edt_journal_create_notes"
-                    android:layout_width="match_parent"
+                <ProgressBar
+                    android:id="@+id/creatingLoadingBar"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@color/transparent"
-                    android:textColor="@color/dark_mode_text" />
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    android:elevation="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"/>
 
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <!--date-->
-            <Button
-                android:id="@+id/btnSelectDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/edtSearchMyStore"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/leaf_button"
-                android:theme="@style/Theme.GreenTheme"
-                android:text="Select Date" />
-
-
-            <!--Image-->
-            <Button
-                android:id="@+id/btnTakePhoto"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btnSelectDate"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/leaf_button"
-                android:theme="@style/Theme.GreenTheme"
-                android:text="Take Photo" />
-
-            <ImageView
-                android:layout_marginTop="16dp"
-                android:layout_below="@+id/btnTakePhoto"
-                android:id="@+id/journalTakenPhoto"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:layout_centerHorizontal="true"
-                />
-
-            <!--Add entry-->
-            <Button
-                android:id="@+id/btnSaveEntry"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/journalTakenPhoto"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="24dp"
-                android:background="@drawable/leaf_button"
-                android:theme="@style/Theme.GreenTheme"
-                android:text="Save journal entry" />
-
-            <ProgressBar
-                android:id="@+id/creatingLoadingBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:visibility="gone"
-                android:elevation="100dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
-
-
-        </RelativeLayout>
+            </RelativeLayout>
         </ScrollView>
     </androidx.cardview.widget.CardView>
 
