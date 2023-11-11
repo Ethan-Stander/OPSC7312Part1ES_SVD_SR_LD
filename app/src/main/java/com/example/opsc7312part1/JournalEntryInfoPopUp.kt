@@ -59,8 +59,8 @@ class JournalEntryInfoPopUp(journalEntry : Journal) : DialogFragment() {
             dismiss()
         }
 
-        txtInfoTitle.text = entry.title
-        txtInfoDate.text = "Date: ${entry.date}"
+        txtInfoTitle.text = "${entry.title}"
+        txtInfoDate.text = " ・ ${entry.date}"
         txtInfoDesc.text = entry.notes
         Picasso.get().load(Uri.parse(entry.imageLink)).into(infoImage)
 

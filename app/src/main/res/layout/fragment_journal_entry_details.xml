@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".JournalEntryDetailsFragment">
+    tools:context=".JournalEntryDetailsFragment"
+    android:theme="@style/Theme.GreenTheme">
 
     <androidx.cardview.widget.CardView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -130,19 +131,19 @@
                 <androidx.cardview.widget.CardView
                     android:id="@+id/photoCardView"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="200dp"
                     android:layout_below="@id/btnTakePhoto"
                     android:layout_centerHorizontal="true"
                     app:cardCornerRadius="20dp"
-                    app:cardElevation="10dp"
-                    android:layout_marginTop="24dp">
+                    android:layout_marginTop="24dp"
+                    android:elevation="10dp">
 
                     <ImageView
                         android:id="@+id/journalTakenPhoto"
-                        android:layout_width="200dp"
+                        android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:layout_centerHorizontal="true"
-                        android:scaleType="centerCrop" />
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true" />
 
                 </androidx.cardview.widget.CardView>
 
