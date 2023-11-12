@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/txtEmailSender"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             app:boxStrokeColor="@color/dark_green"
             app:hintTextColor="@color/light_grey"
             android:hint="Feedback"

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".JournalFragment">
+
+    <androidx.appcompat.widget.SearchView
+        android:theme="@style/ThemeOverlay.Toobar"
+        android:id="@+id/searchJournalEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="16dp"
+        android:elevation="12dp"
+        android:iconifiedByDefault="true"
+        android:queryHint="Search user..." />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/journalEntriesRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/searchJournalEntry"
+        android:layout_marginVertical="16dp"
+        android:layout_marginHorizontal="16dp"
+        tools:listitem="@layout/journal_entry_list_item_view" />
+
+    <TextView
+        android:id="@+id/tvJournalErrorMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:textSize="25dp"
+        android:drawableTop="@drawable/ic_wifi_off"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:textColor="@color/light_grey"/>
+
+    <ProgressBar
+        android:id="@+id/journalLoadingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
+
+
+</RelativeLayout>
