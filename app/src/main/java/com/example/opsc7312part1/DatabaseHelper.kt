@@ -8,12 +8,13 @@ import android.database.sqlite.SQLiteOpenHelper
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.UUID
 
 class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
     companion object {
-        private const val DATABASE_NAME = "MyDatabase.db"
-        private const val DATABASE_VERSION = 1
+        private const val DATABASE_NAME = "20231112.db"
+        private const val DATABASE_VERSION = 3
     }
 
 
@@ -92,7 +93,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
         val createFarmTableQuery = """
     CREATE TABLE IF NOT EXISTS farm (
-        FarmID INTEGER PRIMARY KEY AUTOINCREMENT,
+        FarmID TEXT,
          FarmName TEXT
        
     )
@@ -189,7 +190,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     }
     fun addFarm(farmName: String): Boolean {
         val contentValues = ContentValues()
+        val uuid = UUID.randomUUID()
+        contentValues.put("FarmID",uuid.toString())
         contentValues.put("FarmName", farmName)
+
          writableDatabase.insert("farm", null, contentValues)
         return true;
     }
@@ -395,7 +399,84 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
 
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
-        // Handle database upgrades here
+        if(oldVersion < newVersion)
+        {
+            val createNotificationsTableQuery = """
+            CREATE TABLE IF NOT EXISTS notifications (
+                notificationID INTEGER PRIMARY KEY AUTOINCREMENT,
+                notificationType TEXT,
+                notificationMessage TEXT,
+                farmName TEXT,
+                timestamp TEXT
+            )
+        """.trimIndent()
+            db.execSQL(createNotificationsTableQuery)
+
+            // Create the "hardware" table
+            val createHardwareTableQuery = """
+            CREATE TABLE IF NOT EXISTS hardware (
+                hardwareID INTEGER PRIMARY KEY AUTOINCREMENT,
+                pH_Up_Pump TEXT,
+                pH_In_Pump_Status TEXT,
+                pH_Down_Pump TEXT,
+                pH_Out_Pump_Status TEXT,
+                EC_Up_Pump TEXT,
+                EC_In_Pump_Status TEXT,
+                EC_Down_Pump TEXT,
+                EC_Out_Pump_Status TEXT,
+                Circulation_Pump TEXT,
+                Circulation_Pump_Status TEXT,
+                Extractor_Fan TEXT,
+                Fan_Extractor_Status TEXT,
+                Tent_Fan TEXT,
+                Fan_Tent_Status TEXT,
+                Grow_Light TEXT,
+                Light_Status TEXT,
+                farmName TEXT,
+                 IsDeleted INTEGER DEFAULT 0
+            )
+        """.trimIndent()
+            db.execSQL(createHardwareTableQuery)
+
+            val createSensorDataTableQuery = """
+    CREATE TABLE IF NOT EXISTS sensor_data (
+        sensorID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Temperature TEXT,
+        Humidity TEXT,
+        LightLevel TEXT,
+        FlowRate TEXT,
+        pH TEXT,
+        EC TEXT,
+        timeCalled TEXT,
+        farmName TEXT,
+        isDeleted INTEGER DEFAULT 0
+    )
+""".trimIndent()
+            db.execSQL(createSensorDataTableQuery)
+
+
+            val createActionTableQuery = """
+    CREATE TABLE IF NOT EXISTS actions (
+        actionID INTEGER PRIMARY KEY AUTOINCREMENT,
+        Date TEXT,
+        EquipmentChanged TEXT,
+        PreviousState TEXT,
+        NewState TEXT,
+         FarmName TEXT,
+        IsDeleted INTEGER DEFAULT 0
+    )
+""".trimIndent()
+            db.execSQL(createActionTableQuery)
+
+            val createFarmTableQuery = """
+    CREATE TABLE IF NOT EXISTS farm (
+        FarmID INTEGER PRIMARY KEY AUTOINCREMENT,
+         FarmName TEXT
+       
+    )
+""".trimIndent()
+            db.execSQL(createFarmTableQuery)
+        }
     }
 }
 
