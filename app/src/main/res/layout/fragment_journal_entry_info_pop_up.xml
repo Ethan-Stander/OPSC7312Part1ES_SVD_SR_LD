@@ -10,12 +10,13 @@
     app:cardElevation="10dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="false"
-    android:background="@drawable/rounded_bg"
+    app:cardCornerRadius="20dp"
     style="@style/Theme.GreenTheme">
 
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,14 +32,23 @@
 
             <TextView
                 android:id="@+id/info_Title"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:gravity="left"
-                android:text="BuilderWarehouse"
+                android:text="Journal Title"
                 android:textColor="@color/dark_green"
                 android:textSize="22dp"
                 android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/info_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date:"
+                android:textColor="@color/light_grey.offwhite"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_weight="1"/>
 
             <ImageView
                 android:id="@+id/infoExitButton"
@@ -49,38 +59,37 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/info_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/info_header"
-            android:layout_marginTop="15dp"
-            android:text="Date:"
-            android:textColor="@color/black.light_grey"
-            android:textSize="18dp"
-            android:textStyle="bold" />
-
-        <TextView
             android:id="@+id/info_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/info_date"
-            android:layout_marginTop="8dp"
+            android:layout_below="@+id/info_header"
+            android:layout_marginTop="15dp"
             android:text="Very comprehensive description"
             android:textColor="@color/black.white"
             android:textSize="16dp" />
 
-        <ImageView
-            android:layout_marginTop="16dp"
+        <androidx.cardview.widget.CardView
+            android:id="@+id/photoCardView"
             android:layout_below="@+id/info_description"
-            android:id="@+id/info_photo"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
             android:layout_centerHorizontal="true"
-            />
+            app:cardCornerRadius="20dp"
+            android:layout_marginTop="24dp"
+            android:elevation="10dp">
+
+            <ImageView
+                android:id="@+id/info_photo"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:adjustViewBounds="true"/>
+
+        </androidx.cardview.widget.CardView>
 
         <Button
-            android:layout_marginTop="24dp"
-            android:layout_below="@+id/info_photo"
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/photoCardView"
             android:id="@+id/btnDeleteEntry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -89,8 +98,9 @@
             android:layout_centerHorizontal="true"
             android:text="Delete Entry" />
 
-
     </RelativeLayout>
+
    </ScrollView>
+
 </androidx.cardview.widget.CardView>
 

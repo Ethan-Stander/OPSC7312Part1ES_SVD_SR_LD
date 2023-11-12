@@ -59,7 +59,7 @@
     </style>
 
     <!--SEARCH BAR-->
-    <style name="ThemeOverlay.Toobar" parent="ThemeOverlay.AppCompat.Light">
+    <style name="ThemeOverlay.Toolbar" parent="ThemeOverlay.AppCompat.Light">
         <!-- Text color -->
         <item name="android:editTextColor">@color/black</item>
         <!-- Hint text color -->

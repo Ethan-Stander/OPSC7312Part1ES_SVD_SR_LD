@@ -18,7 +18,8 @@ class JournalEntryAdapter(private var journalEntryList: List<Journal>):RecyclerV
         notifyDataSetChanged()
     }
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
-        val entryDetails : TextView = itemView.findViewById(R.id.txtJournalDetails)
+        val currentEntryTitle : TextView = itemView.findViewById(R.id.txtJournalTitle)
+        val currentEntryDate : TextView = itemView.findViewById(R.id.txtJournalDate)
         val entryImage : ImageView = itemView.findViewById(R.id.imgEntry)
     }
 
@@ -33,10 +34,11 @@ class JournalEntryAdapter(private var journalEntryList: List<Journal>):RecyclerV
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentEntry = journalEntryList[position]
-        holder.entryDetails.text = "${currentEntry.title}\n\nDate: ${currentEntry.date}"
+        holder.currentEntryTitle.text = "${currentEntry.title}"
+        holder.currentEntryDate.text = "${currentEntry.date}"
         Picasso.get().load(Uri.parse(currentEntry.imageLink)).into(holder.entryImage)
 
-        holder.entryDetails.setOnClickListener {
+        holder.itemView.setOnClickListener {
             val dialogFragment = JournalEntryInfoPopUp(currentEntry)
             dialogFragment.setStyle(DialogFragment.STYLE_NORMAL,R.style.settings_custom_popups)
             dialogFragment.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "journalEntryInfoPopup")
