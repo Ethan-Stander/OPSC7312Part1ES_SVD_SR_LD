@@ -60,7 +60,7 @@ class APICallService() : Service() {
 
 
 
-
+                val dbHelper = DatabaseHelper(this@APICallService)
                 CoroutineScope(Dispatchers.IO).launch {
 
                     val hardwareData = APIServices.fetchhardware(this@APICallService)
@@ -77,6 +77,11 @@ class APICallService() : Service() {
                             (hardwareData.Fan_Tent_Status.equals("False")) -> {
                                 title = "Equipment Warning"
                                 message = "ERROR: CIRCULATION FAN OFFLINE"
+                            }
+
+                            (dbHelper.getFarmCount() == 0) -> {
+                                title = "Farm Warning"
+                                message = "Please set your farm name in the settings!"
                             }
 
                         }
@@ -102,10 +107,8 @@ class APICallService() : Service() {
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR_OF_DAY)
                     val minute = calendar.get(Calendar.MINUTE)
-
-                    if (hour == 23 && minute == 59) {
+                    if (hour == 23 && minute == 59 && dbHelper.getFarmCount() == 1) {
                         if (isConnectedToInternet()) {
-                            val dbHelper = DatabaseHelper(this@APICallService)
                             val ListAction = dbHelper.getAllActionsMarkAsDeleted()
                             val ListSensorData = dbHelper.getAllSensorData()
                             sendSensorDataToFirebaseAsync(ListSensorData)

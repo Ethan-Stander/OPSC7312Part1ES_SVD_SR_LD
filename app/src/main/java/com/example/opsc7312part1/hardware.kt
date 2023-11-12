@@ -17,6 +17,7 @@ data class hardware(
     var Fan_Tent_Status: String,
     val Grow_Light: String?,
     var Light_Status: String,
+    var farmName: String
 
     ) {
     fun setValues() {
