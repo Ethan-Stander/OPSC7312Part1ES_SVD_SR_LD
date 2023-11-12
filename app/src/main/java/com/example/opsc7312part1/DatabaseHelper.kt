@@ -16,14 +16,19 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         private const val DATABASE_VERSION = 1
     }
 
+
+
     override fun onCreate(db: SQLiteDatabase) {
         // Create the "notifications" table
+
+
 
         val createNotificationsTableQuery = """
             CREATE TABLE IF NOT EXISTS notifications (
                 notificationID INTEGER PRIMARY KEY AUTOINCREMENT,
                 notificationType TEXT,
                 notificationMessage TEXT,
+                farmName TEXT,
                 timestamp TEXT
             )
         """.trimIndent()
@@ -48,7 +53,9 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 Tent_Fan TEXT,
                 Fan_Tent_Status TEXT,
                 Grow_Light TEXT,
-                Light_Status TEXT
+                Light_Status TEXT,
+                farmName TEXT,
+                 IsDeleted INTEGER DEFAULT 0
             )
         """.trimIndent()
         db.execSQL(createHardwareTableQuery)
@@ -63,6 +70,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         pH TEXT,
         EC TEXT,
         timeCalled TEXT,
+        farmName TEXT,
         isDeleted INTEGER DEFAULT 0
     )
 """.trimIndent()
@@ -76,16 +84,26 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         EquipmentChanged TEXT,
         PreviousState TEXT,
         NewState TEXT,
+         FarmName TEXT,
         IsDeleted INTEGER DEFAULT 0
     )
 """.trimIndent()
         db.execSQL(createActionTableQuery)
 
+        val createFarmTableQuery = """
+    CREATE TABLE IF NOT EXISTS farm (
+        FarmID INTEGER PRIMARY KEY AUTOINCREMENT,
+         FarmName TEXT
+       
+    )
+""".trimIndent()
+        db.execSQL(createFarmTableQuery)
 
 
     }
     fun addHardware(hardware: hardware) {
         val db = this.writableDatabase
+       var Farm  = this.getFirstFarmRecord()!!
         val values = ContentValues()
         values.put("pH_Up_Pump", hardware.pH_Up_Pump)
         values.put("pH_In_Pump_Status", hardware.pH_In_Pump_Status)
@@ -103,7 +121,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         values.put("Fan_Tent_Status", hardware.Fan_Tent_Status)
         values.put("Grow_Light", hardware.Grow_Light)
         values.put("Light_Status", hardware.Light_Status)
-
+        if(Farm!!.FarmName != null)
+        {
+            values.put("farmName",Farm.FarmName)
+        }
         db.insert("hardware", null, values)
         db.close()
     }
@@ -113,7 +134,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     fun addSensorData(sensorData: SensorDataAPI) {
         val db = this.writableDatabase
         val values = ContentValues()
-
+        var Farm  = this.getFirstFarmRecord()!!
         val currentTime = System.currentTimeMillis().toString()
         values.put("Temperature", sensorData.Temperature)
         values.put("Humidity", sensorData.Humidity)
@@ -122,6 +143,10 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         values.put("pH", sensorData.pH)
         values.put("EC", sensorData.EC)
         values.put("timeCalled", currentTime)
+        if(Farm!!.FarmName != null)
+        {
+            values.put("farmName",Farm.FarmName)
+        }
         values.put("isDeleted", true)
 
         // Insert the values into the table
@@ -134,10 +159,15 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     // Add a notification object to the "notifications" table
     fun addNotification(notification: NotificationDataClass) {
         val db = this.writableDatabase
+        var Farm  = this.getFirstFarmRecord()!!
         val values = ContentValues()
         values.put("notificationType", notification.notificationType)
         values.put("notificationMessage", notification.notificationMessage)
         values.put("timestamp", notification.timestamp)
+        if(Farm!!.FarmName != null)
+        {
+            values.put("farmName",Farm.FarmName)
+        }
         db.insert("notifications", null, values)
         db.close()
     }
@@ -149,9 +179,21 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         contentValues.put("PreviousState", action.PreviousState)
         contentValues.put("NewState", action.NewState)
         contentValues.put("IsDeleted", 0) // Set IsDeleted to 0
+        var Farm  = this.getFirstFarmRecord()!!
+        if(Farm!!.FarmName != null)
+        {
+            contentValues.put("farmName",Farm.FarmName)
+        }
         writableDatabase.insert("actions", null, contentValues)
         writableDatabase.close()
     }
+    fun addFarm(farmName: String): Boolean {
+        val contentValues = ContentValues()
+        contentValues.put("FarmName", farmName)
+         writableDatabase.insert("farm", null, contentValues)
+        return true;
+    }
+
 
 
     // Retrieve a list of hardware objects from the "hardware" table
@@ -179,7 +221,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 cursor.getString(cursor.getColumnIndex("Tent_Fan")),
                 cursor.getString(cursor.getColumnIndex("Fan_Tent_Status")),
                 cursor.getString(cursor.getColumnIndex("Grow_Light")),
-                cursor.getString(cursor.getColumnIndex("Light_Status"))
+                cursor.getString(cursor.getColumnIndex("Light_Status")),
+                cursor.getString(cursor.getColumnIndex("farmName"))
             )
             hardwareList.add(hardware)
         }
@@ -237,7 +280,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 pH = cursor.getString(cursor.getColumnIndex("pH")),
                 EC = cursor.getString(cursor.getColumnIndex("EC")),
                 timeCalled = cursor.getString(cursor.getColumnIndex("timeCalled")),
-                isDeleted = true
+                isDeleted = true,
+                farmName = cursor.getString(cursor.getColumnIndex("farmName"))
             )
             sensorDataList.add(sensorData)
 
@@ -269,7 +313,8 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
                 EquipmentChanged = cursor.getString(cursor.getColumnIndex("EquipmentChanged")),
                 PreviousState = cursor.getString(cursor.getColumnIndex("PreviousState")),
                 NewState = cursor.getString(cursor.getColumnIndex("NewState")),
-                IsDeleted = true
+                IsDeleted = true,
+                farmName = cursor.getString(cursor.getColumnIndex("farmName"))
             )
             actionList.add(action)
 
@@ -287,6 +332,66 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
         cursor.close()
         return actionList
     }
+
+    fun getFarmCount(): Int {
+        val query = "SELECT COUNT(*) FROM farm"
+        val cursor = writableDatabase.rawQuery(query, null)
+
+        var count = 0
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                count = cursor.getInt(0)
+            }
+            cursor.close()
+        }
+
+        return count
+    }
+    fun getFirstFarmRecord(): FarmClass? {
+        val query = "SELECT * FROM farm LIMIT 1"
+        val cursor = writableDatabase.rawQuery(query, null)
+
+        var farmRecord = FarmClass()
+
+        if (cursor != null) {
+            if (cursor.moveToFirst()) {
+                val farmIDIndex = cursor.getColumnIndex("FarmID")
+                val farmNameIndex = cursor.getColumnIndex("FarmName")
+
+                val farmID = cursor.getString(farmIDIndex)
+                val farmName = cursor.getString(farmNameIndex)
+                // Add other fields as needed
+
+
+
+                    farmRecord.FarmID = farmID
+
+
+                farmRecord.FarmName = farmName
+
+            }
+            cursor.close()
+        }
+
+        return farmRecord
+    }
+    fun updateFarmRecord(farmID: String, updatedFarm: FarmClass): Boolean {
+        val contentValues = ContentValues()
+        contentValues.put("FarmName", updatedFarm.FarmName)
+        // Add other fields as needed
+
+        val rowsAffected = writableDatabase.update(
+            "farm",
+            contentValues,
+            "FarmID = ?",
+            arrayOf(farmID)
+        )
+
+        return rowsAffected > 0
+    }
+
+
 
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {

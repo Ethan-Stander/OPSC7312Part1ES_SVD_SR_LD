@@ -6,6 +6,7 @@ import android.app.AlarmManager
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.content.ClipData.Item
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -42,12 +43,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.widget.Group
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.view.WindowCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -55,6 +58,8 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.opsc7312part1.databinding.ActivityFragmentTestingBinding
 import com.example.opsc7312part1.ui.theme.OPSC7312Part1Theme
 import com.google.android.material.navigation.NavigationView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.util.Calendar
 import java.util.Date
@@ -65,6 +70,8 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
     private lateinit var binding: ActivityFragmentTestingBinding
     private lateinit var toggle : ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
+    private lateinit var navView: NavigationView
+    private lateinit var adminGroup: MenuItem;
 
     companion object {
         public lateinit var fragmentNavigation: FragmentNavigation
@@ -103,8 +110,23 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
         replaceFragment(Sensor_data_fragment(),"Sensor Data")
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        adminGroup = navView.menu.findItem(R.id.Admin)
+
         if(!UserID.isNullOrEmpty())
         {
+
+            lifecycleScope.launch {
+
+                var bCheck = FirebaseUtils.isAdminUser(UserID!!)
+                  adminGroup.isVisible = bCheck
+
+            }
+
+
+
+
+
             navView.setNavigationItemSelectedListener {
                 it.isChecked = true
                 when(it.itemId){
@@ -129,6 +151,7 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
 
         else
         {
+            adminGroup.isVisible = false
             navView.setNavigationItemSelectedListener {
                 it.isChecked = true
                 when(it.itemId){
@@ -151,8 +174,10 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
             }
 
         }
+
         fragmentNavigation = this
     }
+
 
 
     override fun onPause() {

@@ -54,8 +54,8 @@
         </item>
     </group>
 
-    <group>
-        <item android:title="Admin">
+    <group >
+        <item android:title="Admin" android:id="@+id/Admin">
             <menu>
                 <item
                     android:id="@+id/nav_feedbackReviews"

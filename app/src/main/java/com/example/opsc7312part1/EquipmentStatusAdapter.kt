@@ -78,7 +78,7 @@ class EquipmentStatusAdapter(private val equipmentStatusDataList :ArrayList<Equi
                 val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault())
                 val currentDateTime: String = sdf.format(Date())
                 val status = !currentItem.equipmentStatus
-                var action = Action(currentDateTime,currentItem.equipmentTitle,status.toString(),currentItem.equipmentStatus.toString(),false)
+                var action = Action(currentDateTime,currentItem.equipmentTitle,status.toString(),currentItem.equipmentStatus.toString(),false, "")
                 myDB.addAction(action)
 
             // Update the background and thumb/track colors based on the new status

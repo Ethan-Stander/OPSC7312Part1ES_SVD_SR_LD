@@ -8,5 +8,6 @@ data class SensorDataAPISqlLite(
     val pH: String?,
     val EC: String?,
     val timeCalled: String?,
-    val isDeleted: Boolean?
+    val isDeleted: Boolean?,
+    val farmName: String
 )

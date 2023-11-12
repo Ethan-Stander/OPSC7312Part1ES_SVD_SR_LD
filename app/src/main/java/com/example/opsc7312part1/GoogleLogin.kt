@@ -38,6 +38,7 @@ var UserName: String? = ""
 var UserEmail: String? = ""
 var UserURL: String? = ""
 var UserID: String? = ""
+var isAdmin : String? =""
 
 
 
