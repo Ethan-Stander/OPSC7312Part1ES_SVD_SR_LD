@@ -10,6 +10,7 @@ class NotificationDataClass {
     var notificationType: String? = null
     var notificationMessage: String? = null
     var timestamp: String? = null
+    var farmName: String? = null
 
 
     companion object{

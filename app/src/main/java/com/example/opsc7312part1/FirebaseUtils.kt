@@ -55,6 +55,30 @@ class FirebaseUtils {
             }
         }
 
+        suspend fun isAdminUser(userID: String): Boolean = withContext(Dispatchers.IO) {
+            val reference = database.getReference("Users").child(userID)
+
+            return@withContext try {
+                val dataSnapshot = reference.get().await()
+                if (dataSnapshot.exists()) {
+                    val adminString = dataSnapshot.child("admin").getValue(String::class.java) ?: "false"
+                    // Assuming 'admin' is a String property in the User class
+
+                    if(adminString == "True")
+                        return@withContext true
+                    else
+                        return@withContext false
+                    // Convert the string value to a boolean and return directly
+                } else {
+                    false
+                }
+            } catch (e: Exception) {
+                Log.i("get user error", e.message.toString())
+                false
+            }
+        }
+
+
         suspend fun Get(user: User): Setting? {
             val currentUser = user.UserID
             val reference =
@@ -93,6 +117,27 @@ class FirebaseUtils {
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
+            }
+        }
+
+        suspend fun getSensorDataFromFirebase(): List<SensorDataAPISqlLite> = withContext(Dispatchers.IO) {
+            val myRef = database.getReference("sensor_data")
+
+            return@withContext try {
+                val dataSnapshot = myRef.get().await()
+
+                val sensorDataList = mutableListOf<SensorDataAPISqlLite>()
+                for (childSnapshot in dataSnapshot.children) {
+                    val sensorData = childSnapshot.getValue(SensorDataAPISqlLite::class.java)
+                    sensorData?.let {
+                        sensorDataList.add(it)
+                    }
+                }
+
+                sensorDataList
+            } catch (e: Exception) {
+                e.printStackTrace()
+                emptyList()
             }
         }
 
