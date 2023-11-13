@@ -10,6 +10,11 @@ import kotlinx.coroutines.tasks.await
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import com.google.android.gms.tasks.Tasks
+
+
 
 class ActionUtils {
 
@@ -51,30 +56,39 @@ class ActionUtils {
             }
         }
 
-        suspend fun fetchActions(): List<Action> {
-            val database = FirebaseDatabase.getInstance()
-            val reference = database.getReference("actions")
+        suspend fun fetchActions(): List<Action> = withContext(Dispatchers.IO) {
+            try {
+                val database = FirebaseDatabase.getInstance().getReference("actions")
+                val task = database.get()
 
-            return try {
-                val snapshot = reference?.get()?.await()
-                val storesList = mutableListOf<Action>()
+                // Suspend the coroutine until the task is complete
+                val snapshot = Tasks.await(task)
 
                 if (snapshot != null) {
-                    if (snapshot.exists()) {
-                        for (dataSnapshot in snapshot.children) {
-                            val action = dataSnapshot.getValue(Action::class.java)
-                            if (action != null) {
-                                storesList.add(action)
-                            }
+                    Log.d("YourTag", "Snapshot exists: ${snapshot.exists()}")
+                }
+
+                val storesList = mutableListOf<Action>()
+
+                if (snapshot != null && snapshot.exists()) {
+                    for (dataSnapshot in snapshot.children) {
+                        val action = dataSnapshot.getValue(Action::class.java)
+                        if (action != null) {
+                            storesList.add(action)
                         }
                     }
                 }
 
                 storesList
+
             } catch (e: Exception) {
-                Log.i("act", e.message.toString())
+                Log.e("YourTag", "Error fetching actions", e)
                 emptyList() // Return an empty list if there was an error
             }
         }
+
+
+
+
     }
 }
