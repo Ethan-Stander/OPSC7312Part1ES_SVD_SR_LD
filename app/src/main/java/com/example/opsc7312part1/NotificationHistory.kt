@@ -33,7 +33,6 @@ class NotificationHistory : Fragment() {
     private lateinit var btnFilter : Button
     private val calendar = Calendar.getInstance()
     private var filteringDate :String = ""
-    private  lateinit var tvFilteredDate : TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,7 +51,6 @@ class NotificationHistory : Fragment() {
         val view = inflater.inflate(R.layout.fragment_notification_history, container, false)
 
         //for date picker
-        tvFilteredDate = view.findViewById(R.id.tvFilteredDate)
         btnFilter = view.findViewById(R.id.btnfilter)
 
         btnFilter.setOnClickListener {
@@ -87,31 +85,26 @@ class NotificationHistory : Fragment() {
                         notification_history_recycler.adapter = notificationHistoryAdapter
                         hideError()
                     } else {
-                        showError("There are no new notifications!")
-
-
+                        showError("There are no new notifications...")
                     }
                 }
                 else {
-                    showError("Error Loading notifications, please try again!")
-
-
+                    showError("Error Loading notifications, please try again...")
                 }
             }
         }
-
         return view
     }
 
     private fun showDatePicker() {
         val datePicker = DatePickerDialog(
-            requireContext(),{DatePicker, year:Int, monthOfYear: Int, dayOfMonth:Int ->
+            requireContext(), R.style.CustomDatePickerDialog, {DatePicker, year:Int, monthOfYear: Int, dayOfMonth:Int ->
                 val selectedDate = Calendar.getInstance()
                 selectedDate.set(year, monthOfYear,dayOfMonth)
                 val dateFormat = SimpleDateFormat("yyyy-MM-dd",Locale.getDefault())
                 val formattedDate = dateFormat.format(selectedDate.time)
                 filteringDate = formattedDate.toString()
-                tvFilteredDate.text = filteringDate
+                btnFilter.text = filteringDate
                 CoroutineScope(Dispatchers.IO).launch {
                     val databaseHandler = context?.let { DatabaseHelper(context = it) }
                     val notifications = databaseHandler?.getAllNotifications(filteringDate)
@@ -123,14 +116,10 @@ class NotificationHistory : Fragment() {
                                 notification_history_recycler.adapter = notificationHistoryAdapter
                                 hideError()
                             } else {
-                                showError("There are no new notifications!")
-
-
+                                showError("There are no new notifications...")
                             }
                         } else {
-                            showError("Error Loading notifications, please try again!")
-
-
+                            showError("Error Loading notifications, please try again...")
                         }
                     }
                 }
@@ -139,11 +128,6 @@ class NotificationHistory : Fragment() {
             calendar.get(Calendar.DAY_OF_MONTH)
         )
         datePicker.show()
-
-
-
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {

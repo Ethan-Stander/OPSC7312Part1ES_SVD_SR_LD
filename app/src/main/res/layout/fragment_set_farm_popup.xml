@@ -1,35 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".SettingsSetFarmPopupFragment"
     style="@style/Theme.GreenTheme"
-    android:background="@drawable/rounded_bg">
+    app:cardCornerRadius="20dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="350dp"
+        android:layout_height="match_parent"
         android:padding="20dp">
 
         <!--[Sign in error message]-->
         <TextView
             android:id="@+id/txtMeasurementPopUpError"
+            android:text="Please sign in to view measurement information"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:gravity="center"
-            android:text="Please sign in to view measurement information"
-            android:textColor="@color/light_grey"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:textSize="25dp"
+            android:drawableTop="@drawable/ic_wifi_off"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textAlignment="center"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFarmPopupHeading"
-            app:layout_constraintVertical_bias="0.5" />
+            android:textColor="@color/light_grey" />
 
         <!--[HEADING]-->
         <TextView
@@ -37,65 +35,56 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Farm"
+            android:text="Set Farm"
             android:textColor="@color/dark_green"
             android:textSize="30dp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_centerHorizontal="true"/>
 
         <!--[CLOSE BUTTON]-->
         <ImageButton
             android:id="@+id/btnFarmClose"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
             android:background="?android:attr/selectableItemBackgroundBorderless"
             android:contentDescription="close"
             android:src="@drawable/ic_exit"
-            app:layout_constraintBaseline_toBaselineOf="@+id/txtFarmPopupHeading"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_alignParentRight="true"/>
 
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutFarmName"
+            android:layout_below="@id/txtFarmPopupHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Farm Name"
+            android:paddingLeft="-12dp"
+            android:layout_marginTop="30dp"
+            android:textColorHint="@color/light_grey"
+            android:theme="@style/GreenTextBoxCursor"
+            app:boxStrokeColor="@color/dark_green"
+            app:hintTextColor="@color/dark_green">
 
-        <!--[UNIT OF DISTANCE]-->
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edtFarm"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/transparent"
+                android:textColor="@color/dark_mode_text" />
 
-        <!--[STORE RANGE]-->
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnFarmSave"
-            android:layout_width="120dp"
+            android:layout_below="@id/textInputLayoutFarmName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="300dp"
+            android:layout_marginTop="50dp"
             android:background="@drawable/leaf_button"
             android:text="save"
             android:textSize="12dp"
             android:theme="@style/Theme.GreenTheme"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            android:layout_centerHorizontal="true"/>
 
-        <EditText
-            android:id="@+id/edtFarm"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="101dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginEnd="81dp"
-            android:layout_marginBottom="104dp"
-            android:ems="10"
-            android:inputType="text"
-            android:hint="Enter your farm name"
-            app:layout_constraintBottom_toTopOf="@+id/btnFarmSave"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtFarmPopupHeading" />
+    </RelativeLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</FrameLayout>
+</androidx.cardview.widget.CardView>

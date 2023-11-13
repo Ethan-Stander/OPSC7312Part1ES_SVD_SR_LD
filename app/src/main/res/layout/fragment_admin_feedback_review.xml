@@ -34,7 +34,7 @@
         android:layout_gravity="center"
         android:textAppearance="?android:textAppearanceMedium"
         android:textSize="25dp"
-        android:drawableTop="@drawable/ic_wifi_off"
+        android:drawableTop="@drawable/ic_feedback_off"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:textAlignment="center"

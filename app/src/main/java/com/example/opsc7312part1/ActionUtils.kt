@@ -86,9 +86,5 @@ class ActionUtils {
                 emptyList() // Return an empty list if there was an error
             }
         }
-
-
-
-
     }
 }

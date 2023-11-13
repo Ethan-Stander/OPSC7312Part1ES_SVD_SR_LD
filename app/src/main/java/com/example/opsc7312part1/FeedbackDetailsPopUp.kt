@@ -40,10 +40,10 @@ class FeedbackDetailsPopUp(feedback: FeedbackData) : DialogFragment() {
         val title = view.findViewById<TextView>(R.id.feedbackTitle)
         val sender = view.findViewById<TextView>(R.id.feedbackSender)
         val body = view.findViewById<TextView>(R.id.feedbackBody)
-        val btnDelete = view.findViewById<ImageView>(R.id.btnDeleteFeedback)
+        val btnDelete = view.findViewById<Button>(R.id.btnDeleteFeedback)
 
         title.text = feedback.title
-        sender.text = feedback.email
+        sender.text = " ・ ${feedback.email}"
         body.text = feedback.body
 
         btnDelete.setOnClickListener {

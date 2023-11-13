@@ -36,6 +36,15 @@
         <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
+    <!--CONFIRMATION ALERTS-->
+    <style name="confirmation_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@drawable/rounded_bg</item>
+        <item name="colorOnPrimary">@color/light_green</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:textColorSecondary">@color/settings_grey</item>
+    </style>
+
     <!--SEARCH BAR-->
     <style name="ThemeOverlay.Toolbar" parent="ThemeOverlay.AppCompat.Dark">
         <!-- Text color -->
