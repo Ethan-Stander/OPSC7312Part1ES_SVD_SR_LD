@@ -140,6 +140,7 @@ class FragmentTesting :AppCompatActivity(), FragmentNavigation {
                     R.id.nav_settings ->replaceFragment(SettingsFragment(),it.title.toString())
                     R.id.nav_notification_history_recycler ->replaceFragment(NotificationHistory(),it.title.toString())
                     R.id.nav_feedbackReviews -> replaceFragment(AdminFeedbackReview_fragement(),it.title.toString())
+                    R.id.nav_FarmerReviews -> replaceFragment(FarmOverViewFragment(),it.title.toString())
                     R.id.nav_logout -> { val intent = Intent(this, GoogleLogin::class.java)
 
 

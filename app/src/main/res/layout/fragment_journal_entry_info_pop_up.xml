@@ -47,7 +47,6 @@
                 android:text="Date:"
                 android:textColor="@color/light_grey.offwhite"
                 android:textSize="18dp"
-                android:textStyle="bold"
                 android:layout_weight="1"/>
 
             <ImageView
