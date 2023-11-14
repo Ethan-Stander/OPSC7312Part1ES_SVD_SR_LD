@@ -18,13 +18,12 @@ class EventAdapter(private val eventList :ArrayList<Action>, context : Context):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val action = eventList[position]
-        // Set the data to your TextViews or other UI elements in the ViewHolder
-        holder.tvDate.text = "Date: ${action.Date}"
-        holder.tvEquipmentChanged.text = "Equipment Changed: ${action.EquipmentChanged}"
-        holder.tvPreviousState.text = "Previous State: ${action.PreviousState}"
-        holder.tvNewState.text = "New State: ${action.NewState}"
-        holder.tvIsDeleted.text = "Deleted: ${action.IsDeleted}"
-        holder.tvFarmName.text = "Deleted: ${action.farmName}"
+
+        holder.tvDate.text = " ・ ${action.Date}"
+        holder.tvEquipmentChanged.text = " ・ ${action.EquipmentChanged}"
+        holder.tvPreviousState.text = " ・ ${action.PreviousState}"
+        holder.tvNewState.text = " ・ ${action.NewState}"
+        holder.tvFarmName.text = "${action.farmName}"
     }
 
     override fun getItemCount(): Int {
@@ -37,7 +36,6 @@ class EventAdapter(private val eventList :ArrayList<Action>, context : Context):
         val tvEquipmentChanged: TextView = itemView.findViewById(R.id.tvEquipmentChanged)
         val tvPreviousState: TextView = itemView.findViewById(R.id.tvPreviousState)
         val tvNewState: TextView = itemView.findViewById(R.id.tvNewState)
-        val tvIsDeleted: TextView = itemView.findViewById(R.id.tvIsDeleted)
         val tvFarmName: TextView = itemView.findViewById(R.id.tvFarmName)
 
     }

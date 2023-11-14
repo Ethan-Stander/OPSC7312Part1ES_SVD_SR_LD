@@ -1,6 +1,7 @@
 package com.example.opsc7312part1
 
 import android.util.Log
+import com.google.android.gms.tasks.Tasks
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -121,23 +122,66 @@ class FirebaseUtils {
         }
 
         suspend fun getSensorDataFromFirebase(): List<SensorDataAPISqlLite> = withContext(Dispatchers.IO) {
-            val myRef = database.getReference("sensor_data")
+            try {
+                val database = FirebaseDatabase.getInstance().getReference("sensor_data")
+                val task = database.get()
 
-            return@withContext try {
-                val dataSnapshot = myRef.get().await()
+                // Suspend the coroutine until the task is complete
+                val snapshot = Tasks.await(task)
 
-                val sensorDataList = mutableListOf<SensorDataAPISqlLite>()
-                for (childSnapshot in dataSnapshot.children) {
-                    val sensorData = childSnapshot.getValue(SensorDataAPISqlLite::class.java)
-                    sensorData?.let {
-                        sensorDataList.add(it)
-                    }
+                if (snapshot != null) {
+                    Log.d("DataTag", "Snapshot exists: ${snapshot.exists()}")
                 }
 
+                val sensorDataList = mutableListOf<SensorDataAPISqlLite>()
+
+                if (snapshot != null && snapshot.exists()) {
+                    for (childSnapshot in snapshot.children) {
+                        val sensorData = childSnapshot.getValue(SensorDataAPISqlLite::class.java)
+                        if (sensorData != null) {
+                            // Update the localSensorData with values from Firebase
+                            val localSensorData = SensorDataAPISqlLite()
+                            localSensorData.updateFromFirebase(sensorData)
+                            sensorDataList.add(localSensorData)
+                        }
+                    }
+                }
                 sensorDataList
+
             } catch (e: Exception) {
                 e.printStackTrace()
                 emptyList()
+            }
+        }
+
+        suspend fun fetchActions(): List<Action> = withContext(Dispatchers.IO) {
+            try {
+                val database = FirebaseDatabase.getInstance().getReference("actions")
+                val task = database.get()
+
+                // Suspend the coroutine until the task is complete
+                val snapshot = Tasks.await(task)
+
+                if (snapshot != null) {
+                    Log.d("YourTag", "Snapshot exists: ${snapshot.exists()}")
+                }
+
+                val storesList = mutableListOf<Action>()
+
+                if (snapshot != null && snapshot.exists()) {
+                    for (dataSnapshot in snapshot.children) {
+                        val action = dataSnapshot.getValue(Action::class.java)
+                        if (action != null) {
+                            storesList.add(action)
+                        }
+                    }
+                }
+
+                storesList
+
+            } catch (e: Exception) {
+                Log.e("YourTag", "Error fetching actions", e)
+                emptyList() // Return an empty list if there was an error
             }
         }
 

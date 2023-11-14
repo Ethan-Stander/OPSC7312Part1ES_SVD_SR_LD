@@ -80,13 +80,7 @@ class SettingsSetFarmPopupFragment : DialogFragment() {
 
         }
         return binding.root
-
-
-
-
     }
-
-
 
     companion object {
         /**

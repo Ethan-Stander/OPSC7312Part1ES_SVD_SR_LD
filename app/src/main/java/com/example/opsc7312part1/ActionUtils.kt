@@ -29,33 +29,6 @@ class ActionUtils {
             }
         }
 
-        suspend fun fetchActions2(): List<Action> {
-            val database = FirebaseDatabase.getInstance()
-            val actionsRef: DatabaseReference = database.getReference("actions")
-            return suspendCoroutine { continuation ->
-                val valueListener = object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val actionsList = mutableListOf<Action>()
-
-                        for (actionSnapshot in snapshot.children) {
-                            val action = actionSnapshot.getValue(Action::class.java)
-                            action?.let { actionsList.add(it) }
-                        }
-
-                        continuation.resume(actionsList)
-                        actionsRef.removeEventListener(this)
-                    }
-
-                    override fun onCancelled(error: DatabaseError) {
-                        continuation.resumeWithException(error.toException())
-                        actionsRef.removeEventListener(this)
-                    }
-                }
-
-                actionsRef.addListenerForSingleValueEvent(valueListener)
-            }
-        }
-
         suspend fun fetchActions(): List<Action> = withContext(Dispatchers.IO) {
             try {
                 val database = FirebaseDatabase.getInstance().getReference("actions")

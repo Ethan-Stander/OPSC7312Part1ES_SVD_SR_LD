@@ -9,20 +9,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <Button
+            android:id="@+id/btnActionsHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actions"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/dark_green"
+            android:background="@drawable/rounded_bg"/>
+
+        <Button
+            android:id="@+id/btnSensorDataHeader"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sensor Data"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/dark_green"
+            android:background="@drawable/rounded_bg"
+            android:layout_alignParentRight="true"/>
+
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_below="@id/btnActionsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/divider_line" />
+
         <androidx.recyclerview.widget.RecyclerView
             tools:listitem="@layout/event_item"
             android:id="@+id/rVActions"
-            android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_below="@id/viewDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:visibility="visible"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rVData"
-            android:layout_marginTop="30dp"
-            android:layout_below="@id/rVActions"
+            android:layout_below="@id/viewDivider"
             android:layout_width="wrap_content"
-            android:layout_height="300dp"
-            android:layout_centerHorizontal="true"/>
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

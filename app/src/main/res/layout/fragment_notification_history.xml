@@ -26,13 +26,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notification_history_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp" />
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
         <Button
             android:id="@+id/btnfilter"
@@ -44,6 +39,12 @@
             android:text="Filter By Date"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notification_history_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp" />
 
     </LinearLayout>
 

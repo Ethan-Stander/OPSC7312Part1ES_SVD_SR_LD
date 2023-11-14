@@ -1,50 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="10dp">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="10dp"
+    android:elevation="10dp"
+    android:layout_margin="10dp"
+    android:backgroundTint="@color/dark_mode_cards">
 
-    <TextView
-        android:id="@+id/tvDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Date: "
-        android:layout_marginBottom="5dp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp">
 
-    <TextView
-        android:id="@+id/tvEquipmentChanged"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Equipment Changed: "
-        android:layout_marginBottom="5dp"/>
+        <LinearLayout
+            android:id="@+id/headerLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/tvFarmName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Farm Name"
+                android:textStyle="bold"
+                android:textSize="18dp"
+                android:textColor="@color/dark_green.white"/>
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:layout_marginBottom="5dp"
+                android:textColor="@color/light_grey.offwhite"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvPreviousState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Previous State: "
-        android:layout_marginBottom="5dp"/>
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_below="@id/headerLinearLayout"
+            android:layout_width="250dp"
+            android:layout_height="2dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/divider_line" />
 
-    <TextView
-        android:id="@+id/tvNewState"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New State: "
-        android:layout_marginBottom="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/tvIsDeleted"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Deleted: "
-        android:layout_marginBottom="5dp"/>
+        </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvFarmName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Farm Name: "
-        android:layout_marginBottom="5dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Equipment Changed"
+                android:textStyle="bold"
+                android:textColor="@color/dark_green.white"/>
+            <TextView
+                android:id="@+id/tvEquipmentChanged"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Equipment Changed"
+                android:textColor="@color/light_grey.offwhite"
+                android:layout_weight="1"/>
+        </LinearLayout>
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous State"
+                android:textStyle="bold"
+                android:textColor="@color/dark_green.white"/>
+            <TextView
+                android:id="@+id/tvPreviousState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Previous State"
+
+                android:textColor="@color/light_grey.offwhite"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New State"
+                android:textStyle="bold"
+                android:textColor="@color/dark_green.white"/>
+            <TextView
+                android:id="@+id/tvNewState"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="New State"
+                android:textColor="@color/light_grey.offwhite"
+                android:layout_weight="1"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
