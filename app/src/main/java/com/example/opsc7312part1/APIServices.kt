@@ -66,33 +66,35 @@ class APIServices {
 
         }
 
-        suspend fun fetchhardware(context: Context) : hardware?
-        {
-            return withContext(Dispatchers.IO)
-            {
-
-                var Hardware : hardware? = null
+        suspend fun fetchhardware(context: Context) : hardware? {
+            return withContext(Dispatchers.IO) {
+                var data: hardware? = null
                 try {
                     val url = URL(JSON_URL_HARDWARE)
-                    val json = url.readText()
-                    Hardware = Gson().fromJson(json, hardware::class.java)
+                    val connection = url.openConnection() as HttpURLConnection
+                    connection.requestMethod = "GET"
 
-                }
-                catch (e:Exception)
-                {
-                    Log.i("fetch hardware API error",e.message.toString())
+                    // Read the response
+                    val inputStream = connection.inputStream
+                    val json = inputStream.bufferedReader().use { it.readText() }
+
+                    // Parse the JSON
+                    data = Gson().fromJson(json, hardware::class.java)
+                } catch (e: Exception) {
+                    Log.i("fetch hardware API error", e.message.toString())
                     return@withContext null
                 }
-                if(Hardware != null)
-                {
-                    AddHardwareToDB(context,Hardware)
-                    return@withContext Hardware
-                }
-                else
-                    return@withContext null
 
+                if (data != null) {
+                    // Assuming AddHardwareToDB is a function you've defined elsewhere
+                    AddHardwareToDB(context, data)
+                    return@withContext data
+                } else {
+                    return@withContext null
+                }
             }
         }
+
 
         suspend fun Switch(URL : String) : hardware?
         {

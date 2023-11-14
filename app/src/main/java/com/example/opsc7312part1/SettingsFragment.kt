@@ -1,13 +1,13 @@
 package com.example.opsc7312part1
 
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
@@ -24,6 +24,7 @@ class SettingsFragment : Fragment() {
     private lateinit var settings_account : Button
     private lateinit var settings_measurements : Button
     private lateinit var settings_appsettings : Button
+    private lateinit var settings_setfarm : Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +42,7 @@ class SettingsFragment : Fragment() {
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -75,25 +77,55 @@ class SettingsFragment : Fragment() {
 
             showPopup.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
         }
-    }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment SettingsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            SettingsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+        settings_setfarm = view.findViewById(R.id.settings_set_farm)
+
+        settings_setfarm.setOnClickListener()
+        {
+
+            val dbhelpher = DatabaseHelper(requireContext())
+
+            if(dbhelpher.getFarmCount() == 0)
+
+            {
+                val showPopUp = SettingsSetFarmPopupFragment()
+                showPopUp.setStyle(DialogFragment.STYLE_NORMAL,R.style.settings_custom_popups)
+                showPopUp.show((activity as AppCompatActivity).supportFragmentManager, "showPopup")
+            }
+
+            else
+
+            {
+                var helper = DatabaseHelper(requireContext())
+                var localRecord = helper.getFirstFarmRecord()
+                var temp = null
+                var firebaseRecord: FarmClass? = null
+                var bCheck : Boolean = false
+
+                lifecycleScope.launch {
+                    if (localRecord != null) {
+                      firebaseRecord =  FarmClass.getFarmRecordFromFirebase(localRecord.FarmID)
+
+                        if(firebaseRecord != null && localRecord != null)
+                            {
+                                if (firebaseRecord!!.FarmName != localRecord.FarmName)
+                                {
+                                    helper.updateFarmRecord(localRecord.FarmID, firebaseRecord!!)
+                                    bCheck = true;
+                                }
+                            }
+                    }
+                    if(!bCheck)
+                    {
+                        Toast.makeText(requireContext(), "Your farm has been added, please contact an admin to change it!", Toast.LENGTH_SHORT).show();
+                    }
+                    else
+                    {
+                        Toast.makeText(requireContext(), "Your farm has been updated!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
+        }
+
     }
 }

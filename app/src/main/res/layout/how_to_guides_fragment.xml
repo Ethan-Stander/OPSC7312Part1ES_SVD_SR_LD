@@ -3,12 +3,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HowToGuidesFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".HowToGuidesFragment"
+    android:theme="@style/Theme.SettingsPage">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/howToGuidesRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/how_to_guides_item_view"/>
+        tools:listitem="@layout/how_to_guides_item_view"
+        android:layout_below="@id/coolWave"
+        android:layout_marginTop="20dp"/>
+
+    <!--[Waves]-->
+    <com.scwang.wave.MultiWaveHeader
+        android:layout_alignParentTop="true"
+        android:id="@+id/coolWave"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:scaleY="1"
+        app:mwhCloseColor="@color/dark_green"
+        app:mwhGradientAngle="45"
+        app:mwhStartColor="@color/dark_green"
+        app:mwhWaveHeight="60dp"
+        app:mwhWaves="MultiWave" />
 
 </RelativeLayout>

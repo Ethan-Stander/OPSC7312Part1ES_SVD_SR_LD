@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/feedback_details_pop_up"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardPreventCornerOverlap="false"
+    app:cardUseCompatPadding="false"
+    style="@style/Theme.GreenTheme"
+    app:cardCornerRadius="20dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:id="@+id/feedback_pop_up_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/feedbackTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="left"
+                android:text="Feedback Title"
+                android:textColor="@color/dark_green"
+                android:textSize="22dp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/feedbackPopUpExitButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/ic_exit" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/titleDivider"
+            android:layout_below="@id/feedback_pop_up_header"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/divider_line" />
+
+        <LinearLayout
+            android:id="@+id/senderLinearLayout"
+            android:layout_below="@+id/titleDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:id="@+id/description_header"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sender"
+                android:textColor="@color/black.light_grey"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                android:layout_weight="0"/>
+
+            <TextView
+                android:id="@+id/feedbackSender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Port Elizabeth"
+                android:textColor="@color/light_grey.offwhite"
+                android:textSize="16dp"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/feedback_body_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/senderLinearLayout"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:text="Description"
+                android:textColor="@color/black.light_grey"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_below="@+id/feedback_body_header"
+                android:id="@+id/feedbackBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="dasdasdasdad"
+                android:textColor="@color/light_grey.offwhite"
+                android:textSize="18dp"
+                android:layout_marginTop="8dp"/>
+
+            <Button
+                android:id="@+id/btnDeleteFeedback"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delete"
+                android:drawableLeft="@drawable/ic_delete"
+                android:layout_marginTop="50dp"
+                android:layout_gravity="center"
+                android:backgroundTint="@color/red"/>
+        </LinearLayout>
+
+
+
+
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
+

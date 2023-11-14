@@ -38,6 +38,7 @@ var UserName: String? = ""
 var UserEmail: String? = ""
 var UserURL: String? = ""
 var UserID: String? = ""
+var isAdmin : String? =""
 
 
 
@@ -112,17 +113,6 @@ class GoogleLogin : AppCompatActivity() {
             startActivity(intent)
         }
 
-        /*val sharedPreferences = getSharedPreferences(GoogleLogin.userLoggedPreference, MODE_PRIVATE)
-        UserName = sharedPreferences.getString("shUserName_key", "")
-        UserEmail = sharedPreferences.getString("shUserEmail_key", "")
-        UserURL = sharedPreferences.getString("shUserURL_key", "")
-        UserID = sharedPreferences.getString("shUserID_key", "")
-
-        if(!UserName.isNullOrEmpty() && !UserEmail.isNullOrEmpty() && !UserURL.isNullOrEmpty() && !UserID.isNullOrEmpty())
-        {
-            val intent = Intent(this, FragmentTesting::class.java)
-            startActivity(intent)
-        }*/
     }
 
 
@@ -194,7 +184,7 @@ class GoogleLogin : AppCompatActivity() {
                     if (!dataSnapshot.exists()) {
                         val user = User(
                             UserID = account.id,
-                            Username = account.displayName,
+                            Username = account.displayName
                         )
 
                         val parentJob = Job()
@@ -206,6 +196,7 @@ class GoogleLogin : AppCompatActivity() {
                                 dbref = FirebaseDatabase.getInstance().getReference("Users")
 
                                 // Perform the user data insertion
+                                user.isAdmin = "false"
                                 UserID?.let { dbref.child(it).setValue(user).await() }
 
                                 val setting = Setting()
@@ -241,13 +232,6 @@ class GoogleLogin : AppCompatActivity() {
 
                     //set sharedPreferences data
                     SharedPreferencesManager(this).saveUserData(UserName, UserEmail, UserURL, UserID)
-                    /*val sharedPreferences = getSharedPreferences(userLoggedPreference, MODE_PRIVATE)
-                    val editor = sharedPreferences.edit()
-                    editor.putString("shUserName_key", UserName)
-                    editor.putString("shUserEmail_key", UserEmail)
-                    editor.putString("shUserURL_key", UserURL)
-                    editor.putString("shUserID_key", UserID)
-                    editor.apply()*/
 
                     // Show the progress bar
                     showProgressBar()

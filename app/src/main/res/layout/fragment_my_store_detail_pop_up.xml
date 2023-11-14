@@ -9,7 +9,9 @@
     android:layout_margin="8dp"
     app:cardElevation="10dp"
     app:cardPreventCornerOverlap="false"
-    app:cardUseCompatPadding="false">
+    app:cardUseCompatPadding="false"
+    android:background="@drawable/rounded_bg"
+    style="@style/Theme.GreenTheme">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -29,10 +31,10 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:gravity="center"
+                android:gravity="left"
                 android:text="BuilderWarehouse"
                 android:textColor="@color/dark_green"
-                android:textSize="18sp"
+                android:textSize="22dp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -48,29 +50,29 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/my_stores_details_pop_up_header"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="15dp"
             android:text="Description"
-            android:textColor="@color/black"
-            android:textSize="14sp"
+            android:textColor="@color/black.light_grey"
+            android:textSize="18dp"
             android:textStyle="bold" />
 
         <TextView
-
             android:id="@+id/storeDetails_description_info"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/description_header"
             android:layout_marginTop="8dp"
             android:text="Port Elizabeth\n4.2\nHardware Store\nOpen"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:textColor="@color/black.white"
+            android:textSize="16dp" />
 
         <LinearLayout
             android:id="@+id/myNotes_header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/storeDetails_description_info"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
 
             <TextView
                 android:layout_width="0dp"
@@ -78,8 +80,8 @@
                 android:layout_marginTop="8dp"
                 android:layout_weight="1"
                 android:text="My Notes"
-                android:textColor="@color/black"
-                android:textSize="16sp"
+                android:textColor="@color/black.light_grey"
+                android:textSize="18dp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -87,19 +89,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/ic_edit" />
+                android:src="@drawable/ic_edit"
+                android:layout_marginTop="5dp"
+                app:tint="@color/dark_mode_text"/>
         </LinearLayout>
 
-        <EditText
-            android:id="@+id/myNotes_info"
+        <!--[EDIT NOTES]-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/edtSearchMyStore"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
             android:layout_below="@+id/myNotes_header"
-            android:layout_weight="1"
-            android:enabled="false"
-            android:text="Very affordable hardware and friendly customer service"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
+            android:hint="Edit Note"
+            android:paddingLeft="-12dp"
+            android:textColorHint="@color/light_grey"
+            android:theme="@style/GreenTextBoxCursor"
+            app:boxStrokeColor="@color/dark_green"
+            app:hintTextColor="@color/dark_green">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/myNotes_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/transparent"
+                android:textColor="@color/dark_mode_text" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
 

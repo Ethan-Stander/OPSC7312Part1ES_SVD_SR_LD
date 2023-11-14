@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SettingsFragment"
-    android:theme="@style/Theme.SettingsPage">
+    android:theme="@style/Theme.SettingsPage"
+    tools:context=".SettingsFragment">
 
     <!--[Waves]-->
     <com.scwang.wave.MultiWaveHeader
@@ -22,64 +22,82 @@
         app:mwhGradientAngle="45"
         app:mwhStartColor="@color/dark_green"
         app:mwhWaveHeight="60dp"
-        app:mwhWaves="MultiWave"/>
+        app:mwhWaves="MultiWave" />
 
-    <Button
-        android:id="@+id/settings_account"
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="200dp"
-        android:background="@drawable/rounded_button_corners"
-        android:drawableRight="@drawable/ic_arrowright"
-        android:text="Account"
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        android:textColor="@color/settings_text_color"
-        android:textSize="25dp"
-        android:textStyle="bold"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        android:drawableTint="@color/settings_arrow_color"/>
+        app:layout_constraintVertical_bias="0.5">
 
-    <Button
-        android:id="@+id/settings_measurements"
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/rounded_button_corners"
-        android:drawableRight="@drawable/ic_arrowright"
-        android:text="Measurements"
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        android:textColor="@color/settings_text_color"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        android:drawableTint="@color/settings_arrow_color"/>
+        <Button
+            android:id="@+id/settings_account"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_button_corners"
+            android:drawableRight="@drawable/ic_arrowright"
+            android:drawableTint="@color/settings_arrow_color"
+            android:text="Account"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/settings_text_color"
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/settings_appsettings"
-        android:layout_width="300dp"
-        android:layout_height="80dp"
-        android:layout_marginTop="240dp"
-        android:background="@drawable/rounded_button_corners"
-        android:drawableRight="@drawable/ic_arrowright"
-        android:text="App Settings"
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        android:textColor="@color/settings_text_color"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:flow_wrapMode="none"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        android:drawableTint="@color/settings_arrow_color"/>
+        <Button
+            android:id="@+id/settings_measurements"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_button_corners"
+            android:drawableRight="@drawable/ic_arrowright"
+            android:drawableTint="@color/settings_arrow_color"
+            android:text="Measurements"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/settings_text_color"
+            android:textSize="25dp"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/settings_appsettings"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/rounded_button_corners"
+            android:drawableRight="@drawable/ic_arrowright"
+            android:drawableTint="@color/settings_arrow_color"
+            android:text="App Settings"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/settings_text_color"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:flow_wrapMode="none" />
+
+        <Button
+            android:id="@+id/settings_set_farm"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:background="@drawable/rounded_button_corners"
+            android:drawableRight="@drawable/ic_arrowright"
+            android:drawableTint="@color/settings_arrow_color"
+            android:text="Set Farm"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/settings_text_color"
+            android:textSize="25dp"
+            android:textStyle="bold"
+            app:flow_wrapMode="none" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

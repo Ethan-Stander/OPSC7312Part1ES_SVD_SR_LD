@@ -131,25 +131,25 @@ The SmartHydro Team</string>
 
     <!--soft reset-->
     <string name="reset_option_soft_title">Soft reset</string>
-    <string name="reset_option_soft_reset_step_1">Step 1: Open system box in tent</string>
-    <string name="reset_option_soft_reset_step_2">Step 2: Locate small red button on Arduino</string>
-    <string name="reset_option_soft_reset_step_3">Step 3: Hold in until system turns off and on again</string>
+    <string name="reset_option_soft_reset_step_1">Open system box in tent</string>
+    <string name="reset_option_soft_reset_step_2">Locate small red button on Arduino</string>
+    <string name="reset_option_soft_reset_step_3">Hold in until system turns off and on again</string>
 
     <!--hard reset-->
     <string name="reset_option_hard_title">Hard reset</string>
-    <string name="reset_option_hard_reset_step_1">Step 1: Locate 2 plugs on the side of system box</string>
-    <string name="reset_option_hard_reset_step_2">Step 2: Unplug and replug both </string>
-    <string name="reset_option_hard_reset_step_3">Step 3: Turn switch off and on again</string>
+    <string name="reset_option_hard_reset_step_1">Locate 2 plugs on the side of system box</string>
+    <string name="reset_option_hard_reset_step_2">Unplug and replug both </string>
+    <string name="reset_option_hard_reset_step_3">Turn switch off and on again</string>
 
     <!--manually control equipment-->
-    <string name="manually_control_equipment_step_1">Step 1: Head to the control page through the navigation bar</string>
-    <string name="manually_control_equipment_step_2">Step 2: Switch AI off. This will make the equipment controls appear </string>
-    <string name="manually_control_equipment_step_3">Step 3: Switch desired controls on/off </string>
+    <string name="manually_control_equipment_step_1">Head to the control page through the navigation bar</string>
+    <string name="manually_control_equipment_step_2">Switch AI off. This will make the equipment controls appear </string>
+    <string name="manually_control_equipment_step_3">Switch desired controls on/off </string>
 
     <!--Connect to SmartHydro<-->
-    <string name="connect_to_SmartHydro_step_1">Step 1: Open Wi-Fi settings on device</string>
-    <string name="connect_to_SmartHydro_step_2">Step 2: Search for SmartHydro (If the network does not appear ensure that you are within range of smart hydro and that the system is on) </string>
-    <string name="connect_to_SmartHydro_step_3">Step 3: Connect to SmartHydro with the password: SmartHydro123!</string>
+    <string name="connect_to_SmartHydro_step_1">Open Wi-Fi settings on device</string>
+    <string name="connect_to_SmartHydro_step_2">Search for SmartHydro (If the network does not appear ensure that you are within range of smart hydro and that the system is on) </string>
+    <string name="connect_to_SmartHydro_step_3">Connect to SmartHydro with the password: <b><font color="#428948">SmartHydro123!</font></b></string>
 
 
     <!--dropdowns-->
@@ -167,5 +167,6 @@ The SmartHydro Team</string>
         <item>Light Mode</item>
         <item>Dark Mode</item>
     </string-array>
-
+    <string name="mapbox_access_token">sk.eyJ1IjoibHVrZWRpcnN1d2VpIiwiYSI6ImNsbnVmbTI3bzA2dTUya3M4MW82NWF6b3oifQ.7k8qZTDxk9HGm98R_w-3Wg</string>
+    <string name="google_maps_api">AIzaSyCZmLILdvs9CtlAipuMbW08eZ2rkAfgAm0</string>
 </resources>

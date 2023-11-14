@@ -12,13 +12,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
-import com.google.firebase.FirebaseApp
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -55,12 +53,7 @@ class APICallService() : Service() {
         timer.scheduleAtFixedRate(object :TimerTask(){
             override fun run() {
 
-// In your Application class or main activity
-
-
-
-
-
+                val dbHelper = DatabaseHelper(this@APICallService)
                 CoroutineScope(Dispatchers.IO).launch {
 
                     val hardwareData = APIServices.fetchhardware(this@APICallService)
@@ -79,15 +72,15 @@ class APICallService() : Service() {
                                 message = "ERROR: CIRCULATION FAN OFFLINE"
                             }
 
+//                            (dbHelper.getFarmCount() == 0) -> {
+//                                title = "Farm Warning"
+//                                message = "Please set your farm name in the settings!"
+//                            }
+
                         }
-                    } else {
-                        title = "System Warning"
-                        message = "ERROR: EQUIPMENT NOT FOUND"
-                        Log.i("Check foreground  service", "hardware not found")
-
-
-
                     }
+
+
 
                     if(title.isNotEmpty() && message.isNotEmpty())
                     {
@@ -107,10 +100,8 @@ class APICallService() : Service() {
                     val calendar = Calendar.getInstance()
                     val hour = calendar.get(Calendar.HOUR_OF_DAY)
                     val minute = calendar.get(Calendar.MINUTE)
-
-                    if (hour == 23 && minute == 59) {
+                    if (hour == 23 && minute == 59 && dbHelper.getFarmCount() == 1) {
                         if (isConnectedToInternet()) {
-                            val dbHelper = DatabaseHelper(this@APICallService)
                             val ListAction = dbHelper.getAllActionsMarkAsDeleted()
                             val ListSensorData = dbHelper.getAllSensorData()
                             sendSensorDataToFirebaseAsync(ListSensorData)

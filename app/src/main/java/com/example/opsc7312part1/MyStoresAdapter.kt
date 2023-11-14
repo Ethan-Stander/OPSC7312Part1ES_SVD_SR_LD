@@ -10,9 +10,21 @@ import android.widget.ImageView
 import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
-class MyStoresAdapter(private val myStoreList : ArrayList<MyStore>): RecyclerView.Adapter<MyStoresAdapter.ViewHolder>() {
+class MyStoresAdapter(private var myStoreList : List<MyStore>): RecyclerView.Adapter<MyStoresAdapter.ViewHolder>() {
+
+    fun setFilteredist(storeList: List<MyStore>){
+        this.myStoreList = storeList
+        notifyDataSetChanged()
+    }
+
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val storeDetails : TextView = itemView.findViewById(R.id.txtStoreDetails)
         val storeFavorite : ImageView = itemView.findViewById(R.id.btnFavorite)
@@ -30,25 +42,40 @@ class MyStoresAdapter(private val myStoreList : ArrayList<MyStore>): RecyclerVie
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentItem = myStoreList[position]
-        holder.storeDetails.text = currentItem.storeName +  "\n" +currentItem.storeInfo + "\n" + currentItem.rating
+        holder.storeDetails.text = currentItem.name +  "\n\n" + "Address: " + currentItem.address + "\nRating: " + currentItem.rating
 
-        val favoriteDrawable = if (currentItem.favourite!!) R.drawable.ic_not_favorite else R.drawable.ic_favorite
+        val favoriteDrawable = if (currentItem.favorite) R.drawable.ic_favorite else R.drawable.ic_not_favorite
         holder.storeFavorite.setImageResource(favoriteDrawable)
 
         holder.storeFavorite.setOnClickListener {
-            currentItem.favourite = !currentItem.favourite!!
-            val newFavoriteDrawable = if (currentItem.favourite!!) R.drawable.ic_not_favorite else R.drawable.ic_favorite
+            currentItem.favorite = !currentItem.favorite
+            val newFavoriteDrawable = if (currentItem.favorite) R.drawable.ic_favorite else R.drawable.ic_not_favorite
             holder.storeFavorite.setImageResource(newFavoriteDrawable)
+
+
+            val scope = CoroutineScope(Dispatchers.Main)
+            val job = scope.launch {
+                UserID?.let { MyStore.updateStoreWithPlaceIdFav(it, currentItem.placeId, currentItem)
+                    val user = User(
+                        UserID = UserID,
+                        Username = UserName
+                    )
+                    myStoreList = MyStore.getStoresForUser(user)
+                }
+
+            }
         }
 
         holder.storeDetails.setOnClickListener {
-            val dialogFragment = myStoreDetailPopUp()
-            dialogFragment.show((holder.itemView.context as AppCompatActivity).supportFragmentManager,"MyStoreDetailDialog")
+            val dialogFragment = myStoreDetailPopUp(currentItem)
+            dialogFragment.setStyle(DialogFragment.STYLE_NORMAL, R.style.settings_custom_popups)
+            dialogFragment.show((holder.itemView.context as AppCompatActivity).supportFragmentManager, "MyStoreDetailDialog")
         }
 
         holder.btnViewStoreOnMap.setOnClickListener {
-            TODO("Not yet implemented")
+            FragmentTesting.fragmentNavigation.replaceFragment(map_nearby(currentItem.latitude,currentItem.longitude,currentItem.name),"Where to Shop")
         }
+
     }
 
 }

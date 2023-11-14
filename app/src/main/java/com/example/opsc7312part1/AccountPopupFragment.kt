@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.example.opsc7312part1.FirebaseUtils.Companion.deleteUser
@@ -42,6 +43,7 @@ class AccountPopupFragment : DialogFragment() {
             binding.accountPopUpImage.visibility = View.GONE
             binding.lvUsernameInformation.visibility = View.GONE
             binding.lvGmailInformation.visibility = View.GONE
+            binding.btnDeleteAccount.visibility = View.GONE
 
         }else
         // User object
@@ -52,23 +54,35 @@ class AccountPopupFragment : DialogFragment() {
             )
             binding.btnDeleteAccount.setOnClickListener {
 
-                lifecycleScope.launch {
+                val builder = AlertDialog.Builder(requireContext(), R.style.confirmation_popups)
+                builder.setTitle("Delete Account")
+                builder.setMessage("Are you sure you want to delete your account?")
 
-                    val isDeleted = deleteUser(user)
+                builder.setPositiveButton("Yes") { dialog, _ ->
+                    lifecycleScope.launch {
 
-                    if (isDeleted) {
+                        val isDeleted = deleteUser(user)
 
-                        SharedPreferencesManager(requireActivity()).clearUserData()
-                        val googleSignInIntent = Intent(requireContext(), GoogleLogin::class.java)
-                        startActivity(googleSignInIntent)
-
-                    } else {
-                        Toast.makeText(requireActivity(),"Failed to delete user",Toast.LENGTH_SHORT).show()
-
+                        if (isDeleted) {
+                            SharedPreferencesManager(requireActivity()).clearUserData()
+                            val googleSignInIntent = Intent(requireContext(), GoogleLogin::class.java)
+                            startActivity(googleSignInIntent)
+                        } else {
+                            Toast.makeText(requireActivity(), "Failed to delete user", Toast.LENGTH_SHORT).show()
+                        }
                     }
+
+                    dialog.dismiss()
                 }
 
+                builder.setNegativeButton("No") { dialog, _ ->
+                    dialog.dismiss()
+                }
+
+                val dialog = builder.create()
+                dialog.show()
             }
+
 
 
 
