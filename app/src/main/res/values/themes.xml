@@ -53,9 +53,18 @@
         <item name="colorPrimary">@color/dark_green</item>
     </style>
 
-    <!--DIALOG ALERTS-->
+    <!--DIALOG POPUPS-->
     <style name="settings_custom_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:windowBackground">@android:color/transparent</item>
+    </style>
+
+    <!--CONFIRMATION ALERTS-->
+    <style name="confirmation_popups" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@drawable/rounded_bg</item>
+        <item name="colorOnPrimary">@color/dark_green</item>
+        <item name="android:textColorPrimary">@color/black</item>
+        <item name="android:textColorSecondary">@color/light_grey</item>
     </style>
 
     <!--SEARCH BAR-->

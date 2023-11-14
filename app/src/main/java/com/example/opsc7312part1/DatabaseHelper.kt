@@ -271,7 +271,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     @SuppressLint("Range")
     fun getAllSensorData(): List<SensorDataAPISqlLite> {
         val sensorDataList = mutableListOf<SensorDataAPISqlLite>()
-        val query = "SELECT * FROM sensor_data WHERE isDeleted = true"
+        val query = "SELECT * FROM sensor_data WHERE isDeleted = false"
 
         val cursor = readableDatabase.rawQuery(query, null)
 
@@ -307,7 +307,7 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME
     @SuppressLint("Range")
     fun getAllActionsMarkAsDeleted(): List<Action> {
         val actionList = mutableListOf<Action>()
-        val query = "SELECT * FROM actions WHERE IsDeleted = true"
+        val query = "SELECT * FROM actions WHERE IsDeleted = false"
 
         val cursor = readableDatabase.rawQuery(query, null)
 

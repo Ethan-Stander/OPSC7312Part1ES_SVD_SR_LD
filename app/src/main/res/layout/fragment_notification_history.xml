@@ -9,40 +9,25 @@
     <!--[CLOSE BUTTON]-->
 
     <TextView
-        android:layout_marginVertical="16dp"
-        android:id="@+id/tvFilteredDate"
-        android:layout_width="match_parent"
+        android:id="@+id/tvSensorErrorMessage2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:textAlignment="center"
         android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/light_grey"
-        android:textSize="15dp" />
-
-    <TextView
-        android:id="@+id/tvSensorErrorMessage2"
-        android:layout_width="160dp"
-        android:layout_height="164dp"
-        android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:drawableTop="@drawable/ic_wifi_off"
-        android:textAlignment="center"
-        android:textAppearance="?android:textAppearanceMedium"
-        android:textColor="@color/light_grey"
         android:textSize="25dp"
-        android:visibility="gone" />
+        android:drawableTop="@drawable/ic_notification_off"
+        android:drawableTint="@color/light_grey"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textAlignment="center"
+        android:visibility="gone"
+        android:textColor="@color/light_grey"/>
 
     <LinearLayout
-        android:layout_below="@+id/tvFilteredDate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/notification_history_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp" />
+        android:orientation="vertical"
+        android:layout_marginTop="10dp">
 
         <Button
             android:id="@+id/btnfilter"
@@ -51,7 +36,15 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginVertical="20dp"
             android:background="@drawable/leaf_button"
-            android:text="Filter by date" />
+            android:text="Filter By Date"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/notification_history_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp" />
 
     </LinearLayout>
 

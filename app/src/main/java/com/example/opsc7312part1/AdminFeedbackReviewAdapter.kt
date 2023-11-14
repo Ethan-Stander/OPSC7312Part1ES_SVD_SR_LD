@@ -17,7 +17,9 @@ class AdminFeedbackReviewAdapter(private var feedbackList : List<FeedbackData>):
     }
     class ViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
         val feedbackTitle : TextView = itemView.findViewById(R.id.txtfeedbackTitle)
+        val feedbackTitleBody : TextView = itemView.findViewById(R.id.txtfeedbackTitleBody)
         val feedbackSender : TextView = itemView.findViewById(R.id.txtfeedbackSender)
+        val feedbackSenderBody : TextView = itemView.findViewById(R.id.txtfeedbackSenderBody)
         val feedbackView : CardView = itemView.findViewById(R.id.feedback_items_list)
     }
 
@@ -32,8 +34,10 @@ class AdminFeedbackReviewAdapter(private var feedbackList : List<FeedbackData>):
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val currentFeedback = feedbackList[position]
-        holder.feedbackTitle.text = "Title: ${currentFeedback.title}"
-        holder.feedbackSender.text = "From: ${currentFeedback.email}"
+        holder.feedbackTitle.text = "Title"
+        holder.feedbackTitleBody.text = " ・ ${currentFeedback.title}"
+        holder.feedbackSender.text = "From"
+        holder.feedbackSenderBody.text = " ・ ${currentFeedback.email}"
 
         holder.feedbackView.setOnClickListener {
             val dialogFragment = FeedbackDetailsPopUp(currentFeedback)

@@ -54,7 +54,7 @@ class AccountPopupFragment : DialogFragment() {
             )
             binding.btnDeleteAccount.setOnClickListener {
 
-                val builder = AlertDialog.Builder(requireContext())
+                val builder = AlertDialog.Builder(requireContext(), R.style.confirmation_popups)
                 builder.setTitle("Delete Account")
                 builder.setMessage("Are you sure you want to delete your account?")
 

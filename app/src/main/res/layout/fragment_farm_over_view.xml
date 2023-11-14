@@ -5,13 +5,79 @@
     android:layout_height="match_parent"
     tools:context=".FarmOverViewFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rVActions"
-        android:layout_width="348dp"
-        android:layout_height="221dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rVData"
-        android:layout_width="141dp"
-        android:layout_height="101dp" />
+        <androidx.appcompat.widget.SearchView
+            android:theme="@style/ThemeOverlay.Toolbar"
+            android:id="@+id/searchActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:elevation="12dp"
+            android:iconifiedByDefault="true"
+            android:queryHint="Search..." />
+
+        <Button
+            android:id="@+id/btnActionsHeader"
+            android:layout_below="@+id/searchActions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actions"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/dark_green"
+            android:background="@drawable/leaf_button"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"/>
+
+        <Button
+            android:id="@+id/btnSensorDataHeader"
+            android:layout_below="@+id/searchActions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sensor Data"
+            android:textColor="@color/white"
+            android:textAllCaps="false"
+            android:textSize="16dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/dark_green"
+            android:background="@drawable/leaf_button"
+            android:layout_alignParentRight="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"/>
+
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_below="@id/btnActionsHeader"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@color/divider_line" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            tools:listitem="@layout/event_item"
+            android:id="@+id/rVActions"
+            android:layout_below="@id/viewDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:visibility="visible"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rVData"
+            android:layout_below="@id/viewDivider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:visibility="gone"/>
+
+    </RelativeLayout>
+
+
 </FrameLayout>

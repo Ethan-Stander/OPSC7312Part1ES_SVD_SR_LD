@@ -114,7 +114,6 @@ class SettingsFragment : Fragment() {
                                     bCheck = true;
                                 }
                             }
-
                     }
                     if(!bCheck)
                     {
@@ -125,17 +124,8 @@ class SettingsFragment : Fragment() {
                         Toast.makeText(requireContext(), "Your farm has been updated!", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
-
             }
-
-
-
-
         }
 
     }
-
-
 }

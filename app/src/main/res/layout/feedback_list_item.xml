@@ -6,40 +6,65 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="10dp">
+    app:cardElevation="10dp"
+    android:backgroundTint="@color/dark_mode_cards">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/dark_mode_cards">
+        android:layout_height="match_parent"
+        android:padding="16dp">
 
-
+        <LinearLayout
+            android:id="@+id/feedbackTitleLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/txtfeedbackTitle"
                 android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textSize="18sp"
                 android:textColor="@color/settings_text_color"
                 android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/txtfeedbackSender"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_weight="1"
+            <TextView
+                android:id="@+id/txtfeedbackTitleBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Body"
+                android:textSize="18sp"
+                android:textColor="@color/light_grey.offwhite"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_below="@+id/feedbackTitleLinearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="18sp"
-            android:textColor="@color/settings_text_color"
-            android:textStyle="bold"/>
+            android:layout_marginTop="10dp">
 
+            <TextView
+                android:id="@+id/txtfeedbackSender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="From"
+                android:textSize="18sp"
+                android:textColor="@color/settings_text_color"
+                android:textStyle="bold"/>
 
-    </LinearLayout>
+            <TextView
+                android:id="@+id/txtfeedbackSenderBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Body"
+                android:textSize="18sp"
+                android:textColor="@color/light_grey.offwhite" />
+
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
