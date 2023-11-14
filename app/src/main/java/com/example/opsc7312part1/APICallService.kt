@@ -53,13 +53,12 @@ class APICallService() : Service() {
         timer.scheduleAtFixedRate(object :TimerTask(){
             override fun run() {
 
-// In your Application class or main activity
-
-
-
-
                 val dbHelper = DatabaseHelper(this@APICallService)
                 CoroutineScope(Dispatchers.IO).launch {
+
+
+
+
 
                     val hardwareData = APIServices.fetchhardware(this@APICallService)
 

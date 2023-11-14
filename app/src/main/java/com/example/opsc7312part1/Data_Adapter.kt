@@ -11,7 +11,7 @@ class Data_Adapter(private val dataList :ArrayList<SensorDataAPISqlLite>, contex
 
     val context = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Data_Adapter.ViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.event_item,parent,false)
+        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.data_item,parent,false)
         return Data_Adapter.ViewHolder(itemView)
     }
 
@@ -19,7 +19,7 @@ class Data_Adapter(private val dataList :ArrayList<SensorDataAPISqlLite>, contex
         val sensorData = dataList[position]
 
         holder.tvDataFarmName.text = "${sensorData.farmName}"
-        holder.tvTimeCalled.text = " ・ ${sensorData.timeCalled}"
+       holder.tvTimeCalled.text = " ・ ${sensorData.timeCalled}"
         holder.tvTemperature.text = " ・ ${sensorData.Temperature}"
         holder.tvHumidity.text = " ・ ${sensorData.Humidity}"
         holder.tvLightLevel.text = " ・ ${sensorData.LightLevel}"

@@ -109,10 +109,13 @@ class FirebaseUtils {
                 val myRef = database.getReference("sensor_data")
 
                 try {
-                    val sensorDataNode = myRef.push()
-                    sensorDataList.forEachIndexed { index, sensorData ->
+                    // Remove any existing data under "sensor_data"
+                    myRef.removeValue()
+
+                    // Add the new sensor data directly under "sensor_data" with generated keys
+                    sensorDataList.forEach { sensorData ->
                         Log.d("Debug", "Entering forEach loop")
-                        val sensorDataRef = sensorDataNode.child("sensor_$index")
+                        val sensorDataRef = myRef.push()
                         sensorDataRef.setValue(sensorData)
                     }
                 } catch (e: Exception) {
@@ -120,6 +123,8 @@ class FirebaseUtils {
                 }
             }
         }
+
+
 
         suspend fun getSensorDataFromFirebase(): List<SensorDataAPISqlLite> = withContext(Dispatchers.IO) {
             try {
@@ -132,7 +137,6 @@ class FirebaseUtils {
                 if (snapshot != null) {
                     Log.d("DataTag", "Snapshot exists: ${snapshot.exists()}")
                 }
-
                 val sensorDataList = mutableListOf<SensorDataAPISqlLite>()
 
                 if (snapshot != null && snapshot.exists()) {
