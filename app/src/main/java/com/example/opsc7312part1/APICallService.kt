@@ -56,10 +56,6 @@ class APICallService() : Service() {
                 val dbHelper = DatabaseHelper(this@APICallService)
                 CoroutineScope(Dispatchers.IO).launch {
 
-
-
-
-
                     val hardwareData = APIServices.fetchhardware(this@APICallService)
 
                     if (hardwareData != null) {
@@ -76,10 +72,10 @@ class APICallService() : Service() {
                                 message = "ERROR: CIRCULATION FAN OFFLINE"
                             }
 
-                            (dbHelper.getFarmCount() == 0) -> {
-                                title = "Farm Warning"
-                                message = "Please set your farm name in the settings!"
-                            }
+//                            (dbHelper.getFarmCount() == 0) -> {
+//                                title = "Farm Warning"
+//                                message = "Please set your farm name in the settings!"
+//                            }
 
                         }
                     }

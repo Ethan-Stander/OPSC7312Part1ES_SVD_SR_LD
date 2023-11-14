@@ -7,12 +7,17 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class Data_Adapter(private val dataList :ArrayList<SensorDataAPISqlLite>, context : Context): RecyclerView.Adapter<Data_Adapter.ViewHolder>() {
+class Data_Adapter(private var dataList :ArrayList<SensorDataAPISqlLite>, context : Context): RecyclerView.Adapter<Data_Adapter.ViewHolder>() {
 
     val context = context
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Data_Adapter.ViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.data_item,parent,false)
         return Data_Adapter.ViewHolder(itemView)
+    }
+
+    fun setFilteredList(sensorDataList: ArrayList<SensorDataAPISqlLite>) {
+        this.dataList = sensorDataList
+        notifyDataSetChanged()
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
