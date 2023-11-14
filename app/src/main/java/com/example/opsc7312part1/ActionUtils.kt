@@ -51,8 +51,8 @@ class ActionUtils {
                         }
                     }
                 }
-
-                storesList
+                val sortedActionList = storesList.sortedBy { it.Date }
+                sortedActionList
 
             } catch (e: Exception) {
                 Log.e("YourTag", "Error fetching actions", e)

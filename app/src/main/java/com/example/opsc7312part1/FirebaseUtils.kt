@@ -150,7 +150,8 @@ class FirebaseUtils {
                         }
                     }
                 }
-                sensorDataList
+                val sortedSensorDataList = sensorDataList.sortedBy { it.timeCalled }
+                sortedSensorDataList
 
             } catch (e: Exception) {
                 e.printStackTrace()
